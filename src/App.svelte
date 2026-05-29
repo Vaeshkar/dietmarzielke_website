@@ -1,6 +1,25 @@
 <script>
   import { fade } from 'svelte/transition';
 
+  // IntersectionObserver for scroll animations
+  $effect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('revealed');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.05,
+      rootMargin: '0px 0px -50px 0px'
+    });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    return () => observer.disconnect();
+  });
+
   let activeFaq = $state(null);
   let isMobileMenuOpen = $state(false);
   let openModal = $state(null); // 'impressum' | 'datenschutz' | null
@@ -119,7 +138,7 @@
   <!-- Hero Section -->
   <section id="start" class="hero-section section-spacing">
     <div class="container hero-grid">
-      <div class="hero-content">
+      <div class="hero-content reveal">
         <h1>Rechtliche Betreuung mit Klarheit, Ruhe und Verlässlichkeit.</h1>
         <p>Ich unterstütze und vertrete Menschen in rechtlichen und organisatorischen Angelegenheiten – persönlich, sorgfältig und auf Augenhöhe.</p>
         <div class="hero-actions">
@@ -139,7 +158,7 @@
       </div>
       
       <!-- Premium dynamic hero visual matching design concept -->
-      <div class="hero-illustration">
+      <div class="hero-illustration reveal reveal-delay-1">
         <svg viewBox="0 0 520 400" fill="none" xmlns="http://www.w3.org/2000/svg" class="hero-svg-illustration">
           <!-- Definitions for patterns -->
           <defs>
@@ -181,13 +200,13 @@
   <!-- Leistungen Section -->
   <section id="leistungen" class="section-spacing">
     <div class="container">
-      <div class="section-header">
+      <div class="section-header reveal">
         <h2 class="section-title">Leistungen</h2>
       </div>
 
       <div class="leistungen-grid">
         <!-- Card 1 -->
-        <div class="service-card">
+        <div class="service-card reveal">
           <div class="service-icon-wrapper">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
@@ -201,7 +220,7 @@
         </div>
 
         <!-- Card 2 -->
-        <div class="service-card">
+        <div class="service-card reveal reveal-delay-1">
           <div class="service-icon-wrapper">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z" />
@@ -216,7 +235,7 @@
         </div>
 
         <!-- Card 3 -->
-        <div class="service-card">
+        <div class="service-card reveal reveal-delay-2">
           <div class="service-icon-wrapper">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
@@ -230,7 +249,7 @@
         </div>
 
         <!-- Card 4 -->
-        <div class="service-card">
+        <div class="service-card reveal reveal-delay-3">
           <div class="service-icon-wrapper">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
@@ -300,14 +319,14 @@
   <!-- Für Wen Section -->
   <section id="fuer-wen" class="section-spacing">
     <div class="container">
-      <div class="section-header">
+      <div class="section-header reveal">
         <h2 class="section-title">Für wen?</h2>
         <p class="section-subtitle">Meine Betreuung orientiert sich an den Bedürfnissen aller Beteiligten.</p>
       </div>
 
       <div class="for-whom-grid">
         <!-- Card 1 -->
-        <div class="whom-card">
+        <div class="whom-card reveal">
           <div class="whom-icon-wrapper">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
@@ -320,7 +339,7 @@
         </div>
 
         <!-- Card 2 -->
-        <div class="whom-card">
+        <div class="whom-card reveal reveal-delay-1">
           <div class="whom-icon-wrapper">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
@@ -333,7 +352,7 @@
         </div>
 
         <!-- Card 3 -->
-        <div class="whom-card">
+        <div class="whom-card reveal reveal-delay-2">
           <div class="whom-icon-wrapper">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
@@ -351,10 +370,10 @@
   <!-- Über mich Section -->
   <section id="ueber-mich" class="section-spacing">
     <div class="container about-grid">
-      <div class="about-image-wrapper">
+      <div class="about-image-wrapper reveal">
         <img src="/dietmar_zielke_portrait.webp" alt="Dietmar Zielke Portrait" class="about-img" />
       </div>
-      <div class="about-content">
+      <div class="about-content reveal reveal-delay-1">
         <h2 class="section-title">Über mich</h2>
         <h3 class="about-subtitle">Dietmar Zielke</h3>
         <p class="about-tagline">Rechtlicher Betreuer in Hamburg & der Metropolregion</p>
@@ -390,13 +409,13 @@
   <!-- So arbeite ich Section -->
   <section id="so-arbeite-ich" class="section-spacing">
     <div class="container">
-      <div class="section-header">
+      <div class="section-header reveal">
         <h2 class="section-title">So arbeite ich</h2>
       </div>
 
       <div class="timeline-row">
         <!-- Step 1 -->
-        <div class="timeline-step">
+        <div class="timeline-step reveal">
           <div class="timeline-step-header">
             <span class="timeline-number">01</span>
             <h3>Kennenlernen</h3>
@@ -410,7 +429,7 @@
         </svg>
 
         <!-- Step 2 -->
-        <div class="timeline-step">
+        <div class="timeline-step reveal reveal-delay-1">
           <div class="timeline-step-header">
             <span class="timeline-number">02</span>
             <h3>Planen & Handeln</h3>
@@ -424,7 +443,7 @@
         </svg>
 
         <!-- Step 3 -->
-        <div class="timeline-step">
+        <div class="timeline-step reveal reveal-delay-2">
           <div class="timeline-step-header">
             <span class="timeline-number">03</span>
             <h3>Begleiten & Entlasten</h3>
@@ -486,16 +505,16 @@
   <!-- FAQ Section (Was ist rechtliche Betreuung?) -->
   <section id="faq" class="section-spacing">
     <div class="container">
-      <div class="section-header">
+      <div class="section-header reveal">
         <h2 class="section-title">Was ist rechtliche Betreuung?</h2>
       </div>
 
       <div class="faq-grid">
-        <div class="faq-explanation">
+        <div class="faq-explanation reveal">
           <p>Die rechtliche Betreuung ist eine gesetzliche Unterstützung für Menschen, die ihre Angelegenheiten ganz oder teilweise nicht mehr selbst regeln können. Als rechtlicher Betreuer vertrete ich die Interessen der betreuten Person und entscheide nur in den Bereichen, für die ich bestellt wurde. Ziel ist es, Selbstbestimmung zu erhalten und Überforderung zu vermeiden.</p>
         </div>
 
-        <div class="faq-list">
+        <div class="faq-list reveal reveal-delay-1">
           <!-- FAQ 1 -->
           <div class="faq-item {activeFaq === 0 ? 'active' : ''}">
             <button class="faq-trigger" onclick={() => toggleFaq(0)} aria-expanded={activeFaq === 0}>
@@ -556,7 +575,7 @@
   <section id="kontakt" class="section-spacing">
     <div class="container kontakt-grid">
       <!-- Column 1 -->
-      <div class="contact-column-left">
+      <div class="contact-column-left reveal">
         <h2 class="section-title">Kontakt</h2>
         <div class="contact-detail-list">
           <!-- Phone -->
@@ -602,7 +621,7 @@
       </div>
 
       <!-- Column 2 -->
-      <div class="contact-column-middle">
+      <div class="contact-column-middle reveal reveal-delay-1">
         <div class="contact-column-content">
           <h3 class="contact-slogan-title">Ich bin gerne für Sie da.</h3>
           <p class="contact-slogan-desc">Schreiben Sie mir oder rufen Sie an. Ich melde mich zeitnah bei Ihnen.</p>
@@ -614,7 +633,7 @@
       </div>
 
       <!-- Column 3 -->
-      <div class="contact-column-right">
+      <div class="contact-column-right reveal reveal-delay-2">
         <div class="contact-column-content">
           <!-- Contact Form Component -->
           <form class="contact-form" onsubmit={handleSubmit}>
