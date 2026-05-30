@@ -20,10 +20,10 @@
     return () => observer.disconnect();
   });
 
-  // Interactive Portrait Zoom Morph & Periodic Auto-Wave Swap Effect
-  $effect(() => {
-    if (window.matchMedia("(pointer: coarse)").matches) return;
+  let progressPercent = $state(0);
 
+  // Periodic Auto-Wave Image Swap Effect (Liquid Wavy Sweep)
+  $effect(() => {
     const hitArea = document.getElementById("about-image-scene");
     const canvas = document.getElementById("about-morph-canvas");
     const baseImg = document.getElementById("about-base-img");
@@ -31,10 +31,6 @@
 
     let context = canvas.getContext("2d");
     if (!context) return;
-
-    const sourceCanvas = document.createElement("canvas");
-    const sourceContext = sourceCanvas.getContext("2d");
-    if (!sourceContext) return;
 
     // We keep track of which image is current base
     let isPortrait2Base = false;
@@ -45,36 +41,18 @@
     const img2 = new Image();
     img2.src = "/dietmar_zielke_portrait2.webp";
 
-    const pointer = { x: 0, y: 0, targetX: 0, targetY: 0, radius: 0, active: false };
-    const boxSize = 55;
-    const minRadius = 60;
-    const maxRadius = 240;
-    const radiusEase = 0.08;
-    const dotColor = "rgba(255, 255, 255, 0.4)";
-    const idleDelay = 800;
-
-    let rect = hitArea.getBoundingClientRect();
+    let rect = baseImg.getBoundingClientRect();
     let canvasWidth = 0;
     let canvasHeight = 0;
-    let resetTimer = 0;
-    let boxes = [];
     let animationFrameId = null;
+    let lastSwapTime = Date.now();
 
     // Auto wave swap state
     const waveState = {
       active: false,
       progress: 0,
-      duration: 90, // Frames (1.5 seconds)
+      duration: 100, // Frames (approx 1.6s sweep)
       hasSwappedThisCycle: false
-    };
-
-    const createBoxes = () => {
-      boxes = [];
-      for (let x = 0; x <= canvasWidth + boxSize; x += boxSize) {
-        for (let y = 0; y <= canvasHeight + boxSize; y += boxSize) {
-          boxes.push({ x, y, centerX: x + boxSize / 2, centerY: y + boxSize / 2, distance: 0, scale: 0 });
-        }
-      }
     };
 
     const resizeCanvas = () => {
@@ -89,21 +67,6 @@
       canvas.style.height = `${rect.height}px`;
       canvas.width = canvasWidth;
       canvas.height = canvasHeight;
-      sourceCanvas.width = canvasWidth;
-      sourceCanvas.height = canvasHeight;
-
-      createBoxes();
-      updateSourceCanvas();
-    };
-
-    const updateSourceCanvas = () => {
-      if (!sourceContext || canvasWidth === 0) return;
-      sourceContext.clearRect(0, 0, canvasWidth, canvasHeight);
-      
-      const activeOverlay = isPortrait2Base ? img1 : img2;
-      if (activeOverlay.complete) {
-        drawCoverImage(sourceContext, activeOverlay);
-      }
     };
 
     const drawCoverImage = (ctx, img) => {
@@ -125,122 +88,99 @@
       ctx.drawImage(img, sourceX, sourceY, sourceWidth, sourceHeight, 0, 0, canvasWidth, canvasHeight);
     };
 
-    const drawTile = (box) => {
-      box.distance = Math.hypot(box.centerX - pointer.x, box.centerY - pointer.y);
-      box.scale = pointer.radius <= 0.01 ? 0 : 1 - Math.max(0, Math.min(1, box.distance / pointer.radius));
-      if (box.scale < 0.001) return;
-
-      const zoom = 1 + box.scale * 0.4;
-      const sourceSize = boxSize / zoom;
-      const sourceX = box.centerX - sourceSize / 2;
-      const sourceY = box.centerY - sourceSize / 2;
-
-      context.drawImage(
-        sourceCanvas,
-        sourceX,
-        sourceY,
-        sourceSize,
-        sourceSize,
-        box.x,
-        box.y,
-        boxSize,
-        boxSize
-      );
-    };
-
-    const drawDot = (box) => {
-      const distance = Math.hypot(box.x - pointer.x, box.y - pointer.y);
-      const scale = pointer.radius <= 0.01 ? 0 : 1 - Math.max(0, Math.min(1, distance / pointer.radius));
-      if (scale < 0.001) return;
-      context.beginPath();
-      context.arc(box.x, box.y, boxSize * 0.1 * scale, 0, Math.PI * 2);
-      context.fill();
-    };
-
     const render = () => {
       if (canvasWidth === 0 || canvasHeight === 0) {
         animationFrameId = requestAnimationFrame(render);
         return;
       }
 
+      const now = Date.now();
+      const elapsed = now - lastSwapTime;
+
+      // Update countdown progress bar (from 0 to 100 over 60 seconds)
+      if (!waveState.active) {
+        progressPercent = Math.min(100, (elapsed / 60000) * 100);
+        if (elapsed >= 60000) {
+          triggerAutoWave();
+        }
+      }
+
+      context.clearRect(0, 0, canvasWidth, canvasHeight);
+
       // Check if automatic wave sweep is active
       if (waveState.active) {
         waveState.progress += 1 / waveState.duration;
 
-        // Path: sweeping left to right
-        pointer.x = canvasWidth * waveState.progress;
-        pointer.y = canvasHeight * 0.5;
+        const activeOverlay = isPortrait2Base ? img1 : img2;
 
-        // Radius grows and shrinks in a sin wave peaking at progress = 0.5
-        pointer.radius = maxRadius * 2 * Math.sin(waveState.progress * Math.PI);
+        if (img1.complete && img2.complete) {
+          // 1. Draw next image inside a liquid wave clipping mask
+          context.save();
+          context.beginPath();
+          context.moveTo(0, 0);
+          
+          const padding = 100;
+          const waveX = (canvasWidth + padding * 2) * waveState.progress - padding;
+          
+          for (let y = 0; y <= canvasHeight; y += 4) {
+            // Wavy distortion offset using sine wave relative to height (y) and sweep progress
+            const offset = Math.sin(y * 0.015 + waveState.progress * Math.PI * 4.5) * 45;
+            context.lineTo(waveX + offset, y);
+          }
+          context.lineTo(0, canvasHeight);
+          context.lineTo(0, 0);
+          context.closePath();
+          context.clip();
 
-        // Swap images exactly halfway (when the sweep fully covers the canvas)
+          // Render overlay image inside clipping mask
+          drawCoverImage(context, activeOverlay);
+          context.restore();
+
+          // 2. Draw glowing orange liquid wave front border line
+          context.save();
+          context.strokeStyle = "#ff4e18";
+          context.lineWidth = 6;
+          context.shadowColor = "#ff4e18";
+          context.shadowBlur = 18;
+          context.beginPath();
+          
+          for (let y = 0; y <= canvasHeight; y += 4) {
+            const offset = Math.sin(y * 0.015 + waveState.progress * Math.PI * 4.5) * 45;
+            const waveX = (canvasWidth + padding * 2) * waveState.progress - padding;
+            if (y === 0) context.moveTo(waveX + offset, y);
+            else context.lineTo(waveX + offset, y);
+          }
+          context.stroke();
+          context.restore();
+        }
+
+        // Swap base image source at 50% progress (when wave is in the middle and overlay covers left side)
         if (waveState.progress >= 0.5 && !waveState.hasSwappedThisCycle) {
           waveState.hasSwappedThisCycle = true;
           isPortrait2Base = !isPortrait2Base;
           
           // Swap base image source
           baseImg.src = isPortrait2Base ? "/dietmar_zielke_portrait2.webp" : "/dietmar_zielke_portrait.webp";
-          
-          // Re-render the source canvas for the new overlay target
-          updateSourceCanvas();
         }
 
         if (waveState.progress >= 1) {
           waveState.active = false;
-          pointer.radius = 0;
+          lastSwapTime = Date.now();
+          progressPercent = 0;
+          context.clearRect(0, 0, canvasWidth, canvasHeight);
         }
-      } else {
-        // Smooth manual pointer position interpolation (lerp)
-        pointer.x += (pointer.targetX - pointer.x) * 0.15;
-        pointer.y += (pointer.targetY - pointer.y) * 0.15;
-
-        const desiredRadius = pointer.active ? maxRadius : 0;
-        pointer.radius += (desiredRadius - pointer.radius) * radiusEase;
-      }
-
-      context.clearRect(0, 0, canvasWidth, canvasHeight);
-
-      if (pointer.radius > 0.35) {
-        boxes.forEach(drawTile);
-        context.fillStyle = dotColor;
-        boxes.forEach(drawDot);
       }
 
       animationFrameId = requestAnimationFrame(render);
     };
-
-    const handlePointerMove = (event) => {
-      if (waveState.active) return; // Don't interrupt auto wave
-      if (resetTimer) clearTimeout(resetTimer);
-
-      const scaleX = canvasWidth / rect.width;
-      const scaleY = canvasHeight / rect.height;
-      pointer.targetX = (event.clientX - rect.left) * scaleX;
-      pointer.targetY = (event.clientY - rect.top) * scaleY;
-      pointer.active = true;
-
-      resetEffect(idleDelay);
-    };
-
-    const resetEffect = (delay = 0) => {
-      if (resetTimer) clearTimeout(resetTimer);
-      resetTimer = setTimeout(() => {
-        pointer.active = false;
-      }, delay);
-    };
-
-    const handlePointerLeave = () => resetEffect(200);
 
     const triggerAutoWave = () => {
       if (waveState.active) return;
       waveState.active = true;
       waveState.progress = 0;
       waveState.hasSwappedThisCycle = false;
+      progressPercent = 100;
     };
-
-    // Auto wave every 1 minute (60,000ms)
-    const autoWaveInterval = setInterval(triggerAutoWave, 60000);
 
     // Initial setup listeners
     if (baseImg.complete) {
@@ -248,13 +188,9 @@
     } else {
       baseImg.onload = resizeCanvas;
     }
-    img1.onload = updateSourceCanvas;
-    img2.onload = updateSourceCanvas;
+    window.addEventListener("resize", resizeCanvas);
 
     animationFrameId = requestAnimationFrame(render);
-    hitArea.addEventListener("pointermove", handlePointerMove);
-    hitArea.addEventListener("pointerleave", handlePointerLeave);
-    window.addEventListener("resize", resizeCanvas);
 
     // Self-healing check in case layout height is computed delayed
     const layoutChecker = setInterval(() => {
@@ -262,12 +198,8 @@
     }, 500);
 
     return () => {
-      clearInterval(autoWaveInterval);
       clearInterval(layoutChecker);
-      if (resetTimer) clearTimeout(resetTimer);
       if (animationFrameId) cancelAnimationFrame(animationFrameId);
-      hitArea.removeEventListener("pointermove", handlePointerMove);
-      hitArea.removeEventListener("pointerleave", handlePointerLeave);
       window.removeEventListener("resize", resizeCanvas);
     };
   });
@@ -625,6 +557,9 @@
       <div class="about-image-wrapper reveal" id="about-image-scene">
         <img id="about-base-img" src="/dietmar_zielke_portrait.webp" alt="Dietmar Zielke Portrait" class="about-img" />
         <canvas class="about-canvas" id="about-morph-canvas" aria-hidden="true"></canvas>
+        <div class="about-progress-container">
+          <div class="about-progress-bar" style="width: {progressPercent}%"></div>
+        </div>
       </div>
       <div class="about-content reveal reveal-delay-1">
         <h2 class="section-title">Über mich</h2>

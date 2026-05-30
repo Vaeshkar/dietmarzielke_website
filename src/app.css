@@ -705,6 +705,23 @@ button {
   z-index: 2;
 }
 
+.about-progress-container {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 6px;
+  background-color: rgba(255, 255, 255, 0.2);
+  z-index: 10;
+}
+
+.about-progress-bar {
+  height: 100%;
+  background-color: var(--primary);
+  width: 0;
+  transition: width 0.1s linear;
+}
+
 .about-img {
   width: 100%;
   height: auto;
