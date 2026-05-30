@@ -22,7 +22,7 @@
 
   let progressPercent = $state(0);
 
-  // Periodic Auto-Wave Image Swap Effect (Liquid Wavy Sweep)
+  // Periodic Random Grid Block Morph Swap Effect (25-second Countdown)
   $effect(() => {
     const hitArea = document.getElementById("about-image-scene");
     const canvas = document.getElementById("about-morph-canvas");
@@ -31,6 +31,10 @@
 
     let context = canvas.getContext("2d");
     if (!context) return;
+
+    const sourceCanvas = document.createElement("canvas");
+    const sourceContext = sourceCanvas.getContext("2d");
+    if (!sourceContext) return;
 
     // We keep track of which image is current base
     let isPortrait2Base = false;
@@ -47,12 +51,27 @@
     let animationFrameId = null;
     let lastSwapTime = Date.now();
 
-    // Auto wave swap state
-    const waveState = {
-      active: false,
-      progress: 0,
-      duration: 100, // Frames (approx 1.6s sweep)
-      hasSwappedThisCycle: false
+    const boxSize = 55;
+    let boxes = [];
+
+    // Transition state variables
+    let transitionActive = false;
+    let transitionFrame = 0;
+
+    const createBoxes = () => {
+      boxes = [];
+      for (let x = 0; x <= canvasWidth + boxSize; x += boxSize) {
+        for (let y = 0; y <= canvasHeight + boxSize; y += boxSize) {
+          boxes.push({
+            x,
+            y,
+            centerX: x + boxSize / 2,
+            centerY: y + boxSize / 2,
+            scale: 0,
+            delay: Math.random() * 45 // Random start delay up to 45 frames (0.75s)
+          });
+        }
+      }
     };
 
     const resizeCanvas = () => {
@@ -67,6 +86,22 @@
       canvas.style.height = `${rect.height}px`;
       canvas.width = canvasWidth;
       canvas.height = canvasHeight;
+      sourceCanvas.width = canvasWidth;
+      sourceCanvas.height = canvasHeight;
+
+      createBoxes();
+      updateSourceCanvas();
+    };
+
+    const updateSourceCanvas = () => {
+      if (!sourceContext || canvasWidth === 0) return;
+      sourceContext.clearRect(0, 0, canvasWidth, canvasHeight);
+      
+      // Draw the upcoming overlay image on the offscreen canvas
+      const activeOverlay = isPortrait2Base ? img1 : img2;
+      if (activeOverlay.complete) {
+        drawCoverImage(sourceContext, activeOverlay);
+      }
     };
 
     const drawCoverImage = (ctx, img) => {
@@ -88,6 +123,35 @@
       ctx.drawImage(img, sourceX, sourceY, sourceWidth, sourceHeight, 0, 0, canvasWidth, canvasHeight);
     };
 
+    const drawTile = (box) => {
+      if (box.scale < 0.001) return;
+
+      const zoom = 1 + box.scale * 0.4;
+      const sourceSize = boxSize / zoom;
+      const sourceX = box.centerX - sourceSize / 2;
+      const sourceY = box.centerY - sourceSize / 2;
+
+      // Draw the block scaling up from the center of its grid cell
+      context.drawImage(
+        sourceCanvas,
+        sourceX,
+        sourceY,
+        sourceSize,
+        sourceSize,
+        box.x + (boxSize - boxSize * box.scale) / 2,
+        box.y + (boxSize - boxSize * box.scale) / 2,
+        boxSize * box.scale,
+        boxSize * box.scale
+      );
+    };
+
+    const drawDot = (box) => {
+      if (box.scale < 0.001) return;
+      context.beginPath();
+      context.arc(box.centerX, box.centerY, 3 * box.scale, 0, Math.PI * 2);
+      context.fill();
+    };
+
     const render = () => {
       if (canvasWidth === 0 || canvasHeight === 0) {
         animationFrameId = requestAnimationFrame(render);
@@ -97,76 +161,57 @@
       const now = Date.now();
       const elapsed = now - lastSwapTime;
 
-      // Update countdown progress bar (from 0 to 100 over 60 seconds)
-      if (!waveState.active) {
-        progressPercent = Math.min(100, (elapsed / 60000) * 100);
-        if (elapsed >= 60000) {
-          triggerAutoWave();
+      // Update progress bar countdown (from 0 to 100 over 25 seconds)
+      if (!transitionActive) {
+        progressPercent = Math.min(100, (elapsed / 25000) * 100);
+        if (elapsed >= 25000) {
+          triggerTransition();
         }
       }
 
       context.clearRect(0, 0, canvasWidth, canvasHeight);
 
-      // Check if automatic wave sweep is active
-      if (waveState.active) {
-        waveState.progress += 1 / waveState.duration;
+      if (transitionActive) {
+        transitionFrame++;
+        let allCompleted = true;
 
-        const activeOverlay = isPortrait2Base ? img1 : img2;
-
-        if (img1.complete && img2.complete) {
-          // 1. Draw next image inside a liquid wave clipping mask
-          context.save();
-          context.beginPath();
-          context.moveTo(0, 0);
-          
-          const padding = 100;
-          const waveX = (canvasWidth + padding * 2) * waveState.progress - padding;
-          
-          for (let y = 0; y <= canvasHeight; y += 4) {
-            // Wavy distortion offset using sine wave relative to height (y) and sweep progress
-            const offset = Math.sin(y * 0.015 + waveState.progress * Math.PI * 4.5) * 45;
-            context.lineTo(waveX + offset, y);
+        boxes.forEach((box) => {
+          if (transitionFrame > box.delay) {
+            box.scale += 0.04; // Animation speed of tile scale-up
+            if (box.scale > 1) box.scale = 1;
           }
-          context.lineTo(0, canvasHeight);
-          context.lineTo(0, 0);
-          context.closePath();
-          context.clip();
-
-          // Render overlay image inside clipping mask
-          drawCoverImage(context, activeOverlay);
-          context.restore();
-
-          // 2. Draw glowing orange liquid wave front border line
-          context.save();
-          context.strokeStyle = "#ff4e18";
-          context.lineWidth = 6;
-          context.shadowColor = "#ff4e18";
-          context.shadowBlur = 18;
-          context.beginPath();
-          
-          for (let y = 0; y <= canvasHeight; y += 4) {
-            const offset = Math.sin(y * 0.015 + waveState.progress * Math.PI * 4.5) * 45;
-            const waveX = (canvasWidth + padding * 2) * waveState.progress - padding;
-            if (y === 0) context.moveTo(waveX + offset, y);
-            else context.lineTo(waveX + offset, y);
+          if (box.scale < 1) {
+            allCompleted = false;
           }
-          context.stroke();
-          context.restore();
-        }
+        });
 
-        // Swap base image source at 50% progress (when wave is in the middle and overlay covers left side)
-        if (waveState.progress >= 0.5 && !waveState.hasSwappedThisCycle) {
-          waveState.hasSwappedThisCycle = true;
+        // 1. Draw tiles
+        boxes.forEach(drawTile);
+
+        // 2. Draw subtle technical dots
+        context.fillStyle = "rgba(255, 255, 255, 0.45)";
+        boxes.forEach(drawDot);
+
+        // Swap images behind the canvas when all blocks are fully covering the canvas (100% opaque)
+        if (allCompleted) {
           isPortrait2Base = !isPortrait2Base;
           
-          // Swap base image source
+          // Swap base image source (no flicker because canvas is fully covering it with identical layout)
           baseImg.src = isPortrait2Base ? "/dietmar_zielke_portrait2.webp" : "/dietmar_zielke_portrait.webp";
-        }
-
-        if (waveState.progress >= 1) {
-          waveState.active = false;
+          
+          // Reset transition states
+          transitionActive = false;
           lastSwapTime = Date.now();
           progressPercent = 0;
+          
+          // Reset box scales to transparent for the next cycle
+          boxes.forEach(box => {
+            box.scale = 0;
+            box.delay = Math.random() * 45;
+          });
+          
+          // Load the new target overlay
+          updateSourceCanvas();
           context.clearRect(0, 0, canvasWidth, canvasHeight);
         }
       }
@@ -174,12 +219,12 @@
       animationFrameId = requestAnimationFrame(render);
     };
 
-    const triggerAutoWave = () => {
-      if (waveState.active) return;
-      waveState.active = true;
-      waveState.progress = 0;
-      waveState.hasSwappedThisCycle = false;
+    const triggerTransition = () => {
+      if (transitionActive) return;
+      transitionActive = true;
+      transitionFrame = 0;
       progressPercent = 100;
+      updateSourceCanvas();
     };
 
     // Initial setup listeners
@@ -188,6 +233,8 @@
     } else {
       baseImg.onload = resizeCanvas;
     }
+    img1.onload = updateSourceCanvas;
+    img2.onload = updateSourceCanvas;
     window.addEventListener("resize", resizeCanvas);
 
     animationFrameId = requestAnimationFrame(render);
