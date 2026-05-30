@@ -20,6 +20,190 @@
     return () => observer.disconnect();
   });
 
+  // Interactive Portrait Morph Effect
+  $effect(() => {
+    if (window.matchMedia("(pointer: coarse)").matches) return;
+
+    const hitArea = document.getElementById("about-image-scene");
+    const canvas = document.getElementById("about-morph-canvas");
+    if (!hitArea || !canvas) return;
+
+    const context = canvas.getContext("2d");
+    if (!context) return;
+
+    const sourceCanvas = document.createElement("canvas");
+    const sourceContext = sourceCanvas.getContext("2d");
+    if (!sourceContext) return;
+
+    const pointer = { x: 0, y: 0, targetX: 0, targetY: 0, radius: 0, active: false };
+    const boxSize = 55;
+    const minRadius = 60;
+    const maxRadius = 240;
+    const radiusEase = 0.08;
+    const dotColor = "rgba(255, 255, 255, 0.4)";
+    const idleDelay = 800;
+
+    const image = new Image();
+    image.src = "/dietmar_zielke_portrait2.webp";
+
+    let rect = hitArea.getBoundingClientRect();
+    let canvasWidth = 0;
+    let canvasHeight = 0;
+    let resetTimer = 0;
+    let boxes = [];
+    let animationFrameId = null;
+
+    const createBoxes = () => {
+      boxes = [];
+      for (let x = 0; x <= canvasWidth + boxSize; x += boxSize) {
+        for (let y = 0; y <= canvasHeight + boxSize; y += boxSize) {
+          boxes.push({ x, y, centerX: x + boxSize / 2, centerY: y + boxSize / 2, distance: 0, scale: 0 });
+        }
+      }
+    };
+
+    const resizeCanvas = () => {
+      rect = hitArea.getBoundingClientRect();
+      const dpr = Math.min(1.5, window.devicePixelRatio || 1);
+      canvasWidth = Math.round(rect.width * dpr);
+      canvasHeight = Math.round(rect.height * dpr);
+
+      canvas.width = canvasWidth;
+      canvas.height = canvasHeight;
+      sourceCanvas.width = canvasWidth;
+      sourceCanvas.height = canvasHeight;
+
+      pointer.x = canvasWidth / 2;
+      pointer.y = canvasHeight / 2;
+      pointer.targetX = pointer.x;
+      pointer.targetY = pointer.y;
+      pointer.radius = 0;
+
+      createBoxes();
+
+      if (image.complete) {
+        sourceContext.clearRect(0, 0, canvasWidth, canvasHeight);
+        drawCoverImage(sourceContext);
+      }
+    };
+
+    const drawCoverImage = (targetContext) => {
+      const imageRatio = image.width / image.height;
+      const canvasRatio = canvasWidth / canvasHeight;
+      let sourceWidth = image.width;
+      let sourceHeight = image.height;
+      let sourceX = 0;
+      let sourceY = 0;
+
+      if (imageRatio > canvasRatio) {
+        sourceWidth = image.height * canvasRatio;
+        sourceX = (image.width - sourceWidth) / 2;
+      } else {
+        sourceHeight = image.width / canvasRatio;
+        sourceY = (image.height - sourceHeight) / 2;
+      }
+
+      targetContext.drawImage(image, sourceX, sourceY, sourceWidth, sourceHeight, 0, 0, canvasWidth, canvasHeight);
+    };
+
+    const drawTile = (box) => {
+      box.distance = Math.hypot(box.centerX - pointer.x, box.centerY - pointer.y);
+      box.scale = pointer.radius <= 0.01 ? 0 : 1 - Math.max(0, Math.min(1, box.distance / pointer.radius));
+      if (box.scale < 0.001) return;
+
+      const zoom = 1 + box.scale * 0.4;
+      const sourceSize = boxSize / zoom;
+      const sourceX = box.centerX - sourceSize / 2;
+      const sourceY = box.centerY - sourceSize / 2;
+
+      context.drawImage(
+        sourceCanvas,
+        sourceX,
+        sourceY,
+        sourceSize,
+        sourceSize,
+        box.x,
+        box.y,
+        boxSize,
+        boxSize
+      );
+    };
+
+    const drawDot = (box) => {
+      const distance = Math.hypot(box.x - pointer.x, box.y - pointer.y);
+      const scale = pointer.radius <= 0.01 ? 0 : 1 - Math.max(0, Math.min(1, distance / pointer.radius));
+      if (scale < 0.001) return;
+      context.beginPath();
+      context.arc(box.x, box.y, boxSize * 0.1 * scale, 0, Math.PI * 2);
+      context.fill();
+    };
+
+    const render = () => {
+      if (!image.complete || !canvasWidth || !canvasHeight) {
+        animationFrameId = requestAnimationFrame(render);
+        return;
+      }
+
+      // Smooth pointer position interpolation (lerp)
+      pointer.x += (pointer.targetX - pointer.x) * 0.15;
+      pointer.y += (pointer.targetY - pointer.y) * 0.15;
+
+      const desiredRadius = pointer.active ? maxRadius : 0;
+      pointer.radius += (desiredRadius - pointer.radius) * radiusEase;
+
+      context.clearRect(0, 0, canvasWidth, canvasHeight);
+
+      if (pointer.radius > 0.35) {
+        boxes.forEach(drawTile);
+        context.fillStyle = dotColor;
+        boxes.forEach(drawDot);
+      }
+
+      animationFrameId = requestAnimationFrame(render);
+    };
+
+    const handlePointerMove = (event) => {
+      if (resetTimer) clearTimeout(resetTimer);
+
+      const scaleX = canvasWidth / rect.width;
+      const scaleY = canvasHeight / rect.height;
+      pointer.targetX = (event.clientX - rect.left) * scaleX;
+      pointer.targetY = (event.clientY - rect.top) * scaleY;
+      pointer.active = true;
+
+      resetEffect(idleDelay);
+    };
+
+    const resetEffect = (delay = 0) => {
+      if (resetTimer) clearTimeout(resetTimer);
+      resetTimer = setTimeout(() => {
+        pointer.active = false;
+      }, delay);
+    };
+
+    const handlePointerLeave = () => resetEffect(200);
+
+    resizeCanvas();
+
+    image.onload = () => {
+      sourceContext.clearRect(0, 0, canvasWidth, canvasHeight);
+      drawCoverImage(sourceContext);
+    };
+
+    animationFrameId = requestAnimationFrame(render);
+    hitArea.addEventListener("pointermove", handlePointerMove);
+    hitArea.addEventListener("pointerleave", handlePointerLeave);
+    window.addEventListener("resize", resizeCanvas);
+
+    return () => {
+      if (resetTimer) clearTimeout(resetTimer);
+      if (animationFrameId) cancelAnimationFrame(animationFrameId);
+      hitArea.removeEventListener("pointermove", handlePointerMove);
+      hitArea.removeEventListener("pointerleave", handlePointerLeave);
+      window.removeEventListener("resize", resizeCanvas);
+    };
+  });
+
   let activeFaq = $state(null);
   let isMobileMenuOpen = $state(false);
   let openModal = $state(null); // 'impressum' | 'datenschutz' | null
@@ -370,8 +554,9 @@
   <!-- Über mich Section -->
   <section id="ueber-mich" class="section-spacing">
     <div class="container about-grid">
-      <div class="about-image-wrapper reveal">
+      <div class="about-image-wrapper reveal" id="about-image-scene">
         <img src="/dietmar_zielke_portrait.webp" alt="Dietmar Zielke Portrait" class="about-img" />
+        <canvas class="about-canvas" id="about-morph-canvas" aria-hidden="true"></canvas>
       </div>
       <div class="about-content reveal reveal-delay-1">
         <h2 class="section-title">Über mich</h2>
