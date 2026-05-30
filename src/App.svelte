@@ -931,6 +931,9 @@
           <div class="whom-info">
             <h3 >{content.fuerWen.cards[0].title}</h3>
             <p >{content.fuerWen.cards[0].desc}</p>
+            <svg class="whom-arrow" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+            </svg>
           </div>
         </div>
 
@@ -944,6 +947,9 @@
           <div class="whom-info">
             <h3 >{content.fuerWen.cards[1].title}</h3>
             <p >{content.fuerWen.cards[1].desc}</p>
+            <svg class="whom-arrow" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+            </svg>
           </div>
         </div>
 
@@ -957,6 +963,9 @@
           <div class="whom-info">
             <h3 >{content.fuerWen.cards[2].title}</h3>
             <p >{content.fuerWen.cards[2].desc}</p>
+            <svg class="whom-arrow" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+            </svg>
           </div>
         </div>
       </div>
