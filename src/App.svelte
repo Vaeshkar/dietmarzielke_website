@@ -206,7 +206,7 @@
       const rotateX = ((y / h) - 0.5) * -maxAngle;
       const rotateY = ((x / w) - 0.5) * maxAngle;
 
-      node.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+      node.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
 
       const percentX = (x / w) * 100;
       const percentY = (y / h) * 100;
@@ -221,7 +221,7 @@
 
     const onMouseLeave = () => {
       node.style.transition = 'transform 0.5s ease-out, box-shadow 0.5s ease-out';
-      node.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+      node.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)';
       shine.style.transition = 'opacity 0.5s ease-out';
       shine.style.opacity = '0';
     };
@@ -493,7 +493,7 @@
 
   // Scroll Spy for Navigation Active State
   $effect(() => {
-    const sections = ['start', 'leistungen', 'fuer-wen', 'ueber-mich', 'so-arbeite-ich', 'faq'];
+    const sections = ['faq', 'leistungen', 'fuer-wen', 'ueber-mich', 'so-arbeite-ich'];
     const observerOptions = {
       root: null,
       rootMargin: '-30% 0px -60% 0px',
@@ -643,12 +643,11 @@
 
     <nav class="nav {isMobileMenuOpen ? 'open' : ''}">
       <ul class="nav-list">
-        <li><a href="#start" use:directionAwareHover class="nav-link" class:active={activeSection === 'start'} onclick={(e) => { e.preventDefault(); handleNavClick('start'); }}>Start</a></li>
+        <li><a href="#faq" use:directionAwareHover class="nav-link" class:active={activeSection === 'faq'} onclick={(e) => { e.preventDefault(); handleNavClick('faq'); }}>Über rechtliche Betreuung</a></li>
         <li><a href="#leistungen" use:directionAwareHover class="nav-link" class:active={activeSection === 'leistungen'} onclick={(e) => { e.preventDefault(); handleNavClick('leistungen'); }}>Leistungen</a></li>
         <li><a href="#fuer-wen" use:directionAwareHover class="nav-link" class:active={activeSection === 'fuer-wen'} onclick={(e) => { e.preventDefault(); handleNavClick('fuer-wen'); }}>Für wen?</a></li>
         <li><a href="#ueber-mich" use:directionAwareHover class="nav-link" class:active={activeSection === 'ueber-mich'} onclick={(e) => { e.preventDefault(); handleNavClick('ueber-mich'); }}>Über mich</a></li>
         <li><a href="#so-arbeite-ich" use:directionAwareHover class="nav-link" class:active={activeSection === 'so-arbeite-ich'} onclick={(e) => { e.preventDefault(); handleNavClick('so-arbeite-ich'); }}>So arbeite ich</a></li>
-        <li><a href="#faq" use:directionAwareHover class="nav-link" class:active={activeSection === 'faq'} onclick={(e) => { e.preventDefault(); handleNavClick('faq'); }}>Über rechtliche Betreuung</a></li>
       </ul>
     </nav>
   </div>
@@ -716,6 +715,75 @@
           <!-- Solid Orange Circle (Focal Point) -->
           <circle cx="310" cy="230" r="42" fill="#ff4e18" class="hero-orange-circle" />
         </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section (Über rechtliche Betreuung) -->
+  <section id="faq" class="section-spacing">
+    <div class="container">
+      <div class="section-header reveal">
+        <h2 class="section-title" >{content.faq.title}</h2>
+      </div>
+
+      <div class="faq-grid">
+        <div class="faq-explanation reveal">
+          <p >{content.faq.explanation}</p>
+        </div>
+
+        <div class="faq-list reveal reveal-delay-1">
+          <!-- FAQ 1 -->
+          <div class="faq-item {activeFaq === 0 ? 'active' : ''}">
+            <button class="faq-trigger" onclick={() => toggleFaq(0)} aria-expanded={activeFaq === 0}>
+              <span >{content.faq.items[0].question}</span>
+              <svg class="faq-trigger-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+            <div class="faq-content" style={activeFaq === 0 ? 'max-height: 200px;' : 'max-height: 0;'}>
+              <p >{content.faq.items[0].answer}</p>
+            </div>
+          </div>
+
+          <!-- FAQ 2 -->
+          <div class="faq-item {activeFaq === 1 ? 'active' : ''}">
+            <button class="faq-trigger" onclick={() => toggleFaq(1)} aria-expanded={activeFaq === 1}>
+              <span >{content.faq.items[1].question}</span>
+              <svg class="faq-trigger-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+            <div class="faq-content" style={activeFaq === 1 ? 'max-height: 200px;' : 'max-height: 0;'}>
+              <p >{content.faq.items[1].answer}</p>
+            </div>
+          </div>
+
+          <!-- FAQ 3 -->
+          <div class="faq-item {activeFaq === 2 ? 'active' : ''}">
+            <button class="faq-trigger" onclick={() => toggleFaq(2)} aria-expanded={activeFaq === 2}>
+              <span >{content.faq.items[2].question}</span>
+              <svg class="faq-trigger-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+            <div class="faq-content" style={activeFaq === 2 ? 'max-height: 200px;' : 'max-height: 0;'}>
+              <p >{content.faq.items[2].answer}</p>
+            </div>
+          </div>
+
+          <!-- FAQ 4 -->
+          <div class="faq-item {activeFaq === 3 ? 'active' : ''}">
+            <button class="faq-trigger" onclick={() => toggleFaq(3)} aria-expanded={activeFaq === 3}>
+              <span >{content.faq.items[3].question}</span>
+              <svg class="faq-trigger-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+            <div class="faq-content" style={activeFaq === 3 ? 'max-height: 200px;' : 'max-height: 0;'}>
+              <p >{content.faq.items[3].answer}</p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -1032,73 +1100,7 @@
       </svg>
     </div>
   </section>
-  <section id="faq" class="section-spacing">
-    <div class="container">
-      <div class="section-header reveal">
-        <h2 class="section-title" >{content.faq.title}</h2>
-      </div>
 
-      <div class="faq-grid">
-        <div class="faq-explanation reveal">
-          <p >{content.faq.explanation}</p>
-        </div>
-
-        <div class="faq-list reveal reveal-delay-1">
-          <!-- FAQ 1 -->
-          <div class="faq-item {activeFaq === 0 ? 'active' : ''}">
-            <button class="faq-trigger" onclick={() => toggleFaq(0)} aria-expanded={activeFaq === 0}>
-              <span >{content.faq.items[0].question}</span>
-              <svg class="faq-trigger-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7" />
-              </svg>
-            </button>
-            <div class="faq-content" style={activeFaq === 0 ? 'max-height: 200px;' : 'max-height: 0;'}>
-              <p >{content.faq.items[0].answer}</p>
-            </div>
-          </div>
-
-          <!-- FAQ 2 -->
-          <div class="faq-item {activeFaq === 1 ? 'active' : ''}">
-            <button class="faq-trigger" onclick={() => toggleFaq(1)} aria-expanded={activeFaq === 1}>
-              <span >{content.faq.items[1].question}</span>
-              <svg class="faq-trigger-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7" />
-              </svg>
-            </button>
-            <div class="faq-content" style={activeFaq === 1 ? 'max-height: 200px;' : 'max-height: 0;'}>
-              <p >{content.faq.items[1].answer}</p>
-            </div>
-          </div>
-
-          <!-- FAQ 3 -->
-          <div class="faq-item {activeFaq === 2 ? 'active' : ''}">
-            <button class="faq-trigger" onclick={() => toggleFaq(2)} aria-expanded={activeFaq === 2}>
-              <span >{content.faq.items[2].question}</span>
-              <svg class="faq-trigger-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7" />
-              </svg>
-            </button>
-            <div class="faq-content" style={activeFaq === 2 ? 'max-height: 200px;' : 'max-height: 0;'}>
-              <p >{content.faq.items[2].answer}</p>
-            </div>
-          </div>
-
-          <!-- FAQ 4 -->
-          <div class="faq-item {activeFaq === 3 ? 'active' : ''}">
-            <button class="faq-trigger" onclick={() => toggleFaq(3)} aria-expanded={activeFaq === 3}>
-              <span >{content.faq.items[3].question}</span>
-              <svg class="faq-trigger-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7" />
-              </svg>
-            </button>
-            <div class="faq-content" style={activeFaq === 3 ? 'max-height: 200px;' : 'max-height: 0;'}>
-              <p >{content.faq.items[3].answer}</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
 
   <!-- Kontakt Section -->
   <section id="kontakt" class="section-spacing">
