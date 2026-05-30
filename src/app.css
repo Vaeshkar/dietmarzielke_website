@@ -85,6 +85,16 @@ h1, h2, h3, h4 {
   color: var(--text-main);
   font-weight: 600;
   line-height: 1.25;
+  text-wrap: balance;
+}
+
+p {
+  max-width: 68ch;
+  text-wrap: pretty;
+}
+
+li {
+  text-wrap: pretty;
 }
 
 a {
