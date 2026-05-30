@@ -480,9 +480,20 @@ button {
 }
 
 .spacer-square {
-  animation: rotate-square 25s linear infinite;
   transform-box: fill-box;
   transform-origin: center;
+}
+
+.spacer-square-1 {
+  animation: rotateCW 12s linear infinite;
+}
+
+.spacer-square-2 {
+  animation: rotateCCW 18s linear infinite;
+}
+
+.spacer-square-3 {
+  animation: rotateCW 8s linear infinite;
 }
 
 .spacer-eye-badge {
@@ -501,6 +512,34 @@ button {
   animation: sway-line 12s ease-in-out infinite alternate;
   transform-box: fill-box;
   transform-origin: center;
+}
+
+.spacer-winding-line-flow {
+  transform-box: fill-box;
+  transform-origin: center;
+  stroke-dasharray: 40 280;
+  stroke-dashoffset: 320;
+  animation: sway-line 12s ease-in-out infinite alternate, strokeFlow 6s linear infinite;
+  opacity: 0.8;
+  pointer-events: none;
+}
+
+@keyframes rotateCW {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes rotateCCW {
+  to {
+    transform: rotate(-360deg);
+  }
+}
+
+@keyframes strokeFlow {
+  to {
+    stroke-dashoffset: 0;
+  }
 }
 
 @keyframes rotate-square {

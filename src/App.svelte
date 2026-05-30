@@ -805,10 +805,12 @@
         <!-- Winding horizontal lines spreading out across the wide viewport -->
         <!-- Left winding line heading to sound waves -->
         <path d="M 150,200 H 320 C 350,200 370,150 400,150" stroke="#ff4e18" stroke-width="1.5" stroke-linecap="round" fill="none" class="spacer-winding-line" />
+        <path d="M 150,200 H 320 C 350,200 370,150 400,150" stroke="#ffd0c0" stroke-width="2" stroke-linecap="round" fill="none" class="spacer-winding-line-flow" />
         <circle cx="150" cy="200" r="4" fill="#ff4e18" />
 
         <!-- Right winding line continuing from orange center -->
         <path d="M 752,200 H 830 C 860,200 870,250 900,250 H 1050 C 1100,250 1120,200 1150,200 H 1290" stroke="#ff4e18" stroke-width="1.5" stroke-linecap="round" fill="none" class="spacer-winding-line" />
+        <path d="M 752,200 H 830 C 860,200 870,250 900,250 H 1050 C 1100,250 1120,200 1150,200 H 1290" stroke="#ffd0c0" stroke-width="2" stroke-linecap="round" fill="none" class="spacer-winding-line-flow" />
         <circle cx="1290" cy="200" r="4" fill="#ff4e18" />
 
         <!-- Concentric Sound Waves (Listening motif) -->
@@ -998,12 +1000,13 @@
         <path d="M 320,320 V 140 A 50,50 0 0 1 420,140 V 320 Z" fill="#f1f5f9" class="spacer-archway" />
 
         <!-- Small Orange Outline Squares (Floating/Rotating) -->
-        <rect x="350" y="100" width="24" height="24" rx="6" stroke="#ff4e18" stroke-width="2" fill="none" class="spacer-square" />
-        <rect x="680" y="90" width="28" height="28" rx="6" stroke="#ff4e18" stroke-width="2" fill="none" class="spacer-square" />
-        <rect x="520" y="260" width="24" height="24" rx="6" stroke="#ff4e18" stroke-width="2" fill="none" class="spacer-square" />
+        <rect x="350" y="100" width="24" height="24" rx="6" stroke="#ff4e18" stroke-width="2" fill="none" class="spacer-square spacer-square-1" />
+        <rect x="680" y="90" width="28" height="28" rx="6" stroke="#ff4e18" stroke-width="2" fill="none" class="spacer-square spacer-square-2" />
+        <rect x="520" y="260" width="24" height="24" rx="6" stroke="#ff4e18" stroke-width="2" fill="none" class="spacer-square spacer-square-3" />
 
         <!-- Winding line connecting left circle to eye badge -->
         <path d="M 150,200 H 280 C 320,200 320,280 370,280 C 420,280 420,180 470,180 H 560 C 610,180 615,240 665,240 H 780" stroke="#ff4e18" stroke-width="2" stroke-linecap="round" fill="none" class="spacer-winding-line" />
+        <path d="M 150,200 H 280 C 320,200 320,280 370,280 C 420,280 420,180 470,180 H 560 C 610,180 615,240 665,240 H 780" stroke="#ffd0c0" stroke-width="2.5" stroke-linecap="round" fill="none" class="spacer-winding-line-flow" />
         <circle cx="150" cy="200" r="4" fill="#ff4e18" />
 
         <!-- Solid Orange Circle sitting on the winding line -->
@@ -1020,6 +1023,7 @@
 
         <!-- Winding line continuing from eye badge to the right -->
         <path d="M 920,220 C 950,250 990,250 1020,290 H 1290" stroke="#ff4e18" stroke-width="2" stroke-linecap="round" fill="none" class="spacer-winding-line" />
+        <path d="M 920,220 C 950,250 990,250 1020,290 H 1290" stroke="#ffd0c0" stroke-width="2.5" stroke-linecap="round" fill="none" class="spacer-winding-line-flow" />
         <circle cx="1290" cy="290" r="4" fill="#ff4e18" />
       </svg>
     </div>
