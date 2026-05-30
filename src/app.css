@@ -1491,32 +1491,66 @@ button {
 
 /* Dot Grid Orange Dot Animations */
 .grid-orange-dot-hero {
-  animation: moveDotHero 12s ease-in-out infinite;
+  animation: moveDotHero 22s ease-in-out infinite;
 }
 
 @keyframes moveDotHero {
   0% { cx: 362px; cy: 52px; }
-  16% { cx: 410px; cy: 52px; }
-  33% { cx: 410px; cy: 84px; }
-  50% { cx: 378px; cy: 84px; }
-  66% { cx: 378px; cy: 116px; }
-  83% { cx: 426px; cy: 116px; }
-  100% { cx: 362px; cy: 52px; }
+  4.5% { cx: 378px; cy: 52px; }
+  9.1% { cx: 394px; cy: 52px; }
+  13.6% { cx: 410px; cy: 52px; }
+  18.2% { cx: 426px; cy: 52px; }
+  22.7% { cx: 426px; cy: 68px; }
+  27.3% { cx: 410px; cy: 68px; }
+  31.8% { cx: 394px; cy: 68px; }
+  36.4% { cx: 394px; cy: 84px; }
+  40.9% { cx: 394px; cy: 100px; }
+  45.5% { cx: 410px; cy: 100px; }
+  50.0% { cx: 426px; cy: 100px; }
+  54.5% { cx: 426px; cy: 116px; }
+  59.1% { cx: 410px; cy: 116px; }
+  63.6% { cx: 394px; cy: 116px; }
+  68.2% { cx: 378px; cy: 116px; }
+  72.7% { cx: 362px; cy: 116px; }
+  77.3% { cx: 362px; cy: 100px; }
+  81.8% { cx: 378px; cy: 100px; }
+  86.4% { cx: 378px; cy: 84px; }
+  90.9% { cx: 362px; cy: 84px; }
+  95.5% { cx: 362px; cy: 68px; }
+  100.0% { cx: 362px; cy: 52px; }
 }
 
 .grid-orange-dot-spacer {
-  animation: moveDotSpacer 12s ease-in-out infinite;
+  animation: moveDotSpacer 22s ease-in-out infinite;
 }
 
 @keyframes moveDotSpacer {
-  0% { cx: 242px; cy: 286px; }
-  16% { cx: 242px; cy: 238px; }
-  33% { cx: 274px; cy: 238px; }
-  50% { cx: 274px; cy: 270px; }
-  66% { cx: 306px; cy: 270px; }
-  83% { cx: 306px; cy: 222px; }
-  100% { cx: 242px; cy: 286px; }
+  0% { cx: 242px; cy: 222px; }
+  4.5% { cx: 258px; cy: 222px; }
+  9.1% { cx: 274px; cy: 222px; }
+  13.6% { cx: 290px; cy: 222px; }
+  18.2% { cx: 306px; cy: 222px; }
+  22.7% { cx: 306px; cy: 238px; }
+  27.3% { cx: 290px; cy: 238px; }
+  31.8% { cx: 274px; cy: 238px; }
+  36.4% { cx: 274px; cy: 254px; }
+  40.9% { cx: 274px; cy: 270px; }
+  45.5% { cx: 290px; cy: 270px; }
+  50.0% { cx: 306px; cy: 270px; }
+  54.5% { cx: 306px; cy: 286px; }
+  59.1% { cx: 290px; cy: 286px; }
+  63.6% { cx: 274px; cy: 286px; }
+  68.2% { cx: 258px; cy: 286px; }
+  72.7% { cx: 242px; cy: 286px; }
+  77.3% { cx: 242px; cy: 270px; }
+  81.8% { cx: 258px; cy: 270px; }
+  86.4% { cx: 258px; cy: 254px; }
+  90.9% { cx: 242px; cy: 254px; }
+  95.5% { cx: 242px; cy: 238px; }
+  100.0% { cx: 242px; cy: 222px; }
 }
+
+
 
 
 

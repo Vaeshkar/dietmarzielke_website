@@ -682,7 +682,7 @@
         <svg viewBox="0 0 520 400" fill="none" xmlns="http://www.w3.org/2000/svg" class="hero-svg-illustration">
           <!-- Definitions for patterns -->
           <defs>
-            <pattern id="dot-pattern" x="0" y="0" width="16" height="16" patternUnits="userSpaceOnUse">
+            <pattern id="dot-pattern" x="360" y="50" width="16" height="16" patternUnits="userSpaceOnUse">
               <circle cx="2" cy="2" r="1.5" fill="#cbd5e1" />
             </pattern>
           </defs>
@@ -794,7 +794,7 @@
       <svg viewBox="0 0 1440 400" fill="none" xmlns="http://www.w3.org/2000/svg" class="spacer-svg">
         <!-- Definitions for patterns -->
         <defs>
-          <pattern id="dot-pattern-s1" x="0" y="0" width="16" height="16" patternUnits="userSpaceOnUse">
+          <pattern id="dot-pattern-s1" x="240" y="220" width="16" height="16" patternUnits="userSpaceOnUse">
             <circle cx="2" cy="2" r="1.5" fill="#cbd5e1" />
           </pattern>
         </defs>
