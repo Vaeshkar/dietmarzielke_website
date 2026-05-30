@@ -21,6 +21,7 @@
   });
 
   let progressPercent = $state(0);
+  let isTransitionActive = $state(false);
 
   // Periodic Random Grid Block Morph Swap Effect (25-second Countdown)
   $effect(() => {
@@ -55,7 +56,6 @@
     let boxes = [];
 
     // Transition state variables
-    let transitionActive = false;
     let transitionFrame = 0;
 
     const createBoxes = () => {
@@ -162,7 +162,7 @@
       const elapsed = now - lastSwapTime;
 
       // Update progress bar countdown (from 0 to 100 over 25 seconds)
-      if (!transitionActive) {
+      if (!isTransitionActive) {
         progressPercent = Math.min(100, (elapsed / 25000) * 100);
         if (elapsed >= 25000) {
           triggerTransition();
@@ -171,7 +171,7 @@
 
       context.clearRect(0, 0, canvasWidth, canvasHeight);
 
-      if (transitionActive) {
+      if (isTransitionActive) {
         transitionFrame++;
         let allCompleted = true;
 
@@ -200,7 +200,7 @@
           baseImg.src = isPortrait2Base ? "/dietmar_zielke_portrait2.webp" : "/dietmar_zielke_portrait.webp";
           
           // Reset transition states
-          transitionActive = false;
+          isTransitionActive = false;
           lastSwapTime = Date.now();
           progressPercent = 0;
           
@@ -220,8 +220,8 @@
     };
 
     const triggerTransition = () => {
-      if (transitionActive) return;
-      transitionActive = true;
+      if (isTransitionActive) return;
+      isTransitionActive = true;
       transitionFrame = 0;
       progressPercent = 100;
       updateSourceCanvas();
@@ -604,7 +604,7 @@
       <div class="about-image-wrapper reveal" id="about-image-scene">
         <img id="about-base-img" src="/dietmar_zielke_portrait.webp" alt="Dietmar Zielke Portrait" class="about-img" />
         <canvas class="about-canvas" id="about-morph-canvas" aria-hidden="true"></canvas>
-        <div class="about-progress-container">
+        <div class="about-progress-container" class:transitioning={isTransitionActive}>
           <div class="about-progress-bar" style="width: {progressPercent}%"></div>
         </div>
       </div>
