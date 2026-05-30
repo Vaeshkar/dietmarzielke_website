@@ -116,11 +116,13 @@ button {
 
 .section-spacing {
   padding: 100px 0;
+  scroll-margin-top: 130px;
 }
 
 @media (max-width: 768px) {
   .section-spacing {
     padding: 60px 0;
+    scroll-margin-top: 120px;
   }
 }
 
@@ -181,15 +183,24 @@ button {
   color: var(--text-main);
 }
 
-.nav-link.active::after {
+.nav-link::after {
   content: '';
   position: absolute;
   bottom: 0;
   left: 0;
-  width: 24px;
+  width: 100%;
   height: 3px;
   background-color: var(--primary);
   border-radius: 2px;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+  transform: scaleX(1);
+  transform-origin: left;
 }
 
 /* Buttons */

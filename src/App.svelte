@@ -250,6 +250,33 @@
     };
   });
 
+  let activeSection = $state('start');
+
+  // Scroll Spy for Navigation Active State
+  $effect(() => {
+    const sections = ['start', 'leistungen', 'fuer-wen', 'ueber-mich', 'so-arbeite-ich', 'faq'];
+    const observerOptions = {
+      root: null,
+      rootMargin: '-30% 0px -60% 0px',
+      threshold: 0
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          activeSection = entry.target.id;
+        }
+      });
+    }, observerOptions);
+
+    sections.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+
+    return () => observer.disconnect();
+  });
+
   let activeFaq = $state(null);
   let isMobileMenuOpen = $state(false);
   let openModal = $state(null); // 'impressum' | 'datenschutz' | null
@@ -353,12 +380,12 @@
 
     <nav class="nav {isMobileMenuOpen ? 'open' : ''}">
       <ul class="nav-list">
-        <li><a href="#start" class="nav-link" onclick={(e) => { e.preventDefault(); handleNavClick('start'); }}>Start</a></li>
-        <li><a href="#leistungen" class="nav-link" onclick={(e) => { e.preventDefault(); handleNavClick('leistungen'); }}>Leistungen</a></li>
-        <li><a href="#fuer-wen" class="nav-link" onclick={(e) => { e.preventDefault(); handleNavClick('fuer-wen'); }}>Für wen?</a></li>
-        <li><a href="#ueber-mich" class="nav-link" onclick={(e) => { e.preventDefault(); handleNavClick('ueber-mich'); }}>Über mich</a></li>
-        <li><a href="#so-arbeite-ich" class="nav-link" onclick={(e) => { e.preventDefault(); handleNavClick('so-arbeite-ich'); }}>So arbeite ich</a></li>
-        <li><a href="#faq" class="nav-link" onclick={(e) => { e.preventDefault(); handleNavClick('faq'); }}>Über rechtliche Betreuung</a></li>
+        <li><a href="#start" class="nav-link" class:active={activeSection === 'start'} onclick={(e) => { e.preventDefault(); handleNavClick('start'); }}>Start</a></li>
+        <li><a href="#leistungen" class="nav-link" class:active={activeSection === 'leistungen'} onclick={(e) => { e.preventDefault(); handleNavClick('leistungen'); }}>Leistungen</a></li>
+        <li><a href="#fuer-wen" class="nav-link" class:active={activeSection === 'fuer-wen'} onclick={(e) => { e.preventDefault(); handleNavClick('fuer-wen'); }}>Für wen?</a></li>
+        <li><a href="#ueber-mich" class="nav-link" class:active={activeSection === 'ueber-mich'} onclick={(e) => { e.preventDefault(); handleNavClick('ueber-mich'); }}>Über mich</a></li>
+        <li><a href="#so-arbeite-ich" class="nav-link" class:active={activeSection === 'so-arbeite-ich'} onclick={(e) => { e.preventDefault(); handleNavClick('so-arbeite-ich'); }}>So arbeite ich</a></li>
+        <li><a href="#faq" class="nav-link" class:active={activeSection === 'faq'} onclick={(e) => { e.preventDefault(); handleNavClick('faq'); }}>Über rechtliche Betreuung</a></li>
       </ul>
     </nav>
   </div>
