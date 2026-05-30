@@ -809,8 +809,7 @@
         <circle cx="150" cy="200" r="4" fill="#ff4e18" />
 
         <!-- Right winding line continuing from orange center -->
-        <path d="M 752,200 H 830 C 860,200 870,250 900,250 H 1050 C 1100,250 1120,200 1150,200 H 1290" stroke="#ff4e18" stroke-width="1.5" stroke-linecap="round" fill="none" class="spacer-winding-line" />
-        <path d="M 752,200 H 830 C 860,200 870,250 900,250 H 1050 C 1100,250 1120,200 1150,200 H 1290" stroke="#ffd0c0" stroke-width="2" stroke-linecap="round" fill="none" class="spacer-winding-line-flow" />
+        <path d="M 752,200 H 830 C 860,200 870,250 900,250 H 1050 C 1100,250 1120,200 1150,200 H 1290" stroke="#ff4e18" stroke-width="1.5" stroke-linecap="round" fill="none" class="spacer-winding-line spacer-winding-line-stretch" />
         <circle cx="1290" cy="200" r="4" fill="#ff4e18" />
 
         <!-- Concentric Sound Waves (Listening motif) -->
@@ -822,7 +821,7 @@
 
         <!-- Receiver Shell Shape (Abstract Ear/Pebble) -->
         <g class="hero-organic-group">
-          <path d="M 520,100 C 580,100 620,140 620,200 C 620,260 580,300 520,300 C 470,300 460,250 460,200 C 460,150 470,100 520,100 Z" fill="#ffffff" stroke="#e2e8f0" stroke-width="2" />
+          <path d="M 520,100 C 580,100 620,140 620,200 C 620,260 580,300 520,300 C 470,300 460,250 460,200 C 460,150 470,100 520,100 Z" fill="#ffffff" stroke="#e2e8f0" stroke-width="2" class="spacer-pebble-morph" />
         </g>
 
         <!-- Background Gray Processing block shape -->
