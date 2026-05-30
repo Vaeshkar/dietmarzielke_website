@@ -277,6 +277,30 @@
     return () => observer.disconnect();
   });
 
+  function directionAwareHover(node) {
+    const handleMouseEnter = (e) => {
+      const rect = node.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      node.style.setProperty('--origin', x < rect.width / 2 ? 'left' : 'right');
+    };
+
+    const handleMouseLeave = (e) => {
+      const rect = node.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      node.style.setProperty('--origin', x < rect.width / 2 ? 'left' : 'right');
+    };
+
+    node.addEventListener('mouseenter', handleMouseEnter);
+    node.addEventListener('mouseleave', handleMouseLeave);
+
+    return {
+      destroy() {
+        node.removeEventListener('mouseenter', handleMouseEnter);
+        node.removeEventListener('mouseleave', handleMouseLeave);
+      }
+    };
+  }
+
   let activeFaq = $state(null);
   let isMobileMenuOpen = $state(false);
   let openModal = $state(null); // 'impressum' | 'datenschutz' | null
@@ -380,12 +404,12 @@
 
     <nav class="nav {isMobileMenuOpen ? 'open' : ''}">
       <ul class="nav-list">
-        <li><a href="#start" class="nav-link" class:active={activeSection === 'start'} onclick={(e) => { e.preventDefault(); handleNavClick('start'); }}>Start</a></li>
-        <li><a href="#leistungen" class="nav-link" class:active={activeSection === 'leistungen'} onclick={(e) => { e.preventDefault(); handleNavClick('leistungen'); }}>Leistungen</a></li>
-        <li><a href="#fuer-wen" class="nav-link" class:active={activeSection === 'fuer-wen'} onclick={(e) => { e.preventDefault(); handleNavClick('fuer-wen'); }}>Für wen?</a></li>
-        <li><a href="#ueber-mich" class="nav-link" class:active={activeSection === 'ueber-mich'} onclick={(e) => { e.preventDefault(); handleNavClick('ueber-mich'); }}>Über mich</a></li>
-        <li><a href="#so-arbeite-ich" class="nav-link" class:active={activeSection === 'so-arbeite-ich'} onclick={(e) => { e.preventDefault(); handleNavClick('so-arbeite-ich'); }}>So arbeite ich</a></li>
-        <li><a href="#faq" class="nav-link" class:active={activeSection === 'faq'} onclick={(e) => { e.preventDefault(); handleNavClick('faq'); }}>Über rechtliche Betreuung</a></li>
+        <li><a href="#start" use:directionAwareHover class="nav-link" class:active={activeSection === 'start'} onclick={(e) => { e.preventDefault(); handleNavClick('start'); }}>Start</a></li>
+        <li><a href="#leistungen" use:directionAwareHover class="nav-link" class:active={activeSection === 'leistungen'} onclick={(e) => { e.preventDefault(); handleNavClick('leistungen'); }}>Leistungen</a></li>
+        <li><a href="#fuer-wen" use:directionAwareHover class="nav-link" class:active={activeSection === 'fuer-wen'} onclick={(e) => { e.preventDefault(); handleNavClick('fuer-wen'); }}>Für wen?</a></li>
+        <li><a href="#ueber-mich" use:directionAwareHover class="nav-link" class:active={activeSection === 'ueber-mich'} onclick={(e) => { e.preventDefault(); handleNavClick('ueber-mich'); }}>Über mich</a></li>
+        <li><a href="#so-arbeite-ich" use:directionAwareHover class="nav-link" class:active={activeSection === 'so-arbeite-ich'} onclick={(e) => { e.preventDefault(); handleNavClick('so-arbeite-ich'); }}>So arbeite ich</a></li>
+        <li><a href="#faq" use:directionAwareHover class="nav-link" class:active={activeSection === 'faq'} onclick={(e) => { e.preventDefault(); handleNavClick('faq'); }}>Über rechtliche Betreuung</a></li>
       </ul>
     </nav>
   </div>
