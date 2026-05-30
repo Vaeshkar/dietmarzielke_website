@@ -63,12 +63,33 @@ fuerWen.subtitle = Meine Betreuung orientiert sich an den Bedürfnissen aller Be
 
 fuerWen.cards[0].title = Betroffene
 fuerWen.cards[0].desc = Ich begleite Sie verlässlich und respektvoll in allen rechtlichen und organisatorischen Fragen.
+fuerWen.cards[0].detailTitle = Für Betroffene
+fuerWen.cards[0].detailSubtitle = Selbstbestimmung und verlässliche Partnerschaft im Alltag.
+fuerWen.cards[0].detailDesc = Wenn Sie Ihre Angelegenheiten ganz oder teilweise nicht mehr selbst regeln können, stehe ich an Ihrer Seite. Ich treffe keine Entscheidungen über Ihren Kopf hinweg, sondern unterstütze Sie dabei, Ihr Leben nach Ihren eigenen Wünschen zu gestalten.
+fuerWen.cards[0].detailBullet1 = Respekt & Würde: Ihre Wünsche, Vorstellungen und Lebensleistungen stehen im Mittelpunkt meiner Arbeit.
+fuerWen.cards[0].detailBullet2 = Hilfe zur Selbsthilfe: Ich unterstütze Sie darin, so viele Angelegenheiten wie möglich weiterhin selbstbestimmt zu regeln.
+fuerWen.cards[0].detailBullet3 = Regelmäßiger Kontakt: Wir besprechen anstehende Entscheidungen verständlich und in aller Ruhe gemeinsam.
+fuerWen.cards[0].detailBullet4 = Rechtsschutz: Ich schütze Ihre Interessen vor Benachteiligungen und vertrete Sie rechtlich fundiert gegenüber Dritten.
 
 fuerWen.cards[1].title = Angehörige
 fuerWen.cards[1].desc = Ich entlaste, informiere und arbeite transparent mit Ihnen zusammen.
+fuerWen.cards[1].detailTitle = Für Angehörige
+fuerWen.cards[1].detailSubtitle = Entlastung von Bürokratie und vertrauensvolle Zusammenarbeit.
+fuerWen.cards[1].detailDesc = Die rechtliche Sorge für ein Familienmitglied zu begleiten, kann emotional und zeitlich sehr belastend sein. Ich entlaste Sie von der formalen Bürokratie, während Sie sich ganz auf die persönliche Beziehung zu Ihrem Angehörigen konzentrieren können.
+fuerWen.cards[1].detailBullet1 = Bürokratische Entlastung: Ich übernehme den Schriftverkehr, Anträge, die Kontoverwaltung und Berichte an das Gericht.
+fuerWen.cards[1].detailBullet2 = Transparenter Austausch: Ich halte Sie über alle wesentlichen rechtlichen Schritte und Entwicklungen zeitnah informiert.
+fuerWen.cards[1].detailBullet3 = Gemeinsame Wege: Bei schwierigen Entscheidungen (z. B. Wohnungswechsel oder Pflegeorganisation) binde ich Sie partnerschaftlich ein.
+fuerWen.cards[1].detailBullet4 = Neutrale Vermittlung: Als professioneller Betreuer agiere ich sachlich und neutral, was oft familiäre Spannungen abbaut.
 
 fuerWen.cards[2].title = Gerichte / Institutionen
 fuerWen.cards[2].desc = Ich übernehme Betreuungen mit Sorgfalt, Verlässlichkeit und klarer Kommunikation.
+fuerWen.cards[2].detailTitle = Für Gerichte & Institutionen
+fuerWen.cards[2].detailSubtitle = Professionalität, Verlässlichkeit und rechtssichere Kooperation.
+fuerWen.cards[2].detailDesc = Als staatlich anerkannter rechtlicher Betreuer stehe für eine fachlich fundierte, termingerechte und transparente Zusammenarbeit mit Betreuungsgerichten, Behörden, Kliniken und Pflegeeinrichtungen.
+fuerWen.cards[2].detailBullet1 = Qualitätsstandards: Konsequente Umsetzung der Vorgaben des reformierten Betreuungsrechts zur Stärkung der betreuten Person.
+fuerWen.cards[2].detailBullet2 = Schnelle Kommunikation: Zeitnahe Rückmeldungen, Zuleitung erforderlicher Berichte und verlässliche Abstimmung bei dringlichen Eilentscheidungen.
+fuerWen.cards[2].detailBullet3 = Berichtspflichten: Pünktliche und präzise Erstellung von Betreuungsberichten, Vermögensverzeichnissen und Rechnungslegungen.
+fuerWen.cards[2].detailBullet4 = Interdisziplinäres Arbeiten: Schnittstelle zwischen Medizinern, Pflegekräften, Kliniken, Betreuungsbehörden und Rechtspflegern.
 
 # Über mich
 ueberMich.title = Über mich

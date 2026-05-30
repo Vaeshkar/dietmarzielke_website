@@ -544,6 +544,7 @@
   let isMobileMenuOpen = $state(false);
   let openModal = $state(null); // 'impressum' | 'datenschutz' | null
   let selectedServiceIndex = $state(null);
+  let selectedAudienceIndex = $state(null);
 
   // Form Fields
   let name = $state('');
@@ -921,7 +922,7 @@
 
       <div class="for-whom-grid">
         <!-- Card 1 -->
-        <div class="whom-card reveal" use:tilt>
+        <div class="whom-card reveal" use:tilt onclick={() => selectedAudienceIndex = 0} onkeydown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); selectedAudienceIndex = 0; } }} role="button" tabindex="0" aria-label="Details für {content.fuerWen.cards[0].title} anzeigen">
           <div class="whom-icon-wrapper">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
@@ -934,7 +935,7 @@
         </div>
 
         <!-- Card 2 -->
-        <div class="whom-card reveal reveal-delay-1" use:tilt>
+        <div class="whom-card reveal reveal-delay-1" use:tilt onclick={() => selectedAudienceIndex = 1} onkeydown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); selectedAudienceIndex = 1; } }} role="button" tabindex="0" aria-label="Details für {content.fuerWen.cards[1].title} anzeigen">
           <div class="whom-icon-wrapper">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
@@ -947,7 +948,7 @@
         </div>
 
         <!-- Card 3 -->
-        <div class="whom-card reveal reveal-delay-2" use:tilt>
+        <div class="whom-card reveal reveal-delay-2" use:tilt onclick={() => selectedAudienceIndex = 2} onkeydown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); selectedAudienceIndex = 2; } }} role="button" tabindex="0" aria-label="Details für {content.fuerWen.cards[2].title} anzeigen">
           <div class="whom-icon-wrapper">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
@@ -1451,6 +1452,87 @@
         
         <div class="drawer-actions">
           <button class="btn btn-primary" onclick={() => { selectedServiceIndex = null; handleNavClick('kontakt'); }}>
+            Kontakt aufnehmen
+            <svg class="btn-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+{/if}
+
+{#if selectedAudienceIndex !== null}
+  {@const audience = content.fuerWen.cards[selectedAudienceIndex]}
+  <div class="drawer-overlay" onclick={() => selectedAudienceIndex = null} onkeydown={(e) => { if (e.key === 'Escape' || e.key === 'Enter') selectedAudienceIndex = null; }} role="button" tabindex="-1" aria-label="Schließen" transition:fade={{ duration: 150 }}>
+    <div class="drawer-container" onclick={(e) => e.stopPropagation()} onkeydown={(e) => e.stopPropagation()} role="dialog" aria-modal="true" tabindex="-1">
+      <button class="drawer-close-btn" onclick={() => selectedAudienceIndex = null} aria-label="Schließen">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+      
+      <div class="drawer-content">
+        <span class="drawer-badge">Zielgruppe</span>
+        <h2>{audience.detailTitle || audience.title}</h2>
+        {#if audience.detailSubtitle}
+          <p class="drawer-subtitle">{audience.detailSubtitle}</p>
+        {/if}
+        <div class="drawer-separator"></div>
+        
+        {#if audience.detailDesc}
+          <p class="drawer-desc">{audience.detailDesc}</p>
+        {:else}
+          <p class="drawer-desc">{audience.desc}</p>
+        {/if}
+        
+        <ul class="drawer-bullets">
+          {#if audience.detailBullet1}
+            <li>
+              <svg class="bullet-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
+              </svg>
+              <span>{audience.detailBullet1}</span>
+            </li>
+          {/if}
+          {#if audience.detailBullet2}
+            <li>
+              <svg class="bullet-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
+              </svg>
+              <span>{audience.detailBullet2}</span>
+            </li>
+          {/if}
+          {#if audience.detailBullet3}
+            <li>
+              <svg class="bullet-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
+              </svg>
+              <span>{audience.detailBullet3}</span>
+            </li>
+          {/if}
+          {#if audience.detailBullet4}
+            <li>
+              <svg class="bullet-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
+              </svg>
+              <span>{audience.detailBullet4}</span>
+            </li>
+          {/if}
+        </ul>
+        
+        {#if audience.detailNote}
+          <div class="drawer-note-box">
+            <svg class="drawer-note-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <p class="drawer-note">{audience.detailNote}</p>
+          </div>
+        {/if}
+        
+        <div class="drawer-actions">
+          <button class="btn btn-primary" onclick={() => { selectedAudienceIndex = null; handleNavClick('kontakt'); }}>
             Kontakt aufnehmen
             <svg class="btn-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />

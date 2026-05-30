@@ -1556,12 +1556,12 @@ button {
   100.0% { cx: 242px; cy: 222px; }
 }
 
-/* service-card focus and active cursors */
-.service-card {
+/* service-card & whom-card focus and active cursors */
+.service-card, .whom-card {
   cursor: pointer;
 }
 
-.service-card:focus-visible {
+.service-card:focus-visible, .whom-card:focus-visible {
   outline: 2px solid var(--primary);
   outline-offset: 4px;
 }
