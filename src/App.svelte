@@ -20,74 +20,80 @@
     return () => observer.disconnect();
   });
 
-  // Interactive Portrait Morph Effect
+  // Interactive Portrait Brush Reveal & Decay Effect
   $effect(() => {
     if (window.matchMedia("(pointer: coarse)").matches) return;
 
     const hitArea = document.getElementById("about-image-scene");
     const canvas = document.getElementById("about-morph-canvas");
-    if (!hitArea || !canvas) return;
+    const baseImg = document.getElementById("about-base-img");
+    if (!hitArea || !canvas || !baseImg) return;
 
-    const context = canvas.getContext("2d");
-    if (!context) return;
+    let context = canvas.getContext("2d");
+    let animationFrameId = null;
+    let isInitialized = false;
 
+    // Load second image (reveal target)
+    const img2 = new Image();
+    img2.src = "/dietmar_zielke_portrait2.webp";
+
+    // Offscreen canvas to hold the fully rendered img2
     const sourceCanvas = document.createElement("canvas");
     const sourceContext = sourceCanvas.getContext("2d");
-    if (!sourceContext) return;
 
-    const pointer = { x: 0, y: 0, targetX: 0, targetY: 0, radius: 0, active: false };
-    const boxSize = 55;
-    const minRadius = 60;
-    const maxRadius = 240;
-    const radiusEase = 0.08;
-    const dotColor = "rgba(255, 255, 255, 0.4)";
-    const idleDelay = 800;
-
-    const image = new Image();
-    image.src = "/dietmar_zielke_portrait2.webp";
+    // Offscreen canvas for the mask
+    const maskCanvas = document.createElement("canvas");
+    const maskContext = maskCanvas.getContext("2d");
 
     let rect = hitArea.getBoundingClientRect();
     let canvasWidth = 0;
     let canvasHeight = 0;
-    let resetTimer = 0;
-    let boxes = [];
-    let animationFrameId = null;
 
-    const createBoxes = () => {
-      boxes = [];
-      for (let x = 0; x <= canvasWidth + boxSize; x += boxSize) {
-        for (let y = 0; y <= canvasHeight + boxSize; y += boxSize) {
-          boxes.push({ x, y, centerX: x + boxSize / 2, centerY: y + boxSize / 2, distance: 0, scale: 0 });
-        }
-      }
-    };
+    const setupCanvasSize = () => {
+      rect = baseImg.getBoundingClientRect();
+      if (rect.width === 0 || rect.height === 0) return false;
 
-    const resizeCanvas = () => {
-      rect = hitArea.getBoundingClientRect();
       const dpr = Math.min(1.5, window.devicePixelRatio || 1);
       canvasWidth = Math.round(rect.width * dpr);
       canvasHeight = Math.round(rect.height * dpr);
 
+      // Set display sizes
+      canvas.style.width = `${rect.width}px`;
+      canvas.style.height = `${rect.height}px`;
+
       canvas.width = canvasWidth;
       canvas.height = canvasHeight;
+
       sourceCanvas.width = canvasWidth;
       sourceCanvas.height = canvasHeight;
 
-      pointer.x = canvasWidth / 2;
-      pointer.y = canvasHeight / 2;
-      pointer.targetX = pointer.x;
-      pointer.targetY = pointer.y;
-      pointer.radius = 0;
-
-      createBoxes();
-
-      if (image.complete) {
-        sourceContext.clearRect(0, 0, canvasWidth, canvasHeight);
-        drawCoverImage(sourceContext);
+      // Keep the mask drawing state across resizes
+      const tempCanvas = document.createElement("canvas");
+      tempCanvas.width = maskCanvas.width;
+      tempCanvas.height = maskCanvas.height;
+      const tempCtx = tempCanvas.getContext("2d");
+      if (tempCtx && maskCanvas.width > 0) {
+        tempCtx.drawImage(maskCanvas, 0, 0);
       }
+
+      maskCanvas.width = canvasWidth;
+      maskCanvas.height = canvasHeight;
+
+      // Redraw mask state if existed
+      if (tempCtx && tempCanvas.width > 0) {
+        maskContext.drawImage(tempCanvas, 0, 0, tempCanvas.width, tempCanvas.height, 0, 0, canvasWidth, canvasHeight);
+      }
+
+      // Draw img2 to sourceCanvas
+      if (img2.complete) {
+        drawCoverImage(sourceContext, img2);
+      }
+
+      return true;
     };
 
-    const drawCoverImage = (targetContext) => {
+    const drawCoverImage = (ctx, image) => {
+      ctx.clearRect(0, 0, canvasWidth, canvasHeight);
       const imageRatio = image.width / image.height;
       const canvasRatio = canvasWidth / canvasHeight;
       let sourceWidth = image.width;
@@ -103,104 +109,90 @@
         sourceY = (image.height - sourceHeight) / 2;
       }
 
-      targetContext.drawImage(image, sourceX, sourceY, sourceWidth, sourceHeight, 0, 0, canvasWidth, canvasHeight);
+      ctx.drawImage(image, sourceX, sourceY, sourceWidth, sourceHeight, 0, 0, canvasWidth, canvasHeight);
     };
 
-    const drawTile = (box) => {
-      box.distance = Math.hypot(box.centerX - pointer.x, box.centerY - pointer.y);
-      box.scale = pointer.radius <= 0.01 ? 0 : 1 - Math.max(0, Math.min(1, box.distance / pointer.radius));
-      if (box.scale < 0.001) return;
-
-      const zoom = 1 + box.scale * 0.4;
-      const sourceSize = boxSize / zoom;
-      const sourceX = box.centerX - sourceSize / 2;
-      const sourceY = box.centerY - sourceSize / 2;
-
-      context.drawImage(
-        sourceCanvas,
-        sourceX,
-        sourceY,
-        sourceSize,
-        sourceSize,
-        box.x,
-        box.y,
-        boxSize,
-        boxSize
-      );
+    const initialize = () => {
+      if (isInitialized) return;
+      if (setupCanvasSize()) {
+        isInitialized = true;
+      }
     };
 
-    const drawDot = (box) => {
-      const distance = Math.hypot(box.x - pointer.x, box.y - pointer.y);
-      const scale = pointer.radius <= 0.01 ? 0 : 1 - Math.max(0, Math.min(1, distance / pointer.radius));
-      if (scale < 0.001) return;
-      context.beginPath();
-      context.arc(box.x, box.y, boxSize * 0.1 * scale, 0, Math.PI * 2);
-      context.fill();
+    // Initialize when base image is loaded
+    if (baseImg.complete) {
+      initialize();
+    } else {
+      baseImg.onload = initialize;
+    }
+    img2.onload = () => {
+      if (isInitialized && sourceContext) {
+        drawCoverImage(sourceContext, img2);
+      }
+    };
+
+    const handlePointerMove = (event) => {
+      if (!isInitialized || !maskContext) return;
+
+      const scaleX = canvasWidth / rect.width;
+      const scaleY = canvasHeight / rect.height;
+      const x = (event.clientX - rect.left) * scaleX;
+      const y = (event.clientY - rect.top) * scaleY;
+
+      // Draw feathered brush stroke on mask
+      const brushRadius = 70;
+      const grad = maskContext.createRadialGradient(x, y, brushRadius * 0.1, x, y, brushRadius);
+      grad.addColorStop(0, "rgba(0, 0, 0, 1.0)");
+      grad.addColorStop(0.5, "rgba(0, 0, 0, 0.5)");
+      grad.addColorStop(1, "rgba(0, 0, 0, 0.0)");
+
+      maskContext.fillStyle = grad;
+      maskContext.beginPath();
+      maskContext.arc(x, y, brushRadius, 0, Math.PI * 2);
+      maskContext.fill();
     };
 
     const render = () => {
-      if (!image.complete || !canvasWidth || !canvasHeight) {
-        animationFrameId = requestAnimationFrame(render);
-        return;
-      }
+      if (isInitialized && context && sourceCanvas.width > 0) {
+        // 1. Clear visible canvas
+        context.clearRect(0, 0, canvasWidth, canvasHeight);
 
-      // Smooth pointer position interpolation (lerp)
-      pointer.x += (pointer.targetX - pointer.x) * 0.15;
-      pointer.y += (pointer.targetY - pointer.y) * 0.15;
+        // 2. Apply decay to mask canvas (slowly fade out brush strokes)
+        maskContext.globalCompositeOperation = "destination-out";
+        maskContext.fillStyle = "rgba(0, 0, 0, 0.015)"; // Decay rate
+        maskContext.fillRect(0, 0, canvasWidth, canvasHeight);
+        maskContext.globalCompositeOperation = "source-over";
 
-      const desiredRadius = pointer.active ? maxRadius : 0;
-      pointer.radius += (desiredRadius - pointer.radius) * radiusEase;
+        // 3. Draw img2 from sourceCanvas
+        context.drawImage(sourceCanvas, 0, 0);
 
-      context.clearRect(0, 0, canvasWidth, canvasHeight);
-
-      if (pointer.radius > 0.35) {
-        boxes.forEach(drawTile);
-        context.fillStyle = dotColor;
-        boxes.forEach(drawDot);
+        // 4. Composite with mask (reveal only where mask exists)
+        context.globalCompositeOperation = "destination-in";
+        context.drawImage(maskCanvas, 0, 0);
+        context.globalCompositeOperation = "source-over";
       }
 
       animationFrameId = requestAnimationFrame(render);
     };
 
-    const handlePointerMove = (event) => {
-      if (resetTimer) clearTimeout(resetTimer);
-
-      const scaleX = canvasWidth / rect.width;
-      const scaleY = canvasHeight / rect.height;
-      pointer.targetX = (event.clientX - rect.left) * scaleX;
-      pointer.targetY = (event.clientY - rect.top) * scaleY;
-      pointer.active = true;
-
-      resetEffect(idleDelay);
+    const handleResize = () => {
+      setupCanvasSize();
     };
 
-    const resetEffect = (delay = 0) => {
-      if (resetTimer) clearTimeout(resetTimer);
-      resetTimer = setTimeout(() => {
-        pointer.active = false;
-      }, delay);
-    };
-
-    const handlePointerLeave = () => resetEffect(200);
-
-    resizeCanvas();
-
-    image.onload = () => {
-      sourceContext.clearRect(0, 0, canvasWidth, canvasHeight);
-      drawCoverImage(sourceContext);
-    };
-
-    animationFrameId = requestAnimationFrame(render);
     hitArea.addEventListener("pointermove", handlePointerMove);
-    hitArea.addEventListener("pointerleave", handlePointerLeave);
-    window.addEventListener("resize", resizeCanvas);
+    window.addEventListener("resize", handleResize);
+    animationFrameId = requestAnimationFrame(render);
+
+    // Dynamic checks in case rendering delayed
+    const fallbackTimer = setInterval(() => {
+      if (!isInitialized) initialize();
+    }, 500);
 
     return () => {
-      if (resetTimer) clearTimeout(resetTimer);
+      clearInterval(fallbackTimer);
       if (animationFrameId) cancelAnimationFrame(animationFrameId);
       hitArea.removeEventListener("pointermove", handlePointerMove);
-      hitArea.removeEventListener("pointerleave", handlePointerLeave);
-      window.removeEventListener("resize", resizeCanvas);
+      window.removeEventListener("resize", handleResize);
     };
   });
 
@@ -555,7 +547,7 @@
   <section id="ueber-mich" class="section-spacing">
     <div class="container about-grid">
       <div class="about-image-wrapper reveal" id="about-image-scene">
-        <img src="/dietmar_zielke_portrait.webp" alt="Dietmar Zielke Portrait" class="about-img" />
+        <img id="about-base-img" src="/dietmar_zielke_portrait.webp" alt="Dietmar Zielke Portrait" class="about-img" />
         <canvas class="about-canvas" id="about-morph-canvas" aria-hidden="true"></canvas>
       </div>
       <div class="about-content reveal reveal-delay-1">
