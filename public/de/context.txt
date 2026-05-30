@@ -1,0 +1,99 @@
+# ==============================================================================
+# Dietmar Zielke - Website-Texte Konfiguration (Deutsch)
+# 
+# Anleitung:
+# 1. Bearbeiten Sie den Text nach dem "="-Zeichen für beliebige Schlüssel.
+# 2. Zeilen, die mit "#" beginnen, sind Kommentare und werden ignoriert.
+# 3. Ändern Sie nicht die Schlüssel auf der linken Seite des "="-Zeichens.
+# 4. Nutzen Sie \n für Zeilenumbrüche (z.B. in Adressen).
+# ==============================================================================
+
+# Hero-Bereich
+hero.title = Rechtliche Betreuung mit Klarheit, Ruhe und Verlässlichkeit.
+hero.description = Ich unterstütze und vertrete Menschen in rechtlichen und organisatorischen Angelegenheiten – persönlich, sorgfältig und auf Augenhöhe.
+
+# Leistungen
+leistungen.title = Leistungen
+
+leistungen.cards[0].title = Gesundheit & Behörden
+leistungen.cards[0].desc = Unterstützung bei medizinischen Entscheidungen und im Umgang mit Ämtern und Krankenkassen.
+
+leistungen.cards[1].title = Vermögenssorge
+leistungen.cards[1].desc = Verantwortungsvoller Umgang mit Einkommen, Vermögen und Zahlungsverkehr.
+
+leistungen.cards[2].title = Wohn- und Alltagsangelegenheiten
+leistungen.cards[2].desc = Organisation des Wohnumfelds und Unterstützung im täglichen Leben.
+
+leistungen.cards[3].title = Vertretung & Kommunikation
+leistungen.cards[3].desc = Vertretung gegenüber Behörden, Institutionen und anderen Beteiligten.
+
+# Für wen?
+fuerWen.title = Für wen?
+fuerWen.subtitle = Meine Betreuung orientiert sich an den Bedürfnissen aller Beteiligten.
+
+fuerWen.cards[0].title = Betroffene
+fuerWen.cards[0].desc = Ich begleite Sie verlässlich und respektvoll in allen rechtlichen und organisatorischen Fragen.
+
+fuerWen.cards[1].title = Angehörige
+fuerWen.cards[1].desc = Ich entlaste, informiere und arbeite transparent mit Ihnen zusammen.
+
+fuerWen.cards[2].title = Gerichte / Institutionen
+fuerWen.cards[2].desc = Ich übernehme Betreuungen mit Sorgfalt, Verlässlichkeit und klarer Kommunikation.
+
+# Über mich
+ueberMich.title = Über mich
+ueberMich.subtitle = Dietmar Zielke
+ueberMich.tagline = Rechtlicher Betreuer in Hamburg & der Metropolregion
+ueberMich.p1 = Als staatlich anerkannter rechtlicher Betreuer unterstützen ich Menschen dabei, ihr selbstbestimmtes Leben bestmöglich fortzuführen, wenn organisatorische oder rechtliche Hürden zu groß werden. Mit Empathie, Klarheit und Fachkompetenz stehe ich Ihnen und Ihren Angehörigen zur Seite.
+ueberMich.p2 = Mein Ansatz beruht auf enger, transparenter Kommunikation und absoluter Zuverlässigkeit. Ich vertrete Ihre Interessen gegenüber Behörden, koordiniere gesundheitliche Belange und verwalte Vermögenswerte mit größter Sorgfalt – stets auf Augenhöhe und mit Respekt vor Ihrer Lebensleistung.
+ueberMich.bullets[0] = Persönliche & verlässliche Begleitung im Alltag
+ueberMich.bullets[1] = Sorgfältige Vertretung in allen gerichtlichen Aufgabenbereichen
+ueberMich.bullets[2] = Enge & vertrauensvolle Abstimmung mit Ärzten, Pflegediensten & Behörden
+
+# So arbeite ich
+soArbeiteIch.title = So arbeite ich
+
+soArbeiteIch.steps[0].title = Kennenlernen
+soArbeiteIch.steps[0].desc = Wir besprechen die Situation und klären alle wichtigen Fragen. Vertraulich und auf Augenhöhe.
+
+soArbeiteIch.steps[1].title = Planen & Handeln
+soArbeiteIch.steps[1].desc = Ich übernehme die Aufgaben, koordiniere Notwendiges und halte Sie regelmäßig informiert.
+
+soArbeiteIch.steps[2].title = Begleiten & Entlasten
+soArbeiteIch.steps[2].desc = Ich bleibe ansprechbar und sorge für Kontinuität, Ordnung und Verlässlichkeit.
+
+# FAQ
+faq.title = Was ist rechtliche Betreuung?
+faq.explanation = Die rechtliche Betreuung ist eine gesetzliche Unterstützung für Menschen, die ihre Angelegenheiten ganz oder teilweise nicht mehr selbst regeln können. Als rechtlicher Betreuer vertrete ich die Interessen der betreuten Person und entscheide nur in den Bereichen, für die ich bestellt wurde. Ziel ist es, Selbstbestimmung zu erhalten und Überforderung zu vermeiden.
+
+faq.items[0].question = Wer bestellt einen rechtlichen Betreuer?
+faq.items[0].answer = Ein rechtlicher Betreuer wird vom zuständigen Betreuungsgericht bestellt. Dies geschieht entweder auf eigenen Antrag der betroffenen Person oder von Amts wegen (z. B. auf Anregung von Angehörigen, Krankenhäusern oder Behörden), wenn jemand aufgrund einer psychischen Krankheit oder einer körperlichen, geistigen oder seelischen Behinderung seine Angelegenheiten ganz oder teilweise nicht regeln kann.
+
+faq.items[1].question = Welche Aufgaben hat ein rechtlicher Betreuer?
+faq.items[1].answer = Die Aufgabenbereiche werden vom Gericht individuell festgelegt (z.B. Gesundheitssorge, Vermögenssorge, Vertretung gegenüber Behörden, Wohnungsangelegenheiten). Der Betreuer unterstützt die betreute Person dabei, ihr Leben nach den eigenen Wünschen zu gestalten, und vertritt sie im erforderlichen Umfang rechtlich.
+
+faq.items[2].question = Was kostet eine rechtliche Betreuung?
+faq.items[2].answer = Die Vergütung und Auslagen des Betreuers werden gesetzlich geregelt. Wenn die betreute Person über ausreichendes Vermögen verfügt (oberhalb des Schonvermögens von derzeit 10.000 €), zahlt sie die Kosten selbst. Andernfalls übernimmt die Staatskasse die Vergütung.
+
+faq.items[3].question = Kann ich Wünsche oder Vollmachten festlegen?
+faq.items[3].answer = Ja. Mit einer Vorsorgevollmacht oder einer Betreuungsverfügung können Sie im Vorfeld selbst bestimmen, wer im Ernstfall Ihre Interessen vertreten soll und welche Wünsche bei der Betreuung berücksichtigt werden müssen. Dies stärkt Ihre Selbstbestimmung maßgeblich.
+
+# Kontakt
+kontakt.title = Kontakt
+kontakt.phone = 0152 525 85 620
+kontakt.phoneRaw = 015252585620
+kontakt.email = zielke@betreuungen-zielke.de
+kontakt.web = www.betreuungen-zielke.de
+kontakt.postbox = Postfach in Hamburg
+kontakt.sloganTitle = Ich bin gerne für Sie da.
+kontakt.sloganDesc = Schreiben Sie mir oder rufen Sie an. Ich melde mich zeitnah bei Ihnen.
+kontakt.hoursLabel = Bürozeiten:
+kontakt.hoursVal = Mo – Fr   9:00 – 17:00 Uhr
+
+# Impressum
+legal.impressum.address = Dietmar Zielke\nRechtliche Betreuungen\nPostfach 10 06 06\n20004 Hamburg
+legal.impressum.fax = 040-35 671 480
+legal.impressum.taxNumber = 46/277/04580
+legal.impressum.ustId = 84 531 067 933
+legal.impressum.iban = DE21 1101 0101 5806 8968 70
+legal.impressum.bic = SOBKDEB2XXX

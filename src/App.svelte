@@ -124,96 +124,67 @@
     }
   });
 
-  let originalContent = null; // Backup for cancel button
+  // Helper to set nested object properties from flat paths (e.g., "leistungen.cards[0].title")
+  function setNestedValue(obj, path, value) {
+    const parts = path.split('.');
+    let current = obj;
+    for (let i = 0; i < parts.length; i++) {
+      const part = parts[i];
+      const arrayMatch = part.match(/^(\w+)\[(\d+)\]$/);
+      if (arrayMatch) {
+        const arrayName = arrayMatch[1];
+        const arrayIndex = parseInt(arrayMatch[2], 10);
+        if (!current[arrayName]) {
+          current[arrayName] = [];
+        }
+        if (i === parts.length - 1) {
+          current[arrayName][arrayIndex] = value;
+        } else {
+          if (!current[arrayName][arrayIndex]) {
+            current[arrayName][arrayIndex] = {};
+          }
+          current = current[arrayName][arrayIndex];
+        }
+      } else {
+        if (i === parts.length - 1) {
+          current[part] = value;
+        } else {
+          if (!current[part]) {
+            current[part] = {};
+          }
+          current = current[part];
+        }
+      }
+    }
+  }
 
-  // Fetch updated content from server on mount
+  // Parses the context.txt key-value properties format
+  function parseTextConfig(rawText) {
+    const lines = rawText.split('\n');
+    for (const line of lines) {
+      const trimmed = line.trim();
+      if (!trimmed || trimmed.startsWith('#')) continue;
+      const separatorIndex = trimmed.indexOf('=');
+      if (separatorIndex !== -1) {
+        const key = trimmed.slice(0, separatorIndex).trim();
+        const val = trimmed.slice(separatorIndex + 1).trim().replace(/\\n/g, '\n');
+        setNestedValue(content, key, val);
+      }
+    }
+  }
+
+  // Fetch updated content from context.txt on mount
   onMount(async () => {
     try {
-      const response = await fetch('/content.json');
+      const response = await fetch('/de/context.txt');
       if (response.ok) {
-        const fetched = await response.json();
-        // Merge with fallback to ensure no keys are missing
-        content = { ...content, ...fetched };
+        const rawText = await response.text();
+        parseTextConfig(rawText);
       }
     } catch (e) {
-      console.warn("Failed to load dynamic content.json, using fallback", e);
+      console.warn("Failed to load context.txt, using fallback content", e);
     }
   });
-
-  // CMS state variables
-  let isEditMode = $state(false);
-  let showPasswordModal = $state(false);
-  let cmsPassword = $state('');
-  let cmsStatus = $state(null); // 'success' | 'error' | 'saving'
-  let cmsMessage = $state('');
-  let logoClickCount = $state(0);
-
-  function handleLogoClick() {
-    logoClickCount++;
-    if (logoClickCount >= 5) {
-      logoClickCount = 0;
-      showPasswordModal = true;
-    }
-  }
-
-  function startEditing() {
-    if (cmsPassword === '') {
-      cmsStatus = 'error';
-      cmsMessage = 'Passwort darf nicht leer sein.';
-      return;
-    }
-    originalContent = JSON.parse(JSON.stringify(content));
-    isEditMode = true;
-    showPasswordModal = false;
-    cmsStatus = null;
-    cmsMessage = '';
-  }
-
-  function cancelEditing() {
-    if (originalContent) {
-      content = JSON.parse(JSON.stringify(originalContent));
-    }
-    isEditMode = false;
-    cmsStatus = null;
-    cmsMessage = '';
-  }
-
-  async function saveEditing() {
-    cmsStatus = 'saving';
-    cmsMessage = 'Speichert...';
-    try {
-      const response = await fetch('/save_content.php', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          password: cmsPassword,
-          content: content
-        })
-      });
-      const result = await response.json();
-      if (response.ok && result.success) {
-        cmsStatus = 'success';
-        cmsMessage = result.message;
-        isEditMode = false;
-      } else {
-        cmsStatus = 'error';
-        cmsMessage = result.message || 'Verbindungsfehler zum Server.';
-      }
-    } catch (e) {
-      cmsStatus = 'error';
-      cmsMessage = 'Fehler beim Speichern der Daten.';
-    }
-  }
-
-  function downloadContentJson() {
-    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(content, null, 2));
-    const downloadAnchor = document.createElement('a');
-    downloadAnchor.setAttribute("href", dataStr);
-    downloadAnchor.setAttribute("download", "content.json");
-    document.body.appendChild(downloadAnchor);
-    downloadAnchor.click();
-    downloadAnchor.remove();
-  }
 
   // IntersectionObserver for scroll animations
   $effect(() => {
@@ -634,8 +605,8 @@
   <section id="start" class="hero-section section-spacing">
     <div class="container hero-grid">
       <div class="hero-content reveal">
-        <h1 contenteditable="true" class:cms-editable={isEditMode} bind:textContent={content.hero.title}></h1>
-        <p contenteditable="true" class:cms-editable={isEditMode} bind:textContent={content.hero.description}></p>
+        <h1 >{content.hero.title}</h1>
+        <p >{content.hero.description}</p>
         <div class="hero-actions">
           <a href="#kontakt" class="btn btn-primary" onclick={(e) => { e.preventDefault(); handleNavClick('kontakt'); }}>
             Kontakt aufnehmen 
@@ -696,7 +667,7 @@
   <section id="leistungen" class="section-spacing">
     <div class="container">
       <div class="section-header reveal">
-        <h2 class="section-title" contenteditable="true" class:cms-editable={isEditMode} bind:textContent={content.leistungen.title}></h2>
+        <h2 class="section-title" >{content.leistungen.title}</h2>
       </div>
 
       <div class="leistungen-grid">
@@ -707,8 +678,8 @@
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
             </svg>
           </div>
-          <h3 contenteditable="true" class:cms-editable={isEditMode} bind:textContent={content.leistungen.cards[0].title}></h3>
-          <p contenteditable="true" class:cms-editable={isEditMode} bind:textContent={content.leistungen.cards[0].desc}></p>
+          <h3 >{content.leistungen.cards[0].title}</h3>
+          <p >{content.leistungen.cards[0].desc}</p>
           <svg class="service-arrow" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
           </svg>
@@ -722,8 +693,8 @@
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z" />
             </svg>
           </div>
-          <h3 contenteditable="true" class:cms-editable={isEditMode} bind:textContent={content.leistungen.cards[1].title}></h3>
-          <p contenteditable="true" class:cms-editable={isEditMode} bind:textContent={content.leistungen.cards[1].desc}></p>
+          <h3 >{content.leistungen.cards[1].title}</h3>
+          <p >{content.leistungen.cards[1].desc}</p>
           <svg class="service-arrow" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
           </svg>
@@ -736,8 +707,8 @@
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
             </svg>
           </div>
-          <h3 contenteditable="true" class:cms-editable={isEditMode} bind:textContent={content.leistungen.cards[2].title}></h3>
-          <p contenteditable="true" class:cms-editable={isEditMode} bind:textContent={content.leistungen.cards[2].desc}></p>
+          <h3 >{content.leistungen.cards[2].title}</h3>
+          <p >{content.leistungen.cards[2].desc}</p>
           <svg class="service-arrow" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
           </svg>
@@ -750,8 +721,8 @@
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
             </svg>
           </div>
-          <h3 contenteditable="true" class:cms-editable={isEditMode} bind:textContent={content.leistungen.cards[3].title}></h3>
-          <p contenteditable="true" class:cms-editable={isEditMode} bind:textContent={content.leistungen.cards[3].desc}></p>
+          <h3 >{content.leistungen.cards[3].title}</h3>
+          <p >{content.leistungen.cards[3].desc}</p>
           <svg class="service-arrow" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
           </svg>
@@ -815,8 +786,8 @@
   <section id="fuer-wen" class="section-spacing">
     <div class="container">
       <div class="section-header reveal">
-        <h2 class="section-title" contenteditable="true" class:cms-editable={isEditMode} bind:textContent={content.fuerWen.title}></h2>
-        <p class="section-subtitle" contenteditable="true" class:cms-editable={isEditMode} bind:textContent={content.fuerWen.subtitle}></p>
+        <h2 class="section-title" >{content.fuerWen.title}</h2>
+        <p class="section-subtitle" >{content.fuerWen.subtitle}</p>
       </div>
 
       <div class="for-whom-grid">
@@ -828,8 +799,8 @@
             </svg>
           </div>
           <div class="whom-info">
-            <h3 contenteditable="true" class:cms-editable={isEditMode} bind:textContent={content.fuerWen.cards[0].title}></h3>
-            <p contenteditable="true" class:cms-editable={isEditMode} bind:textContent={content.fuerWen.cards[0].desc}></p>
+            <h3 >{content.fuerWen.cards[0].title}</h3>
+            <p >{content.fuerWen.cards[0].desc}</p>
           </div>
         </div>
 
@@ -841,8 +812,8 @@
             </svg>
           </div>
           <div class="whom-info">
-            <h3 contenteditable="true" class:cms-editable={isEditMode} bind:textContent={content.fuerWen.cards[1].title}></h3>
-            <p contenteditable="true" class:cms-editable={isEditMode} bind:textContent={content.fuerWen.cards[1].desc}></p>
+            <h3 >{content.fuerWen.cards[1].title}</h3>
+            <p >{content.fuerWen.cards[1].desc}</p>
           </div>
         </div>
 
@@ -854,8 +825,8 @@
             </svg>
           </div>
           <div class="whom-info">
-            <h3 contenteditable="true" class:cms-editable={isEditMode} bind:textContent={content.fuerWen.cards[2].title}></h3>
-            <p contenteditable="true" class:cms-editable={isEditMode} bind:textContent={content.fuerWen.cards[2].desc}></p>
+            <h3 >{content.fuerWen.cards[2].title}</h3>
+            <p >{content.fuerWen.cards[2].desc}</p>
           </div>
         </div>
       </div>
@@ -873,31 +844,31 @@
         </div>
       </div>
       <div class="about-content reveal reveal-delay-1">
-        <h2 class="section-title" contenteditable="true" class:cms-editable={isEditMode} bind:textContent={content.ueberMich.title}></h2>
-        <h3 class="about-subtitle" contenteditable="true" class:cms-editable={isEditMode} bind:textContent={content.ueberMich.subtitle}></h3>
-        <p class="about-tagline" contenteditable="true" class:cms-editable={isEditMode} bind:textContent={content.ueberMich.tagline}></p>
+        <h2 class="section-title" >{content.ueberMich.title}</h2>
+        <h3 class="about-subtitle" >{content.ueberMich.subtitle}</h3>
+        <p class="about-tagline" >{content.ueberMich.tagline}</p>
         
-        <p contenteditable="true" class:cms-editable={isEditMode} bind:textContent={content.ueberMich.p1}></p>
-        <p contenteditable="true" class:cms-editable={isEditMode} bind:textContent={content.ueberMich.p2}></p>
+        <p >{content.ueberMich.p1}</p>
+        <p >{content.ueberMich.p2}</p>
         
         <ul class="about-bullets">
           <li>
             <svg class="bullet-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
             </svg>
-            <span contenteditable="true" class:cms-editable={isEditMode} bind:textContent={content.ueberMich.bullets[0]}></span>
+            <span >{content.ueberMich.bullets[0]}</span>
           </li>
           <li>
             <svg class="bullet-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
             </svg>
-            <span contenteditable="true" class:cms-editable={isEditMode} bind:textContent={content.ueberMich.bullets[1]}></span>
+            <span >{content.ueberMich.bullets[1]}</span>
           </li>
           <li>
             <svg class="bullet-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
             </svg>
-            <span contenteditable="true" class:cms-editable={isEditMode} bind:textContent={content.ueberMich.bullets[2]}></span>
+            <span >{content.ueberMich.bullets[2]}</span>
           </li>
         </ul>
       </div>
@@ -908,7 +879,7 @@
   <section id="so-arbeite-ich" class="section-spacing">
     <div class="container">
       <div class="section-header reveal">
-        <h2 class="section-title" contenteditable="true" class:cms-editable={isEditMode} bind:textContent={content.soArbeiteIch.title}></h2>
+        <h2 class="section-title" >{content.soArbeiteIch.title}</h2>
       </div>
 
       <div class="timeline-row">
@@ -916,9 +887,9 @@
         <div class="timeline-step reveal">
           <div class="timeline-step-header">
             <span class="timeline-number">01</span>
-            <h3 contenteditable="true" class:cms-editable={isEditMode} bind:textContent={content.soArbeiteIch.steps[0].title}></h3>
+            <h3 >{content.soArbeiteIch.steps[0].title}</h3>
           </div>
-          <p contenteditable="true" class:cms-editable={isEditMode} bind:textContent={content.soArbeiteIch.steps[0].desc}></p>
+          <p >{content.soArbeiteIch.steps[0].desc}</p>
         </div>
 
         <!-- Separator Chevron -->
@@ -930,9 +901,9 @@
         <div class="timeline-step reveal reveal-delay-1">
           <div class="timeline-step-header">
             <span class="timeline-number">02</span>
-            <h3 contenteditable="true" class:cms-editable={isEditMode} bind:textContent={content.soArbeiteIch.steps[1].title}></h3>
+            <h3 >{content.soArbeiteIch.steps[1].title}</h3>
           </div>
-          <p contenteditable="true" class:cms-editable={isEditMode} bind:textContent={content.soArbeiteIch.steps[1].desc}></p>
+          <p >{content.soArbeiteIch.steps[1].desc}</p>
         </div>
 
         <!-- Separator Chevron -->
@@ -944,9 +915,9 @@
         <div class="timeline-step reveal reveal-delay-2">
           <div class="timeline-step-header">
             <span class="timeline-number">03</span>
-            <h3 contenteditable="true" class:cms-editable={isEditMode} bind:textContent={content.soArbeiteIch.steps[2].title}></h3>
+            <h3 >{content.soArbeiteIch.steps[2].title}</h3>
           </div>
-          <p contenteditable="true" class:cms-editable={isEditMode} bind:textContent={content.soArbeiteIch.steps[2].desc}></p>
+          <p >{content.soArbeiteIch.steps[2].desc}</p>
         </div>
       </div>
     </div>
@@ -1002,64 +973,64 @@
   <section id="faq" class="section-spacing">
     <div class="container">
       <div class="section-header reveal">
-        <h2 class="section-title" contenteditable="true" class:cms-editable={isEditMode} bind:textContent={content.faq.title}></h2>
+        <h2 class="section-title" >{content.faq.title}</h2>
       </div>
 
       <div class="faq-grid">
         <div class="faq-explanation reveal">
-          <p contenteditable="true" class:cms-editable={isEditMode} bind:textContent={content.faq.explanation}></p>
+          <p >{content.faq.explanation}</p>
         </div>
 
         <div class="faq-list reveal reveal-delay-1">
           <!-- FAQ 1 -->
           <div class="faq-item {activeFaq === 0 ? 'active' : ''}">
             <button class="faq-trigger" onclick={() => toggleFaq(0)} aria-expanded={activeFaq === 0}>
-              <span contenteditable="true" class:cms-editable={isEditMode} bind:textContent={content.faq.items[0].question}></span>
+              <span >{content.faq.items[0].question}</span>
               <svg class="faq-trigger-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7" />
               </svg>
             </button>
             <div class="faq-content" style={activeFaq === 0 ? 'max-height: 200px;' : 'max-height: 0;'}>
-              <p contenteditable="true" class:cms-editable={isEditMode} bind:textContent={content.faq.items[0].answer}></p>
+              <p >{content.faq.items[0].answer}</p>
             </div>
           </div>
 
           <!-- FAQ 2 -->
           <div class="faq-item {activeFaq === 1 ? 'active' : ''}">
             <button class="faq-trigger" onclick={() => toggleFaq(1)} aria-expanded={activeFaq === 1}>
-              <span contenteditable="true" class:cms-editable={isEditMode} bind:textContent={content.faq.items[1].question}></span>
+              <span >{content.faq.items[1].question}</span>
               <svg class="faq-trigger-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7" />
               </svg>
             </button>
             <div class="faq-content" style={activeFaq === 1 ? 'max-height: 200px;' : 'max-height: 0;'}>
-              <p contenteditable="true" class:cms-editable={isEditMode} bind:textContent={content.faq.items[1].answer}></p>
+              <p >{content.faq.items[1].answer}</p>
             </div>
           </div>
 
           <!-- FAQ 3 -->
           <div class="faq-item {activeFaq === 2 ? 'active' : ''}">
             <button class="faq-trigger" onclick={() => toggleFaq(2)} aria-expanded={activeFaq === 2}>
-              <span contenteditable="true" class:cms-editable={isEditMode} bind:textContent={content.faq.items[2].question}></span>
+              <span >{content.faq.items[2].question}</span>
               <svg class="faq-trigger-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7" />
               </svg>
             </button>
             <div class="faq-content" style={activeFaq === 2 ? 'max-height: 200px;' : 'max-height: 0;'}>
-              <p contenteditable="true" class:cms-editable={isEditMode} bind:textContent={content.faq.items[2].answer}></p>
+              <p >{content.faq.items[2].answer}</p>
             </div>
           </div>
 
           <!-- FAQ 4 -->
           <div class="faq-item {activeFaq === 3 ? 'active' : ''}">
             <button class="faq-trigger" onclick={() => toggleFaq(3)} aria-expanded={activeFaq === 3}>
-              <span contenteditable="true" class:cms-editable={isEditMode} bind:textContent={content.faq.items[3].question}></span>
+              <span >{content.faq.items[3].question}</span>
               <svg class="faq-trigger-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7" />
               </svg>
             </button>
             <div class="faq-content" style={activeFaq === 3 ? 'max-height: 200px;' : 'max-height: 0;'}>
-              <p contenteditable="true" class:cms-editable={isEditMode} bind:textContent={content.faq.items[3].answer}></p>
+              <p >{content.faq.items[3].answer}</p>
             </div>
           </div>
         </div>
@@ -1072,7 +1043,7 @@
     <div class="container kontakt-grid">
       <!-- Column 1 -->
       <div class="contact-column-left reveal">
-        <h2 class="section-title" contenteditable="true" class:cms-editable={isEditMode} bind:textContent={content.kontakt.title}></h2>
+        <h2 class="section-title" >{content.kontakt.title}</h2>
         <div class="contact-detail-list">
           <!-- Phone -->
           <div class="contact-detail-item">
@@ -1080,7 +1051,7 @@
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.94.725l.548 2.2a1 1 0 01-.321.988l-1.305.98a10.582 10.582 0 004.872 4.872l.98-1.305a1 1 0 01.988-.321l2.2.548a1 1 0 01.725.94V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
             </svg>
             <div class="contact-detail-text">
-              <p><a href="tel:{content.kontakt.phoneRaw}" class="hover:underline" contenteditable="true" class:cms-editable={isEditMode} bind:textContent={content.kontakt.phone}></a></p>
+              <p><a href="tel:{content.kontakt.phoneRaw}" class="hover:underline" >{content.kontakt.phone}</a></p>
             </div>
           </div>
 
@@ -1090,7 +1061,7 @@
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
             </svg>
             <div class="contact-detail-text">
-              <p><a href="mailto:{content.kontakt.email}" class="hover:underline" contenteditable="true" class:cms-editable={isEditMode} bind:textContent={content.kontakt.email}></a></p>
+              <p><a href="mailto:{content.kontakt.email}" class="hover:underline" >{content.kontakt.email}</a></p>
             </div>
           </div>
 
@@ -1100,7 +1071,7 @@
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
             </svg>
             <div class="contact-detail-text">
-              <p><a href="https://{content.kontakt.web}" target="_blank" rel="noopener noreferrer" class="hover:underline" contenteditable="true" class:cms-editable={isEditMode} bind:textContent={content.kontakt.web}></a></p>
+              <p><a href="https://{content.kontakt.web}" target="_blank" rel="noopener noreferrer" class="hover:underline" >{content.kontakt.web}</a></p>
             </div>
           </div>
 
@@ -1110,7 +1081,7 @@
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
             </svg>
             <div class="contact-detail-text">
-              <p contenteditable="true" class:cms-editable={isEditMode} bind:textContent={content.kontakt.postbox}></p>
+              <p >{content.kontakt.postbox}</p>
             </div>
           </div>
         </div>
@@ -1119,11 +1090,11 @@
       <!-- Column 2 -->
       <div class="contact-column-middle reveal reveal-delay-1">
         <div class="contact-column-content">
-          <h3 class="contact-slogan-title" contenteditable="true" class:cms-editable={isEditMode} bind:textContent={content.kontakt.sloganTitle}></h3>
-          <p class="contact-slogan-desc" contenteditable="true" class:cms-editable={isEditMode} bind:textContent={content.kontakt.sloganDesc}></p>
+          <h3 class="contact-slogan-title" >{content.kontakt.sloganTitle}</h3>
+          <p class="contact-slogan-desc" >{content.kontakt.sloganDesc}</p>
           <div class="contact-business-hours">
-            <h4 contenteditable="true" class:cms-editable={isEditMode} bind:textContent={content.kontakt.hoursLabel}></h4>
-            <p contenteditable="true" class:cms-editable={isEditMode} bind:textContent={content.kontakt.hoursVal}></p>
+            <h4 >{content.kontakt.hoursLabel}</h4>
+            <p >{content.kontakt.hoursVal}</p>
           </div>
         </div>
       </div>
@@ -1242,13 +1213,13 @@
       </div>
       <div class="modal-body">
         <h3>Angaben gemäß § 5 TMG</h3>
-        <p style="white-space: pre-line;" contenteditable="true" class:cms-editable={isEditMode} bind:textContent={content.legal.impressum.address}></p>
+        <p style="white-space: pre-line;" >{content.legal.impressum.address}</p>
 
         <h3>Kontakt</h3>
         <p>
-          Telefon: <span contenteditable="true" class:cms-editable={isEditMode} bind:textContent={content.kontakt.phone}></span><br>
-          Fax: <span contenteditable="true" class:cms-editable={isEditMode} bind:textContent={content.legal.impressum.fax}></span><br>
-          E-Mail: <span contenteditable="true" class:cms-editable={isEditMode} bind:textContent={content.kontakt.email}></span>
+          Telefon: <span >{content.kontakt.phone}</span><br>
+          Fax: <span >{content.legal.impressum.fax}</span><br>
+          E-Mail: <span >{content.kontakt.email}</span>
         </p>
 
         <h3>Berufsbezeichnung und Aufsichtsbehörde</h3>
@@ -1259,18 +1230,18 @@
 
         <h3>Steuerliche Angaben</h3>
         <p>
-          Steuernummer: <span contenteditable="true" class:cms-editable={isEditMode} bind:textContent={content.legal.impressum.taxNumber}></span><br>
-          Umsatzsteuer-Identifikationsnummer gemäß § 27 a Umsatzsteuergesetz: <span contenteditable="true" class:cms-editable={isEditMode} bind:textContent={content.legal.impressum.ustId}></span>
+          Steuernummer: <span >{content.legal.impressum.taxNumber}</span><br>
+          Umsatzsteuer-Identifikationsnummer gemäß § 27 a Umsatzsteuergesetz: <span >{content.legal.impressum.ustId}</span>
         </p>
 
         <h3>Bankverbindung</h3>
         <p>
-          IBAN: <span contenteditable="true" class:cms-editable={isEditMode} bind:textContent={content.legal.impressum.iban}></span><br>
-          BIC: <span contenteditable="true" class:cms-editable={isEditMode} bind:textContent={content.legal.impressum.bic}></span>
+          IBAN: <span >{content.legal.impressum.iban}</span><br>
+          BIC: <span >{content.legal.impressum.bic}</span>
         </p>
 
         <h3>Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV</h3>
-        <p style="white-space: pre-line;" contenteditable="true" class:cms-editable={isEditMode} bind:textContent={content.legal.impressum.address}></p>
+        <p style="white-space: pre-line;" >{content.legal.impressum.address}</p>
 
         <h3>Streitschlichtung</h3>
         <p>
@@ -1340,61 +1311,6 @@
         <p>Wenn Sie uns per Kontaktformular Anfragen zukommen lassen, werden Ihre Angaben aus dem Anfrageformular inklusive der von Ihnen dort angegebenen Kontaktdaten zwecks Bearbeitung der Anfrage und für den Fall von Anschlussfragen bei uns gespeichert. Diese Daten geben wir nicht ohne Ihre Einwilligung weiter.</p>
         <p>Die Verarbeitung dieser Daten erfolgt auf Grundlage von Art. 6 Abs. 1 lit. b DSGVO, sofern Ihre Anfrage mit der Erfüllung eines Vertrags zusammenhängt oder zur Durchführung vorvertraglicher Maßnahmen erforderlich ist. In allen übrigen Fällen beruht die Verarbeitung auf unserem berechtigten Interesse an der effektiven Bearbeitung der an uns gerichteten Anfragen (Art. 6 Abs. 1 lit. f DSGVO) oder auf Ihrer Einwilligung (Art. 6 Abs. 1 lit. a DSGVO) falls diese abgefragt wurde.</p>
         <p>Die von Ihnen im Kontaktformular eingegebenen Daten verbleiben bei uns, bis Sie uns zur Löschung auffordern, Ihre Einwilligung zur Speicherung widerrufen oder der Zweck für die Datenspeicherung entfällt (z. B. nach abgeschlossener Bearbeitung Ihrer Anfrage). Zwingende gesetzliche Bestimmungen – insbesondere Aufbewahrungsfristen – bleiben unberührt.</p>
-      </div>
-    </div>
-  </div>
-{/if}
-
-<!-- Admin Password Input Dialog Modal -->
-{#if showPasswordModal}
-  <div class="modal-overlay" onclick={() => showPasswordModal = false} onkeydown={(e) => { if (e.key === 'Escape') showPasswordModal = false; }} role="button" tabindex="-1">
-    <div class="modal-container" onclick={(e) => e.stopPropagation()} onkeydown={(e) => e.stopPropagation()} role="dialog" aria-modal="true" tabindex="-1" style="max-width: 420px; padding: 32px; border-radius: var(--radius-lg);">
-      <h3 style="margin-top: 0; margin-bottom: 16px; font-size: 20px; color: var(--text-main);">Admin-Anmeldung</h3>
-      <p style="margin-bottom: 20px; font-size: 14px; color: var(--text-light);">Bitte geben Sie das Passwort ein, um den Bearbeitungsmodus zu starten.</p>
-      
-      {#if cmsStatus === 'error'}
-        <p style="color: var(--primary); font-size: 14px; margin-bottom: 16px; font-weight: 500;">{cmsMessage}</p>
-      {/if}
-      
-      <input 
-        type="password" 
-        placeholder="Passwort eingeben" 
-        bind:value={cmsPassword} 
-        class="form-input" 
-        style="margin-bottom: 24px; width: 100%; border: 1px solid var(--border);" 
-        onkeydown={(e) => { if (e.key === 'Enter') startEditing(); }} 
-      />
-      
-      <div style="display: flex; gap: 16px; justify-content: flex-end;">
-        <button class="btn btn-outline" onclick={() => showPasswordModal = false}>Abbrechen</button>
-        <button class="btn btn-primary" onclick={startEditing}>Bearbeiten</button>
-      </div>
-    </div>
-  </div>
-{/if}
-
-<!-- Floating Admin Bar -->
-{#if isEditMode}
-  <div class="cms-admin-bar" transition:fade={{ duration: 150 }}>
-    <div class="cms-admin-bar-content">
-      <div class="cms-admin-status">
-        <span class="cms-admin-badge">CMS</span>
-        <span class="cms-admin-status-text">
-          {#if cmsStatus === 'saving'}
-            Speichert Änderungen...
-          {:else if cmsStatus === 'error'}
-            <span style="color: #ff5555; font-weight: 500;">Fehler: {cmsMessage}</span>
-            <button class="btn btn-outline btn-sm" style="margin-left: 12px; padding: 4px 10px; font-size: 11px; vertical-align: middle; border-color: rgba(255, 85, 85, 0.4); color: #ff9999;" onclick={downloadContentJson}>content.json herunterladen</button>
-          {:else}
-            Bearbeitungsmodus aktiv. Klicken Sie auf Texte, um sie direkt zu ändern.
-          {/if}
-        </span>
-      </div>
-      <div class="cms-admin-actions">
-        <button class="btn btn-outline btn-sm" onclick={cancelEditing} disabled={cmsStatus === 'saving'}>Abbrechen</button>
-        <button class="btn btn-primary btn-sm" onclick={saveEditing} disabled={cmsStatus === 'saving'}>
-          {cmsStatus === 'saving' ? 'Speichert...' : 'Speichern'}
-        </button>
       </div>
     </div>
   </div>
