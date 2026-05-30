@@ -1388,15 +1388,20 @@ button {
 
 /* Inline CMS Editing States */
 [contenteditable="true"] {
+  pointer-events: none;
+  user-select: text;
+  min-width: 20px;
+  display: inline-block;
+}
+[contenteditable="true"].cms-editable {
+  pointer-events: auto;
   outline: 1.5px dashed var(--primary) !important;
   outline-offset: 4px;
   background-color: rgba(255, 78, 24, 0.03);
   border-radius: 4px;
   cursor: text;
-  min-width: 20px;
-  display: inline-block;
 }
-[contenteditable="true"]:focus {
+[contenteditable="true"].cms-editable:focus {
   outline: 1.5px solid var(--primary) !important;
   background-color: rgba(255, 78, 24, 0.07);
 }
@@ -1471,5 +1476,16 @@ button {
   padding: 8px 16px;
   font-size: 13px;
   border-radius: 50px;
+}
+
+.cms-admin-actions .btn-outline {
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.cms-admin-actions .btn-outline:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: #ffffff;
+  color: #ffffff;
 }
 

@@ -205,6 +205,16 @@
     }
   }
 
+  function downloadContentJson() {
+    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(content, null, 2));
+    const downloadAnchor = document.createElement('a');
+    downloadAnchor.setAttribute("href", dataStr);
+    downloadAnchor.setAttribute("download", "content.json");
+    document.body.appendChild(downloadAnchor);
+    downloadAnchor.click();
+    downloadAnchor.remove();
+  }
+
   // IntersectionObserver for scroll animations
   $effect(() => {
     const observer = new IntersectionObserver((entries) => {
@@ -1373,7 +1383,8 @@
           {#if cmsStatus === 'saving'}
             Speichert Änderungen...
           {:else if cmsStatus === 'error'}
-            <span style="color: #ff3333;">Fehler beim Speichern: {cmsMessage}</span>
+            <span style="color: #ff5555; font-weight: 500;">Fehler: {cmsMessage}</span>
+            <button class="btn btn-outline btn-sm" style="margin-left: 12px; padding: 4px 10px; font-size: 11px; vertical-align: middle; border-color: rgba(255, 85, 85, 0.4); color: #ff9999;" onclick={downloadContentJson}>content.json herunterladen</button>
           {:else}
             Bearbeitungsmodus aktiv. Klicken Sie auf Texte, um sie direkt zu ändern.
           {/if}
