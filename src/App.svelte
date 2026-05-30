@@ -833,7 +833,7 @@
         </g>
 
         <!-- Solid Orange Circle (Listening Focal Point) -->
-        <circle cx="720" cy="200" r="32" fill="#ff4e18" class="hero-orange-circle" />
+        <circle cx="720" cy="200" r="32" fill="#ff4e18" class="spacer-orange-circle-move" />
       </svg>
     </div>
   </section>

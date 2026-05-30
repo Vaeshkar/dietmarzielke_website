@@ -1489,5 +1489,21 @@ button {
   }
 }
 
+/* Spacer Section 1 - Sliding Orange Circle */
+.spacer-orange-circle-move {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: slideBlob 12s ease-in-out infinite;
+}
+
+@keyframes slideBlob {
+  0%, 100% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(-180px, 0); /* Center of the white blob shape on the left */
+  }
+}
+
 
 
