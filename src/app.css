@@ -1489,58 +1489,7 @@ button {
   }
 }
 
-/* Spacer Section 1 - Sliding Orange Circle */
-.spacer-orange-circle-move {
-  transform-box: fill-box;
-  transform-origin: center;
-  animation: slideBlob 12s ease-in-out infinite;
-}
 
-@keyframes slideBlob {
-  0%, 100% {
-    transform: translate(0, 0);
-  }
-  50% {
-    transform: translate(-180px, 0); /* Center of the white blob shape on the left */
-  }
-}
-
-/* Spacer Section 1 - Stretching Line following the circle */
-.spacer-winding-line-stretch {
-  animation: stretchPath 12s ease-in-out infinite;
-}
-
-@keyframes stretchPath {
-  0%, 100% {
-    d: path("M 752,200 H 830 C 860,200 870,250 900,250 H 1050 C 1100,250 1120,200 1150,200 H 1290");
-  }
-  50% {
-    d: path("M 572,200 H 830 C 860,200 870,250 900,250 H 1050 C 1100,250 1120,200 1150,200 H 1290");
-  }
-}
-
-/* Spacer Section 1 - Blob Physics Indentation Morphing */
-.spacer-pebble-morph {
-  animation: morphBlob 12s ease-in-out infinite;
-}
-
-@keyframes morphBlob {
-  0%, 100% {
-    d: path("M 520,100 C 580,100 620,140 620,200 C 620,260 580,300 520,300 C 470,300 460,250 460,200 C 460,150 470,100 520,100 Z");
-  }
-  /* Orange dot enters: pushes right wall inward */
-  28% {
-    d: path("M 520,100 C 570,100 575,140 575,200 C 575,260 570,300 520,300 C 470,300 460,250 460,200 C 460,150 470,100 520,100 Z");
-  }
-  /* Orange dot in center: blob expands outward symmetrically */
-  50% {
-    d: path("M 520,100 C 590,100 635,135 635,200 C 635,265 590,300 520,300 C 450,300 445,265 445,200 C 445,135 450,100 520,100 Z");
-  }
-  /* Orange dot leaves: right wall pushes slightly inward again */
-  72% {
-    d: path("M 520,100 C 570,100 575,140 575,200 C 575,260 570,300 520,300 C 470,300 460,250 460,200 C 460,150 470,100 520,100 Z");
-  }
-}
 
 
 
