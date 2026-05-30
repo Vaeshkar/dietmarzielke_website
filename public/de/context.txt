@@ -17,15 +17,45 @@ leistungen.title = Leistungen
 
 leistungen.cards[0].title = Gesundheit & Behörden
 leistungen.cards[0].desc = Unterstützung bei medizinischen Entscheidungen und im Umgang mit Ämtern und Krankenkassen.
+leistungen.cards[0].detailTitle = Gesundheit & Behörden
+leistungen.cards[0].detailSubtitle = Vertretung gesundheitlicher Interessen unter Wahrung des Selbstbestimmungsrechts.
+leistungen.cards[0].detailDesc = Als Ihr rechtlicher Betreuer vertrete ich Ihre gesundheitlichen Belange stets unter Wahrung Ihres Willens und Ihrer Wünsche.
+leistungen.cards[0].detailBullet1 = Einwilligung in Behandlungen: Gewissenhafte Prüfung und Genehmigung medizinischer Eingriffe und Therapien auf Basis vorliegender Patientenverfügungen.
+leistungen.cards[0].detailBullet2 = Medizinische Koordination: Organisation von Arztbesuchen, Reha- und Krankenhausaufenthalten sowie enge Abstimmung mit behandelnden Ärzten.
+leistungen.cards[0].detailBullet3 = Pflegeleistungen: Beantragung, Organisation und Überwachung ambulanter Pflegedienste oder stationärer Unterbringung.
+leistungen.cards[0].detailBullet4 = Kassen-Kommunikation: Abwicklung des Schriftverkehrs mit Kranken- und Pflegekassen zur Durchsetzung berechtigter Leistungsansprüche.
+leistungen.cards[0].detailNote = Rechtlicher Hinweis: Schwerwiegende medizinische Eingriffe sowie freiheitsentziehende Maßnahmen erfordern eine vorherige betreuungsgerichtliche Genehmigung.
 
 leistungen.cards[1].title = Vermögenssorge
 leistungen.cards[1].desc = Verantwortungsvoller Umgang mit Einkommen, Vermögen und Zahlungsverkehr.
+leistungen.cards[1].detailTitle = Vermögenssorge
+leistungen.cards[1].detailSubtitle = Ordnungsgemäße und transparente Verwaltung Ihrer finanziellen Mittel.
+leistungen.cards[1].detailDesc = Ich verwalte Ihre Finanzen treuhänderisch und sorge dafür, dass alle finanziellen Angelegenheiten strukturiert und transparent geregelt sind.
+leistungen.cards[1].detailBullet1 = Kontoführung & Zahlungsverkehr: Fristgerechte Abwicklung aller regelmäßigen Ausgaben wie Miete, Strom, Gas und Versicherungen.
+leistungen.cards[1].detailBullet2 = Einkommenssicherung: Beantragung von Renten, Bürgergeld, Wohngeld, Grundsicherung und Prüfung aller eingehenden Bescheide.
+leistungen.cards[1].detailBullet3 = Schuldenregulierung: Kontaktaufnahme mit Gläubigern, Verhandlung von Ratenzahlungen und Koordination mit Schuldnerberatungsstellen.
+leistungen.cards[1].detailBullet4 = Rechnungslegung: Erstellung des gesetzlich vorgeschriebenen Vermögensverzeichnisses und jährliche Rechnungslegung gegenüber dem Betreuungsgericht.
 
 leistungen.cards[2].title = Wohn- und Alltagsangelegenheiten
 leistungen.cards[2].desc = Organisation des Wohnumfelds und Unterstützung im täglichen Leben.
+leistungen.cards[2].detailTitle = Wohn- und Alltagsangelegenheiten
+leistungen.cards[2].detailSubtitle = Sicherstellung einer stabilen, würdevollen und den Wünschen entsprechenden Wohnsituation.
+leistungen.cards[2].detailDesc = Ich unterstütze Sie dabei, Ihr Wohnumfeld sicher und angenehm zu gestalten oder passe es an veränderte Lebensumstände an.
+leistungen.cards[2].detailBullet1 = Mietvertragsangelegenheiten: Vertretung gegenüber Vermietern und Hausverwaltungen; Überwachung der Mietzahlungen und Nebenkostenabrechnungen.
+leistungen.cards[2].detailBullet2 = Wohnungsunterhalt: Organisation notwendiger Reparaturen, Renovierungen oder Hilfen für den barrierefreien Umbau Ihrer Wohnung.
+leistungen.cards[2].detailBullet3 = Unterbringungswechsel: Begleitung bei der Auswahl und dem Umzug in betreutes Wohnen, Wohngemeinschaften oder Pflegeheime.
+leistungen.cards[2].detailBullet4 = Post- & Schriftverkehr: Sichtung, Sortierung und Beantwortung aller behördlichen und alltäglichen Posteingänge.
+leistungen.cards[2].detailNote = Rechtlicher Hinweis: Die Kündigung einer vom Betreuten selbst genutzten Wohnung bedarf der ausdrücklichen Genehmigung des Betreuungsgerichts.
 
 leistungen.cards[3].title = Vertretung & Kommunikation
 leistungen.cards[3].desc = Vertretung gegenüber Behörden, Institutionen und anderen Beteiligten.
+leistungen.cards[3].detailTitle = Vertretung & Kommunikation
+leistungen.cards[3].detailSubtitle = Ihre rechtliche Stimme gegenüber Ämtern, Behörden und weiteren Beteiligten.
+leistungen.cards[3].detailDesc = Ich übernehme den formalen Kontakt zu Institutionen und stelle sicher, dass Ihre gesetzlichen Rechte umfassend gewahrt werden.
+leistungen.cards[3].detailBullet1 = Behördenangelegenheiten: Ausfüllen von Anträgen, Vertretung vor Ämtern (z. B. Versorgungsamt, Sozialamt) und Fristenüberwachung.
+leistungen.cards[3].detailBullet2 = Gerichtsverfahren: Vertretung Ihrer Interessen in zivilrechtlichen, sozialrechtlichen oder betreuungsrechtlichen Verfahren.
+leistungen.cards[3].detailBullet3 = Angehörigenarbeit: Transparente Abstimmung und partnerschaftliche Zusammenarbeit mit Familienmitgliedern und Betreuungsvereinen.
+leistungen.cards[3].detailBullet4 = Netzwerkkoordination: Schnittstelle zwischen Pflegediensten, Ärzten, Therapeuten, rechtlichen Beiständen und Ämtern.
 
 # Für wen?
 fuerWen.title = Für wen?

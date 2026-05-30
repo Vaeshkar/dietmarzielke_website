@@ -543,6 +543,7 @@
   let activeFaq = $state(null);
   let isMobileMenuOpen = $state(false);
   let openModal = $state(null); // 'impressum' | 'datenschutz' | null
+  let selectedServiceIndex = $state(null);
 
   // Form Fields
   let name = $state('');
@@ -797,7 +798,7 @@
 
       <div class="leistungen-grid">
         <!-- Card 1 -->
-        <div class="service-card reveal" use:tilt>
+        <div class="service-card reveal" use:tilt onclick={() => selectedServiceIndex = 0} onkeydown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); selectedServiceIndex = 0; } }} role="button" tabindex="0" aria-label="Leistungsdetails für {content.leistungen.cards[0].title} anzeigen">
           <div class="service-icon-wrapper">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
@@ -811,7 +812,7 @@
         </div>
 
         <!-- Card 2 -->
-        <div class="service-card reveal reveal-delay-1" use:tilt>
+        <div class="service-card reveal reveal-delay-1" use:tilt onclick={() => selectedServiceIndex = 1} onkeydown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); selectedServiceIndex = 1; } }} role="button" tabindex="0" aria-label="Leistungsdetails für {content.leistungen.cards[1].title} anzeigen">
           <div class="service-icon-wrapper">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z" />
@@ -826,7 +827,7 @@
         </div>
 
         <!-- Card 3 -->
-        <div class="service-card reveal reveal-delay-2" use:tilt>
+        <div class="service-card reveal reveal-delay-2" use:tilt onclick={() => selectedServiceIndex = 2} onkeydown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); selectedServiceIndex = 2; } }} role="button" tabindex="0" aria-label="Leistungsdetails für {content.leistungen.cards[2].title} anzeigen">
           <div class="service-icon-wrapper">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
@@ -840,7 +841,7 @@
         </div>
 
         <!-- Card 4 -->
-        <div class="service-card reveal reveal-delay-3" use:tilt>
+        <div class="service-card reveal reveal-delay-3" use:tilt onclick={() => selectedServiceIndex = 3} onkeydown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); selectedServiceIndex = 3; } }} role="button" tabindex="0" aria-label="Leistungsdetails für {content.leistungen.cards[3].title} anzeigen">
           <div class="service-icon-wrapper">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
@@ -1375,6 +1376,87 @@
         <p>Wenn Sie uns per Kontaktformular Anfragen zukommen lassen, werden Ihre Angaben aus dem Anfrageformular inklusive der von Ihnen dort angegebenen Kontaktdaten zwecks Bearbeitung der Anfrage und für den Fall von Anschlussfragen bei uns gespeichert. Diese Daten geben wir nicht ohne Ihre Einwilligung weiter.</p>
         <p>Die Verarbeitung dieser Daten erfolgt auf Grundlage von Art. 6 Abs. 1 lit. b DSGVO, sofern Ihre Anfrage mit der Erfüllung eines Vertrags zusammenhängt oder zur Durchführung vorvertraglicher Maßnahmen erforderlich ist. In allen übrigen Fällen beruht die Verarbeitung auf unserem berechtigten Interesse an der effektiven Bearbeitung der an uns gerichteten Anfragen (Art. 6 Abs. 1 lit. f DSGVO) oder auf Ihrer Einwilligung (Art. 6 Abs. 1 lit. a DSGVO) falls diese abgefragt wurde.</p>
         <p>Die von Ihnen im Kontaktformular eingegebenen Daten verbleiben bei uns, bis Sie uns zur Löschung auffordern, Ihre Einwilligung zur Speicherung widerrufen oder der Zweck für die Datenspeicherung entfällt (z. B. nach abgeschlossener Bearbeitung Ihrer Anfrage). Zwingende gesetzliche Bestimmungen – insbesondere Aufbewahrungsfristen – bleiben unberührt.</p>
+      </div>
+    </div>
+  </div>
+{/if}
+
+{#if selectedServiceIndex !== null}
+  {@const service = content.leistungen.cards[selectedServiceIndex]}
+  <div class="drawer-overlay" onclick={() => selectedServiceIndex = null} onkeydown={(e) => { if (e.key === 'Escape' || e.key === 'Enter') selectedServiceIndex = null; }} role="button" tabindex="-1" aria-label="Schließen" transition:fade={{ duration: 150 }}>
+    <div class="drawer-container" onclick={(e) => e.stopPropagation()} onkeydown={(e) => e.stopPropagation()} role="dialog" aria-modal="true" tabindex="-1">
+      <button class="drawer-close-btn" onclick={() => selectedServiceIndex = null} aria-label="Schließen">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+      
+      <div class="drawer-content">
+        <span class="drawer-badge">Leistung</span>
+        <h2>{service.detailTitle || service.title}</h2>
+        {#if service.detailSubtitle}
+          <p class="drawer-subtitle">{service.detailSubtitle}</p>
+        {/if}
+        <div class="drawer-separator"></div>
+        
+        {#if service.detailDesc}
+          <p class="drawer-desc">{service.detailDesc}</p>
+        {:else}
+          <p class="drawer-desc">{service.desc}</p>
+        {/if}
+        
+        <ul class="drawer-bullets">
+          {#if service.detailBullet1}
+            <li>
+              <svg class="bullet-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
+              </svg>
+              <span>{service.detailBullet1}</span>
+            </li>
+          {/if}
+          {#if service.detailBullet2}
+            <li>
+              <svg class="bullet-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
+              </svg>
+              <span>{service.detailBullet2}</span>
+            </li>
+          {/if}
+          {#if service.detailBullet3}
+            <li>
+              <svg class="bullet-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
+              </svg>
+              <span>{service.detailBullet3}</span>
+            </li>
+          {/if}
+          {#if service.detailBullet4}
+            <li>
+              <svg class="bullet-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
+              </svg>
+              <span>{service.detailBullet4}</span>
+            </li>
+          {/if}
+        </ul>
+        
+        {#if service.detailNote}
+          <div class="drawer-note-box">
+            <svg class="drawer-note-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <p class="drawer-note">{service.detailNote}</p>
+          </div>
+        {/if}
+        
+        <div class="drawer-actions">
+          <button class="btn btn-primary" onclick={() => { selectedServiceIndex = null; handleNavClick('kontakt'); }}>
+            Kontakt aufnehmen
+            <svg class="btn-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+            </svg>
+          </button>
+        </div>
       </div>
     </div>
   </div>
