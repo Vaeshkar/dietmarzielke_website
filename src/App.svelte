@@ -1,5 +1,209 @@
 <script>
   import { fade } from 'svelte/transition';
+  import { onMount } from 'svelte';
+
+  let content = $state({
+    hero: {
+      title: "Rechtliche Betreuung mit Klarheit, Ruhe und Verlässlichkeit.",
+      description: "Ich unterstütze und vertrete Menschen in rechtlichen und organisatorischen Angelegenheiten – persönlich, sorgfältig und auf Augenhöhe."
+    },
+    leistungen: {
+      title: "Leistungen",
+      cards: [
+        {
+          title: "Gesundheit & Behörden",
+          desc: "Unterstützung bei medizinischen Entscheidungen und im Umgang mit Ämtern und Krankenkassen."
+        },
+        {
+          title: "Vermögenssorge",
+          desc: "Verantwortungsvoller Umgang mit Einkommen, Vermögen und Zahlungsverkehr."
+        },
+        {
+          title: "Wohn- und Alltagsangelegenheiten",
+          desc: "Organisation des Wohnumfelds und Unterstützung im täglichen Leben."
+        },
+        {
+          title: "Vertretung & Kommunikation",
+          desc: "Vertretung gegenüber Behörden, Institutionen und anderen Beteiligten."
+        }
+      ]
+    },
+    fuerWen: {
+      title: "Für wen?",
+      subtitle: "Meine Betreuung orientiert sich an den Bedürfnissen aller Beteiligten.",
+      cards: [
+        {
+          title: "Betroffene",
+          desc: "Ich begleite Sie verlässlich und respektvoll in allen rechtlichen und organisatorischen Fragen."
+        },
+        {
+          title: "Angehörige",
+          desc: "Ich entlaste, informiere und arbeite transparent mit Ihnen zusammen."
+        },
+        {
+          title: "Gerichte / Institutionen",
+          desc: "Ich übernehme Betreuungen mit Sorgfalt, Verlässlichkeit und klarer Kommunikation."
+        }
+      ]
+    },
+    ueberMich: {
+      title: "Über mich",
+      subtitle: "Dietmar Zielke",
+      tagline: "Rechtlicher Betreuer in Hamburg & der Metropolregion",
+      p1: "Als staatlich anerkannter rechtlicher Betreuer unterstütze ich Menschen dabei, ihr selbstbestimmtes Leben bestmöglich fortzuführen, wenn organisatorische oder rechtliche Hürden zu groß werden. Mit Empathie, Klarheit und Fachkompetenz stehe ich Ihnen und Ihren Angehörigen zur Seite.",
+      p2: "Mein Ansatz beruht auf enger, transparenter Kommunikation und absoluter Zuverlässigkeit. Ich vertrete Ihre Interessen gegenüber Behörden, koordiniere gesundheitliche Belange und verwalte Vermögenswerte mit größter Sorgfalt – stets auf Augenhöhe und mit Respekt vor Ihrer Lebensleistung.",
+      bullets: [
+        "Persönliche & verlässliche Begleitung im Alltag",
+        "Sorgfältige Vertretung in allen gerichtlichen Aufgabenbereichen",
+        "Enge & vertrauensvolle Abstimmung mit Ärzten, Pflegediensten & Behörden"
+      ]
+    },
+    soArbeiteIch: {
+      title: "So arbeite ich",
+      steps: [
+        {
+          number: "01",
+          title: "Kennenlernen",
+          desc: "Wir besprechen die Situation und klären alle wichtigen Fragen. Vertraulich und auf Augenhöhe."
+        },
+        {
+          number: "02",
+          title: "Planen & Handeln",
+          desc: "Ich übernehme die Aufgaben, koordiniere Notwendiges und halte Sie regelmäßig informiert."
+        },
+        {
+          number: "03",
+          title: "Begleiten & Entlasten",
+          desc: "Ich bleibe ansprechbar und sorge für Kontinuität, Ordnung und Verlässlichkeit."
+        }
+      ]
+    },
+    faq: {
+      title: "Was ist rechtliche Betreuung?",
+      explanation: "Die rechtliche Betreuung ist eine gesetzliche Unterstützung für Menschen, die ihre Angelegenheiten ganz oder teilweise nicht mehr selbst regeln können. Als rechtlicher Betreuer vertrete ich die Interessen der betreuten Person und entscheide nur in den Bereichen, für die ich bestellt wurde. Ziel ist es, Selbstbestimmung zu erhalten und Überforderung zu vermeiden.",
+      items: [
+        {
+          question: "Wer bestellt einen rechtlichen Betreuer?",
+          answer: "Ein rechtlicher Betreuer wird vom zuständigen Betreuungsgericht bestellt. Dies geschieht entweder auf eigenen Antrag der betroffenen Person oder von Amts wegen (z. B. auf Anregung von Angehörigen, Krankenhäusern oder Behörden), wenn jemand aufgrund einer psychischen Krankheit oder einer körperlichen, geistigen oder seelischen Behinderung seine Angelegenheiten ganz oder teilweise nicht regeln kann."
+        },
+        {
+          question: "Welche Aufgaben hat ein rechtlicher Betreuer?",
+          answer: "Die Aufgabenbereiche werden vom Gericht individuell festgelegt (z.B. Gesundheitssorge, Vermögenssorge, Vertretung gegenüber Behörden, Wohnungsangelegenheiten). Der Betreuer unterstützt die betreute Person dabei, ihr Leben nach den eigenen Wünschen zu gestalten, und vertritt sie im erforderlichen Umfang rechtlich."
+        },
+        {
+          question: "Was kostet eine rechtliche Betreuung?",
+          answer: "Die Vergütung und Auslagen des Betreuers werden gesetzlich geregelt. Wenn die betreute Person über ausreichendes Vermögen verfügt (oberhalb des Schonvermögens von derzeit 10.000 €), zahlt sie die Kosten selbst. Andernfalls übernimmt die Staatskasse die Vergütung."
+        },
+        {
+          question: "Kann ich Wünsche oder Vollmachten festlegen?",
+          answer: "Ja. Mit einer Vorsorgevollmacht oder einer Betreuungsverfügung können Sie im Vorfeld selbst bestimmen, wer im Ernstfall Ihre Interessen vertreten soll und welche Wünsche bei der Betreuung berücksichtigt werden müssen. Dies stärkt Ihre Selbstbestimmung maßgeblich."
+        }
+      ]
+    },
+    kontakt: {
+      title: "Kontakt",
+      phone: "0152 525 85 620",
+      phoneRaw: "015252585620",
+      email: "zielke@betreuungen-zielke.de",
+      web: "www.betreuungen-zielke.de",
+      postbox: "Postfach in Hamburg",
+      sloganTitle: "Ich bin gerne für Sie da.",
+      sloganDesc: "Schreiben Sie mir oder rufen Sie an. Ich melde mich zeitnah bei Ihnen.",
+      hoursLabel: "Bürozeiten:",
+      hoursVal: "Mo – Fr   9:00 – 17:00 Uhr"
+    },
+    legal: {
+      impressum: {
+        address: "Dietmar Zielke\nRechtliche Betreuungen\nPostfach 10 06 06\n20004 Hamburg",
+        fax: "040-35 671 480",
+        taxNumber: "46/277/04580",
+        ustId: "84 531 067 933",
+        iban: "DE21 1101 0101 5806 8968 70",
+        bic: "SOBKDEB2XXX"
+      }
+    }
+  });
+
+  let originalContent = null; // Backup for cancel button
+
+  // Fetch updated content from server on mount
+  onMount(async () => {
+    try {
+      const response = await fetch('/content.json');
+      if (response.ok) {
+        const fetched = await response.json();
+        // Merge with fallback to ensure no keys are missing
+        content = { ...content, ...fetched };
+      }
+    } catch (e) {
+      console.warn("Failed to load dynamic content.json, using fallback", e);
+    }
+  });
+
+  // CMS state variables
+  let isEditMode = $state(false);
+  let showPasswordModal = $state(false);
+  let cmsPassword = $state('');
+  let cmsStatus = $state(null); // 'success' | 'error' | 'saving'
+  let cmsMessage = $state('');
+  let logoClickCount = $state(0);
+
+  function handleLogoClick() {
+    logoClickCount++;
+    if (logoClickCount >= 5) {
+      logoClickCount = 0;
+      showPasswordModal = true;
+    }
+  }
+
+  function startEditing() {
+    if (cmsPassword === '') {
+      cmsStatus = 'error';
+      cmsMessage = 'Passwort darf nicht leer sein.';
+      return;
+    }
+    originalContent = JSON.parse(JSON.stringify(content));
+    isEditMode = true;
+    showPasswordModal = false;
+    cmsStatus = null;
+    cmsMessage = '';
+  }
+
+  function cancelEditing() {
+    if (originalContent) {
+      content = JSON.parse(JSON.stringify(originalContent));
+    }
+    isEditMode = false;
+    cmsStatus = null;
+    cmsMessage = '';
+  }
+
+  async function saveEditing() {
+    cmsStatus = 'saving';
+    cmsMessage = 'Speichert...';
+    try {
+      const response = await fetch('/save_content.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          password: cmsPassword,
+          content: content
+        })
+      });
+      const result = await response.json();
+      if (response.ok && result.success) {
+        cmsStatus = 'success';
+        cmsMessage = result.message;
+        isEditMode = false;
+      } else {
+        cmsStatus = 'error';
+        cmsMessage = result.message || 'Verbindungsfehler zum Server.';
+      }
+    } catch (e) {
+      cmsStatus = 'error';
+      cmsMessage = 'Fehler beim Speichern der Daten.';
+    }
+  }
 
   // IntersectionObserver for scroll animations
   $effect(() => {
@@ -420,8 +624,8 @@
   <section id="start" class="hero-section section-spacing">
     <div class="container hero-grid">
       <div class="hero-content reveal">
-        <h1>Rechtliche Betreuung mit Klarheit, Ruhe und Verlässlichkeit.</h1>
-        <p>Ich unterstütze und vertrete Menschen in rechtlichen und organisatorischen Angelegenheiten – persönlich, sorgfältig und auf Augenhöhe.</p>
+        <h1 contenteditable="true" class:cms-editable={isEditMode} bind:textContent={content.hero.title}></h1>
+        <p contenteditable="true" class:cms-editable={isEditMode} bind:textContent={content.hero.description}></p>
         <div class="hero-actions">
           <a href="#kontakt" class="btn btn-primary" onclick={(e) => { e.preventDefault(); handleNavClick('kontakt'); }}>
             Kontakt aufnehmen 
@@ -482,7 +686,7 @@
   <section id="leistungen" class="section-spacing">
     <div class="container">
       <div class="section-header reveal">
-        <h2 class="section-title">Leistungen</h2>
+        <h2 class="section-title" contenteditable="true" class:cms-editable={isEditMode} bind:textContent={content.leistungen.title}></h2>
       </div>
 
       <div class="leistungen-grid">
@@ -493,8 +697,8 @@
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
             </svg>
           </div>
-          <h3>Gesundheit & Behörden</h3>
-          <p>Unterstützung bei medizinischen Entscheidungen und im Umgang mit Ämtern und Krankenkassen.</p>
+          <h3 contenteditable="true" class:cms-editable={isEditMode} bind:textContent={content.leistungen.cards[0].title}></h3>
+          <p contenteditable="true" class:cms-editable={isEditMode} bind:textContent={content.leistungen.cards[0].desc}></p>
           <svg class="service-arrow" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
           </svg>
@@ -508,8 +712,8 @@
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z" />
             </svg>
           </div>
-          <h3>Vermögenssorge</h3>
-          <p>Verantwortungsvoller Umgang mit Einkommen, Vermögen und Zahlungsverkehr.</p>
+          <h3 contenteditable="true" class:cms-editable={isEditMode} bind:textContent={content.leistungen.cards[1].title}></h3>
+          <p contenteditable="true" class:cms-editable={isEditMode} bind:textContent={content.leistungen.cards[1].desc}></p>
           <svg class="service-arrow" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
           </svg>
@@ -522,8 +726,8 @@
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
             </svg>
           </div>
-          <h3>Wohn- und Alltagsangelegenheiten</h3>
-          <p>Organisation des Wohnumfelds und Unterstützung im täglichen Leben.</p>
+          <h3 contenteditable="true" class:cms-editable={isEditMode} bind:textContent={content.leistungen.cards[2].title}></h3>
+          <p contenteditable="true" class:cms-editable={isEditMode} bind:textContent={content.leistungen.cards[2].desc}></p>
           <svg class="service-arrow" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
           </svg>
@@ -536,8 +740,8 @@
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
             </svg>
           </div>
-          <h3>Vertretung & Kommunikation</h3>
-          <p>Vertretung gegenüber Behörden, Institutionen und anderen Beteiligten.</p>
+          <h3 contenteditable="true" class:cms-editable={isEditMode} bind:textContent={content.leistungen.cards[3].title}></h3>
+          <p contenteditable="true" class:cms-editable={isEditMode} bind:textContent={content.leistungen.cards[3].desc}></p>
           <svg class="service-arrow" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
           </svg>
@@ -601,8 +805,8 @@
   <section id="fuer-wen" class="section-spacing">
     <div class="container">
       <div class="section-header reveal">
-        <h2 class="section-title">Für wen?</h2>
-        <p class="section-subtitle">Meine Betreuung orientiert sich an den Bedürfnissen aller Beteiligten.</p>
+        <h2 class="section-title" contenteditable="true" class:cms-editable={isEditMode} bind:textContent={content.fuerWen.title}></h2>
+        <p class="section-subtitle" contenteditable="true" class:cms-editable={isEditMode} bind:textContent={content.fuerWen.subtitle}></p>
       </div>
 
       <div class="for-whom-grid">
@@ -614,8 +818,8 @@
             </svg>
           </div>
           <div class="whom-info">
-            <h3>Betroffene</h3>
-            <p>Ich begleite Sie verlässlich und respektvoll in allen rechtlichen und organisatorischen Fragen.</p>
+            <h3 contenteditable="true" class:cms-editable={isEditMode} bind:textContent={content.fuerWen.cards[0].title}></h3>
+            <p contenteditable="true" class:cms-editable={isEditMode} bind:textContent={content.fuerWen.cards[0].desc}></p>
           </div>
         </div>
 
@@ -627,8 +831,8 @@
             </svg>
           </div>
           <div class="whom-info">
-            <h3>Angehörige</h3>
-            <p>Ich entlaste, informiere und arbeite transparent mit Ihnen zusammen.</p>
+            <h3 contenteditable="true" class:cms-editable={isEditMode} bind:textContent={content.fuerWen.cards[1].title}></h3>
+            <p contenteditable="true" class:cms-editable={isEditMode} bind:textContent={content.fuerWen.cards[1].desc}></p>
           </div>
         </div>
 
@@ -640,8 +844,8 @@
             </svg>
           </div>
           <div class="whom-info">
-            <h3>Gerichte / Institutionen</h3>
-            <p>Ich übernehme Betreuungen mit Sorgfalt, Verlässlichkeit und klarer Kommunikation.</p>
+            <h3 contenteditable="true" class:cms-editable={isEditMode} bind:textContent={content.fuerWen.cards[2].title}></h3>
+            <p contenteditable="true" class:cms-editable={isEditMode} bind:textContent={content.fuerWen.cards[2].desc}></p>
           </div>
         </div>
       </div>
@@ -659,32 +863,31 @@
         </div>
       </div>
       <div class="about-content reveal reveal-delay-1">
-        <h2 class="section-title">Über mich</h2>
-        <h3 class="about-subtitle">Dietmar Zielke</h3>
-        <p class="about-tagline">Rechtlicher Betreuer in Hamburg & der Metropolregion</p>
+        <h2 class="section-title" contenteditable="true" class:cms-editable={isEditMode} bind:textContent={content.ueberMich.title}></h2>
+        <h3 class="about-subtitle" contenteditable="true" class:cms-editable={isEditMode} bind:textContent={content.ueberMich.subtitle}></h3>
+        <p class="about-tagline" contenteditable="true" class:cms-editable={isEditMode} bind:textContent={content.ueberMich.tagline}></p>
         
-        <p>Als staatlich anerkannter rechtlicher Betreuer unterstütze ich Menschen dabei, ihr selbstbestimmtes Leben bestmöglich fortzuführen, wenn organisatorische oder rechtliche Hürden zu groß werden. Mit Empathie, Klarheit und Fachkompetenz stehe ich Ihnen und Ihren Angehörigen zur Seite.</p>
-        
-        <p>Mein Ansatz beruht auf enger, transparenter Kommunikation und absoluter Zuverlässigkeit. Ich vertrete Ihre Interessen gegenüber Behörden, koordiniere gesundheitliche Belange und verwalte Vermögenswerte mit größter Sorgfalt – stets auf Augenhöhe und mit Respekt vor Ihrer Lebensleistung.</p>
+        <p contenteditable="true" class:cms-editable={isEditMode} bind:textContent={content.ueberMich.p1}></p>
+        <p contenteditable="true" class:cms-editable={isEditMode} bind:textContent={content.ueberMich.p2}></p>
         
         <ul class="about-bullets">
           <li>
             <svg class="bullet-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
             </svg>
-            Persönliche & verlässliche Begleitung im Alltag
+            <span contenteditable="true" class:cms-editable={isEditMode} bind:textContent={content.ueberMich.bullets[0]}></span>
           </li>
           <li>
             <svg class="bullet-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
             </svg>
-            Sorgfältige Vertretung in allen gerichtlichen Aufgabenbereichen
+            <span contenteditable="true" class:cms-editable={isEditMode} bind:textContent={content.ueberMich.bullets[1]}></span>
           </li>
           <li>
             <svg class="bullet-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
             </svg>
-            Enge & vertrauensvolle Abstimmung mit Ärzten, Pflegediensten & Behörden
+            <span contenteditable="true" class:cms-editable={isEditMode} bind:textContent={content.ueberMich.bullets[2]}></span>
           </li>
         </ul>
       </div>
@@ -695,7 +898,7 @@
   <section id="so-arbeite-ich" class="section-spacing">
     <div class="container">
       <div class="section-header reveal">
-        <h2 class="section-title">So arbeite ich</h2>
+        <h2 class="section-title" contenteditable="true" class:cms-editable={isEditMode} bind:textContent={content.soArbeiteIch.title}></h2>
       </div>
 
       <div class="timeline-row">
@@ -703,9 +906,9 @@
         <div class="timeline-step reveal">
           <div class="timeline-step-header">
             <span class="timeline-number">01</span>
-            <h3>Kennenlernen</h3>
+            <h3 contenteditable="true" class:cms-editable={isEditMode} bind:textContent={content.soArbeiteIch.steps[0].title}></h3>
           </div>
-          <p>Wir besprechen die Situation und klären alle wichtigen Fragen. Vertraulich und auf Augenhöhe.</p>
+          <p contenteditable="true" class:cms-editable={isEditMode} bind:textContent={content.soArbeiteIch.steps[0].desc}></p>
         </div>
 
         <!-- Separator Chevron -->
@@ -717,9 +920,9 @@
         <div class="timeline-step reveal reveal-delay-1">
           <div class="timeline-step-header">
             <span class="timeline-number">02</span>
-            <h3>Planen & Handeln</h3>
+            <h3 contenteditable="true" class:cms-editable={isEditMode} bind:textContent={content.soArbeiteIch.steps[1].title}></h3>
           </div>
-          <p>Ich übernehme die Aufgaben, koordiniere Notwendiges und halte Sie regelmäßig informiert.</p>
+          <p contenteditable="true" class:cms-editable={isEditMode} bind:textContent={content.soArbeiteIch.steps[1].desc}></p>
         </div>
 
         <!-- Separator Chevron -->
@@ -731,9 +934,9 @@
         <div class="timeline-step reveal reveal-delay-2">
           <div class="timeline-step-header">
             <span class="timeline-number">03</span>
-            <h3>Begleiten & Entlasten</h3>
+            <h3 contenteditable="true" class:cms-editable={isEditMode} bind:textContent={content.soArbeiteIch.steps[2].title}></h3>
           </div>
-          <p>Ich bleibe ansprechbar und sorge für Kontinuität, Ordnung und Verlässlichkeit.</p>
+          <p contenteditable="true" class:cms-editable={isEditMode} bind:textContent={content.soArbeiteIch.steps[2].desc}></p>
         </div>
       </div>
     </div>
@@ -786,69 +989,67 @@
       </svg>
     </div>
   </section>
-
-  <!-- FAQ Section (Was ist rechtliche Betreuung?) -->
   <section id="faq" class="section-spacing">
     <div class="container">
       <div class="section-header reveal">
-        <h2 class="section-title">Was ist rechtliche Betreuung?</h2>
+        <h2 class="section-title" contenteditable="true" class:cms-editable={isEditMode} bind:textContent={content.faq.title}></h2>
       </div>
 
       <div class="faq-grid">
         <div class="faq-explanation reveal">
-          <p>Die rechtliche Betreuung ist eine gesetzliche Unterstützung für Menschen, die ihre Angelegenheiten ganz oder teilweise nicht mehr selbst regeln können. Als rechtlicher Betreuer vertrete ich die Interessen der betreuten Person und entscheide nur in den Bereichen, für die ich bestellt wurde. Ziel ist es, Selbstbestimmung zu erhalten und Überforderung zu vermeiden.</p>
+          <p contenteditable="true" class:cms-editable={isEditMode} bind:textContent={content.faq.explanation}></p>
         </div>
 
         <div class="faq-list reveal reveal-delay-1">
           <!-- FAQ 1 -->
           <div class="faq-item {activeFaq === 0 ? 'active' : ''}">
             <button class="faq-trigger" onclick={() => toggleFaq(0)} aria-expanded={activeFaq === 0}>
-              Wer bestellt einen rechtlichen Betreuer?
+              <span contenteditable="true" class:cms-editable={isEditMode} bind:textContent={content.faq.items[0].question}></span>
               <svg class="faq-trigger-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7" />
               </svg>
             </button>
             <div class="faq-content" style={activeFaq === 0 ? 'max-height: 200px;' : 'max-height: 0;'}>
-              <p>Ein rechtlicher Betreuer wird vom zuständigen Betreuungsgericht bestellt. Dies geschieht entweder auf eigenen Antrag der betroffenen Person oder von Amts wegen (z. B. auf Anregung von Angehörigen, Krankenhäusern oder Behörden), wenn jemand aufgrund einer psychischen Krankheit oder einer körperlichen, geistigen oder seelischen Behinderung seine Angelegenheiten ganz oder teilweise nicht regeln kann.</p>
+              <p contenteditable="true" class:cms-editable={isEditMode} bind:textContent={content.faq.items[0].answer}></p>
             </div>
           </div>
 
           <!-- FAQ 2 -->
           <div class="faq-item {activeFaq === 1 ? 'active' : ''}">
             <button class="faq-trigger" onclick={() => toggleFaq(1)} aria-expanded={activeFaq === 1}>
-              Welche Aufgaben hat ein rechtlicher Betreuer?
+              <span contenteditable="true" class:cms-editable={isEditMode} bind:textContent={content.faq.items[1].question}></span>
               <svg class="faq-trigger-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7" />
               </svg>
             </button>
             <div class="faq-content" style={activeFaq === 1 ? 'max-height: 200px;' : 'max-height: 0;'}>
-              <p>Die Aufgabenbereiche werden vom Gericht individuell festgelegt (z.B. Gesundheitssorge, Vermögenssorge, Vertretung gegenüber Behörden, Wohnungsangelegenheiten). Der Betreuer unterstützt die betreute Person dabei, ihr Leben nach den eigenen Wünschen zu gestalten, und vertritt sie im erforderlichen Umfang rechtlich.</p>
+              <p contenteditable="true" class:cms-editable={isEditMode} bind:textContent={content.faq.items[1].answer}></p>
             </div>
           </div>
 
           <!-- FAQ 3 -->
           <div class="faq-item {activeFaq === 2 ? 'active' : ''}">
             <button class="faq-trigger" onclick={() => toggleFaq(2)} aria-expanded={activeFaq === 2}>
-              Was kostet eine rechtliche Betreuung?
+              <span contenteditable="true" class:cms-editable={isEditMode} bind:textContent={content.faq.items[2].question}></span>
               <svg class="faq-trigger-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7" />
               </svg>
             </button>
             <div class="faq-content" style={activeFaq === 2 ? 'max-height: 200px;' : 'max-height: 0;'}>
-              <p>Die Vergütung und Auslagen des Betreuers werden gesetzlich geregelt. Wenn die betreute Person über ausreichendes Vermögen verfügt (oberhalb des Schonvermögens von derzeit 10.000 €), zahlt sie die Kosten selbst. Andernfalls übernimmt die Staatskasse die Vergütung.</p>
+              <p contenteditable="true" class:cms-editable={isEditMode} bind:textContent={content.faq.items[2].answer}></p>
             </div>
           </div>
 
           <!-- FAQ 4 -->
           <div class="faq-item {activeFaq === 3 ? 'active' : ''}">
             <button class="faq-trigger" onclick={() => toggleFaq(3)} aria-expanded={activeFaq === 3}>
-              Kann ich Wünsche oder Vollmachten festlegen?
+              <span contenteditable="true" class:cms-editable={isEditMode} bind:textContent={content.faq.items[3].question}></span>
               <svg class="faq-trigger-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7" />
               </svg>
             </button>
             <div class="faq-content" style={activeFaq === 3 ? 'max-height: 200px;' : 'max-height: 0;'}>
-              <p>Ja. Mit einer Vorsorgevollmacht oder einer Betreuungsverfügung können Sie im Vorfeld selbst bestimmen, wer im Ernstfall Ihre Interessen vertreten soll und welche Wünsche bei der Betreuung berücksichtigt werden müssen. Dies stärkt Ihre Selbstbestimmung maßgeblich.</p>
+              <p contenteditable="true" class:cms-editable={isEditMode} bind:textContent={content.faq.items[3].answer}></p>
             </div>
           </div>
         </div>
@@ -861,7 +1062,7 @@
     <div class="container kontakt-grid">
       <!-- Column 1 -->
       <div class="contact-column-left reveal">
-        <h2 class="section-title">Kontakt</h2>
+        <h2 class="section-title" contenteditable="true" class:cms-editable={isEditMode} bind:textContent={content.kontakt.title}></h2>
         <div class="contact-detail-list">
           <!-- Phone -->
           <div class="contact-detail-item">
@@ -869,7 +1070,7 @@
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.94.725l.548 2.2a1 1 0 01-.321.988l-1.305.98a10.582 10.582 0 004.872 4.872l.98-1.305a1 1 0 01.988-.321l2.2.548a1 1 0 01.725.94V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
             </svg>
             <div class="contact-detail-text">
-              <p><a href="tel:015252585620" class="hover:underline">0152 525 85 620</a></p>
+              <p><a href="tel:{content.kontakt.phoneRaw}" class="hover:underline" contenteditable="true" class:cms-editable={isEditMode} bind:textContent={content.kontakt.phone}></a></p>
             </div>
           </div>
 
@@ -879,7 +1080,7 @@
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
             </svg>
             <div class="contact-detail-text">
-              <p><a href="mailto:zielke@betreuungen-zielke.de" class="hover:underline">zielke@betreuungen-zielke.de</a></p>
+              <p><a href="mailto:{content.kontakt.email}" class="hover:underline" contenteditable="true" class:cms-editable={isEditMode} bind:textContent={content.kontakt.email}></a></p>
             </div>
           </div>
 
@@ -889,7 +1090,7 @@
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
             </svg>
             <div class="contact-detail-text">
-              <p><a href="https://www.betreuungen-zielke.de" target="_blank" rel="noopener noreferrer" class="hover:underline">www.betreuungen-zielke.de</a></p>
+              <p><a href="https://{content.kontakt.web}" target="_blank" rel="noopener noreferrer" class="hover:underline" contenteditable="true" class:cms-editable={isEditMode} bind:textContent={content.kontakt.web}></a></p>
             </div>
           </div>
 
@@ -899,7 +1100,7 @@
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
             </svg>
             <div class="contact-detail-text">
-              <p>Postfach in Hamburg</p>
+              <p contenteditable="true" class:cms-editable={isEditMode} bind:textContent={content.kontakt.postbox}></p>
             </div>
           </div>
         </div>
@@ -908,11 +1109,11 @@
       <!-- Column 2 -->
       <div class="contact-column-middle reveal reveal-delay-1">
         <div class="contact-column-content">
-          <h3 class="contact-slogan-title">Ich bin gerne für Sie da.</h3>
-          <p class="contact-slogan-desc">Schreiben Sie mir oder rufen Sie an. Ich melde mich zeitnah bei Ihnen.</p>
+          <h3 class="contact-slogan-title" contenteditable="true" class:cms-editable={isEditMode} bind:textContent={content.kontakt.sloganTitle}></h3>
+          <p class="contact-slogan-desc" contenteditable="true" class:cms-editable={isEditMode} bind:textContent={content.kontakt.sloganDesc}></p>
           <div class="contact-business-hours">
-            <h4>Bürozeiten:</h4>
-            <p>Mo – Fr &nbsp;&nbsp;9:00 – 17:00 Uhr</p>
+            <h4 contenteditable="true" class:cms-editable={isEditMode} bind:textContent={content.kontakt.hoursLabel}></h4>
+            <p contenteditable="true" class:cms-editable={isEditMode} bind:textContent={content.kontakt.hoursVal}></p>
           </div>
         </div>
       </div>
@@ -1000,7 +1201,7 @@
 <!-- Footer -->
 <footer class="footer">
   <div class="container footer-container">
-    <div class="logo">
+    <div class="logo" onclick={handleLogoClick} style="cursor: pointer;" role="button" tabindex="0" onkeydown={(e) => { if (e.key === 'Enter') handleLogoClick(); }}>
       <img src="/dz_logo_d.svg" alt="Dietmar Zielke Rechtliche Betreuungen" class="logo-img" />
     </div>
     
@@ -1031,18 +1232,13 @@
       </div>
       <div class="modal-body">
         <h3>Angaben gemäß § 5 TMG</h3>
-        <p>
-          Dietmar Zielke<br>
-          Rechtliche Betreuungen<br>
-          Postfach 10 06 06<br>
-          20004 Hamburg
-        </p>
+        <p style="white-space: pre-line;" contenteditable="true" class:cms-editable={isEditMode} bind:textContent={content.legal.impressum.address}></p>
 
         <h3>Kontakt</h3>
         <p>
-          Telefon: 0152 525 85 620<br>
-          Fax: 040-35 671 480<br>
-          E-Mail: zielke@betreuungen-zielke.de
+          Telefon: <span contenteditable="true" class:cms-editable={isEditMode} bind:textContent={content.kontakt.phone}></span><br>
+          Fax: <span contenteditable="true" class:cms-editable={isEditMode} bind:textContent={content.legal.impressum.fax}></span><br>
+          E-Mail: <span contenteditable="true" class:cms-editable={isEditMode} bind:textContent={content.kontakt.email}></span>
         </p>
 
         <h3>Berufsbezeichnung und Aufsichtsbehörde</h3>
@@ -1053,22 +1249,18 @@
 
         <h3>Steuerliche Angaben</h3>
         <p>
-          Steuernummer: 46/277/04580<br>
-          Umsatzsteuer-Identifikationsnummer gemäß § 27 a Umsatzsteuergesetz: 84 531 067 933
+          Steuernummer: <span contenteditable="true" class:cms-editable={isEditMode} bind:textContent={content.legal.impressum.taxNumber}></span><br>
+          Umsatzsteuer-Identifikationsnummer gemäß § 27 a Umsatzsteuergesetz: <span contenteditable="true" class:cms-editable={isEditMode} bind:textContent={content.legal.impressum.ustId}></span>
         </p>
 
         <h3>Bankverbindung</h3>
         <p>
-          IBAN: DE21 1101 0101 5806 8968 70<br>
-          BIC: SOBKDEB2XXX
+          IBAN: <span contenteditable="true" class:cms-editable={isEditMode} bind:textContent={content.legal.impressum.iban}></span><br>
+          BIC: <span contenteditable="true" class:cms-editable={isEditMode} bind:textContent={content.legal.impressum.bic}></span>
         </p>
 
         <h3>Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV</h3>
-        <p>
-          Dietmar Zielke<br>
-          Postfach 10 06 06<br>
-          20004 Hamburg
-        </p>
+        <p style="white-space: pre-line;" contenteditable="true" class:cms-editable={isEditMode} bind:textContent={content.legal.impressum.address}></p>
 
         <h3>Streitschlichtung</h3>
         <p>
@@ -1121,10 +1313,9 @@
         <p>
           Dietmar Zielke<br>
           Rechtliche Betreuungen<br>
-          Postfach 10 06 06<br>
-          20004 Hamburg<br>
-          Telefon: 0152 525 85 620<br>
-          E-Mail: zielke@betreuungen-zielke.de
+          <span style="white-space: pre-line;">{content.legal.impressum.address}</span><br>
+          Telefon: {content.kontakt.phone}<br>
+          E-Mail: {content.kontakt.email}
         </p>
         <p>Verantwortliche Stelle ist die natürliche oder juristische Person, die allein oder gemeinsam mit anderen über die Zwecke und Mittel der Verarbeitung von personenbezogenen Daten (z. B. Namen, E-Mail-Adressen o. Ä.) entscheidet.</p>
 
@@ -1139,6 +1330,60 @@
         <p>Wenn Sie uns per Kontaktformular Anfragen zukommen lassen, werden Ihre Angaben aus dem Anfrageformular inklusive der von Ihnen dort angegebenen Kontaktdaten zwecks Bearbeitung der Anfrage und für den Fall von Anschlussfragen bei uns gespeichert. Diese Daten geben wir nicht ohne Ihre Einwilligung weiter.</p>
         <p>Die Verarbeitung dieser Daten erfolgt auf Grundlage von Art. 6 Abs. 1 lit. b DSGVO, sofern Ihre Anfrage mit der Erfüllung eines Vertrags zusammenhängt oder zur Durchführung vorvertraglicher Maßnahmen erforderlich ist. In allen übrigen Fällen beruht die Verarbeitung auf unserem berechtigten Interesse an der effektiven Bearbeitung der an uns gerichteten Anfragen (Art. 6 Abs. 1 lit. f DSGVO) oder auf Ihrer Einwilligung (Art. 6 Abs. 1 lit. a DSGVO) falls diese abgefragt wurde.</p>
         <p>Die von Ihnen im Kontaktformular eingegebenen Daten verbleiben bei uns, bis Sie uns zur Löschung auffordern, Ihre Einwilligung zur Speicherung widerrufen oder der Zweck für die Datenspeicherung entfällt (z. B. nach abgeschlossener Bearbeitung Ihrer Anfrage). Zwingende gesetzliche Bestimmungen – insbesondere Aufbewahrungsfristen – bleiben unberührt.</p>
+      </div>
+    </div>
+  </div>
+{/if}
+
+<!-- Admin Password Input Dialog Modal -->
+{#if showPasswordModal}
+  <div class="modal-overlay" onclick={() => showPasswordModal = false} onkeydown={(e) => { if (e.key === 'Escape') showPasswordModal = false; }} role="button" tabindex="-1">
+    <div class="modal-container" onclick={(e) => e.stopPropagation()} onkeydown={(e) => e.stopPropagation()} role="dialog" aria-modal="true" tabindex="-1" style="max-width: 420px; padding: 32px; border-radius: var(--radius-lg);">
+      <h3 style="margin-top: 0; margin-bottom: 16px; font-size: 20px; color: var(--text-main);">Admin-Anmeldung</h3>
+      <p style="margin-bottom: 20px; font-size: 14px; color: var(--text-light);">Bitte geben Sie das Passwort ein, um den Bearbeitungsmodus zu starten.</p>
+      
+      {#if cmsStatus === 'error'}
+        <p style="color: var(--primary); font-size: 14px; margin-bottom: 16px; font-weight: 500;">{cmsMessage}</p>
+      {/if}
+      
+      <input 
+        type="password" 
+        placeholder="Passwort eingeben" 
+        bind:value={cmsPassword} 
+        class="form-input" 
+        style="margin-bottom: 24px; width: 100%; border: 1px solid var(--border);" 
+        onkeydown={(e) => { if (e.key === 'Enter') startEditing(); }} 
+      />
+      
+      <div style="display: flex; gap: 16px; justify-content: flex-end;">
+        <button class="btn btn-outline" onclick={() => showPasswordModal = false}>Abbrechen</button>
+        <button class="btn btn-primary" onclick={startEditing}>Bearbeiten</button>
+      </div>
+    </div>
+  </div>
+{/if}
+
+<!-- Floating Admin Bar -->
+{#if isEditMode}
+  <div class="cms-admin-bar" transition:fade={{ duration: 150 }}>
+    <div class="cms-admin-bar-content">
+      <div class="cms-admin-status">
+        <span class="cms-admin-badge">CMS</span>
+        <span class="cms-admin-status-text">
+          {#if cmsStatus === 'saving'}
+            Speichert Änderungen...
+          {:else if cmsStatus === 'error'}
+            <span style="color: #ff3333;">Fehler beim Speichern: {cmsMessage}</span>
+          {:else}
+            Bearbeitungsmodus aktiv. Klicken Sie auf Texte, um sie direkt zu ändern.
+          {/if}
+        </span>
+      </div>
+      <div class="cms-admin-actions">
+        <button class="btn btn-outline btn-sm" onclick={cancelEditing} disabled={cmsStatus === 'saving'}>Abbrechen</button>
+        <button class="btn btn-primary btn-sm" onclick={saveEditing} disabled={cmsStatus === 'saving'}>
+          {cmsStatus === 'saving' ? 'Speichert...' : 'Speichern'}
+        </button>
       </div>
     </div>
   </div>

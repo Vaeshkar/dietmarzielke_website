@@ -1,0 +1,121 @@
+{
+  "hero": {
+    "title": "Rechtliche Betreuung mit Klarheit, Ruhe und Verlässlichkeit.",
+    "description": "Ich unterstütze und vertrete Menschen in rechtlichen und organisatorischen Angelegenheiten – persönlich, sorgfältig und auf Augenhöhe."
+  },
+  "leistungen": {
+    "title": "Leistungen",
+    "cards": [
+      {
+        "title": "Gesundheit & Behörden",
+        "desc": "Unterstützung bei medizinischen Entscheidungen und im Umgang mit Ämtern und Krankenkassen."
+      },
+      {
+        "title": "Vermögenssorge",
+        "desc": "Verantwortungsvoller Umgang mit Einkommen, Vermögen und Zahlungsverkehr."
+      },
+      {
+        "title": "Wohn- und Alltagsangelegenheiten",
+        "desc": "Organisation des Wohnumfelds und Unterstützung im täglichen Leben."
+      },
+      {
+        "title": "Vertretung & Kommunikation",
+        "desc": "Vertretung gegenüber Behörden, Institutionen und anderen Beteiligten."
+      }
+    ]
+  },
+  "fuerWen": {
+    "title": "Für wen?",
+    "subtitle": "Meine Betreuung orientiert sich an den Bedürfnissen aller Beteiligten.",
+    "cards": [
+      {
+        "title": "Betroffene",
+        "desc": "Ich begleite Sie verlässlich und respektvoll in allen rechtlichen und organisatorischen Fragen."
+      },
+      {
+        "title": "Angehörige",
+        "desc": "Ich entlaste, informiere und arbeite transparent mit Ihnen zusammen."
+      },
+      {
+        "title": "Gerichte / Institutionen",
+        "desc": "Ich übernehme Betreuungen mit Sorgfalt, Verlässlichkeit und klarer Kommunikation."
+      }
+    ]
+  },
+  "ueberMich": {
+    "title": "Über mich",
+    "subtitle": "Dietmar Zielke",
+    "tagline": "Rechtlicher Betreuer in Hamburg & der Metropolregion",
+    "p1": "Als staatlich anerkannter rechtlicher Betreuer unterstützen ich Menschen dabei, ihr selbstbestimmtes Leben bestmöglich fortzuführen, wenn organisatorische oder rechtliche Hürden zu groß werden. Mit Empathie, Klarheit und Fachkompetenz stehe ich Ihnen und Ihren Angehörigen zur Seite.",
+    "p2": "Mein Ansatz beruht auf enger, transparenter Kommunikation und absoluter Zuverlässigkeit. Ich vertrete Ihre Interessen gegenüber Behörden, koordiniere gesundheitliche Belange und verwalte Vermögenswerte mit größter Sorgfalt – stets auf Augenhöhe und mit Respekt vor Ihrer Lebensleistung.",
+    "bullets": [
+      "Persönliche & verlässliche Begleitung im Alltag",
+      "Sorgfältige Vertretung in allen gerichtlichen Aufgabenbereichen",
+      "Enge & vertrauensvolle Abstimmung mit Ärzten, Pflegediensten & Behörden"
+    ]
+  },
+  "soArbeiteIch": {
+    "title": "So arbeite ich",
+    "steps": [
+      {
+        "number": "01",
+        "title": "Kennenlernen",
+        "desc": "Wir besprechen die Situation und klären alle wichtigen Fragen. Vertraulich und auf Augenhöhe."
+      },
+      {
+        "number": "02",
+        "title": "Planen & Handeln",
+        "desc": "Ich übernehme die Aufgaben, koordiniere Notwendiges und halte Sie regelmäßig informiert."
+      },
+      {
+        "number": "03",
+        "title": "Begleiten & Entlasten",
+        "desc": "Ich bleibe ansprechbar und sorge für Kontinuität, Ordnung und Verlässlichkeit."
+      }
+    ]
+  },
+  "faq": {
+    "title": "Was ist rechtliche Betreuung?",
+    "explanation": "Die rechtliche Betreuung ist eine gesetzliche Unterstützung für Menschen, die ihre Angelegenheiten ganz oder teilweise nicht mehr selbst regeln können. Als rechtlicher Betreuer vertrete ich die Interessen der betreuten Person und entscheide nur in den Bereichen, für die ich bestellt wurde. Ziel ist es, Selbstbestimmung zu erhalten und Überforderung zu vermeiden.",
+    "items": [
+      {
+        "question": "Wer bestellt einen rechtlichen Betreuer?",
+        "answer": "Ein rechtlicher Betreuer wird vom zuständigen Betreuungsgericht bestellt. Dies geschieht entweder auf eigenen Antrag der betroffenen Person oder von Amts wegen (z. B. auf Anregung von Angehörigen, Krankenhäusern oder Behörden), wenn jemand aufgrund einer psychischen Krankheit oder einer körperlichen, geistigen oder seelischen Behinderung seine Angelegenheiten ganz oder teilweise nicht regeln kann."
+      },
+      {
+        "question": "Welche Aufgaben hat ein rechtlicher Betreuer?",
+        "answer": "Die Aufgabenbereiche werden vom Gericht individuell festgelegt (z.B. Gesundheitssorge, Vermögenssorge, Vertretung gegenüber Behörden, Wohnungsangelegenheiten). Der Betreuer unterstützt die betreute Person dabei, ihr Leben nach den eigenen Wünschen zu gestalten, und vertritt sie im erforderlichen Umfang rechtlich."
+      },
+      {
+        "question": "Was kostet eine rechtliche Betreuung?",
+        "answer": "Die Vergütung und Auslagen des Betreuers werden gesetzlich geregelt. Wenn die betreute Person über ausreichendes Vermögen verfügt (oberhalb des Schonvermögens von derzeit 10.000 €), zahlt sie die Kosten selbst. Andernfalls übernimmt die Staatskasse die Vergütung."
+      },
+      {
+        "question": "Kann ich Wünsche oder Vollmachten festlegen?",
+        "answer": "Ja. Mit einer Vorsorgevollmacht oder einer Betreuungsverfügung können Sie im Vorfeld selbst bestimmen, wer im Ernstfall Ihre Interessen vertreten soll und welche Wünsche bei der Betreuung berücksichtigt werden müssen. Dies stärkt Ihre Selbstbestimmung maßgeblich."
+      }
+    ]
+  },
+  "kontakt": {
+    "title": "Kontakt",
+    "phone": "0152 525 85 620",
+    "phoneRaw": "015252585620",
+    "email": "zielke@betreuungen-zielke.de",
+    "web": "www.betreuungen-zielke.de",
+    "postbox": "Postfach in Hamburg",
+    "sloganTitle": "Ich bin gerne für Sie da.",
+    "sloganDesc": "Schreiben Sie mir oder rufen Sie an. Ich melde mich zeitnah bei Ihnen.",
+    "hoursLabel": "Bürozeiten:",
+    "hoursVal": "Mo – Fr   9:00 – 17:00 Uhr"
+  },
+  "legal": {
+    "impressum": {
+      "address": "Dietmar Zielke\nRechtliche Betreuungen\nPostfach 10 06 06\n20004 Hamburg",
+      "fax": "040-35 671 480",
+      "taxNumber": "46/277/04580",
+      "ustId": "84 531 067 933",
+      "iban": "DE21 1101 0101 5806 8968 70",
+      "bic": "SOBKDEB2XXX"
+    }
+  }
+}
