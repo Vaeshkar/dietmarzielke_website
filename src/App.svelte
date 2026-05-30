@@ -227,9 +227,9 @@
 
     // Load both image references
     const img1 = new Image();
-    img1.src = "/dietmar_zielke_portrait.webp";
+    img1.src = "/media/portrait.webp";
     const img2 = new Image();
-    img2.src = "/dietmar_zielke_portrait2.webp";
+    img2.src = "/media/portrait_secondary.webp";
 
     let rect = baseImg.getBoundingClientRect();
     let canvasWidth = 0;
@@ -381,7 +381,7 @@
           isPortrait2Base = !isPortrait2Base;
           
           // Swap base image source (no flicker because canvas is fully covering it with identical layout)
-          baseImg.src = isPortrait2Base ? "/dietmar_zielke_portrait2.webp" : "/dietmar_zielke_portrait.webp";
+          baseImg.src = isPortrait2Base ? "/media/portrait_secondary.webp" : "/media/portrait.webp";
           
           // Reset transition states
           isTransitionActive = false;
@@ -572,7 +572,7 @@
 <header class="header">
   <div class="container header-container">
     <a href="#start" class="logo" onclick={(e) => { e.preventDefault(); handleNavClick('start'); }}>
-      <img src="/dz_logo_d.svg" alt="Dietmar Zielke Rechtliche Betreuungen" class="logo-img" />
+      <img src="/media/logo.svg" alt="Dietmar Zielke Rechtliche Betreuungen" class="logo-img" />
     </a>
 
     <!-- Hamburger menu toggle -->
@@ -837,7 +837,7 @@
   <section id="ueber-mich" class="section-spacing">
     <div class="container about-grid">
       <div class="about-image-wrapper reveal" id="about-image-scene">
-        <img id="about-base-img" src="/dietmar_zielke_portrait.webp" alt="Dietmar Zielke Portrait" class="about-img" />
+        <img id="about-base-img" src="/media/portrait.webp" alt="Dietmar Zielke Portrait" class="about-img" />
         <canvas class="about-canvas" id="about-morph-canvas" aria-hidden="true"></canvas>
         <div class="about-progress-container" class:transitioning={isTransitionActive}>
           <div class="about-progress-bar" style="width: {progressPercent}%"></div>
@@ -1183,7 +1183,7 @@
 <footer class="footer">
   <div class="container footer-container">
     <div class="logo">
-      <img src="/dz_logo_d.svg" alt="Dietmar Zielke Rechtliche Betreuungen" class="logo-img" />
+      <img src="/media/logo.svg" alt="Dietmar Zielke Rechtliche Betreuungen" class="logo-img" />
     </div>
     
     <p class="footer-tagline">Verlässlich. Sorgfältig. Menschlich.</p>

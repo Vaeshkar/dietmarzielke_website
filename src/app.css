@@ -153,8 +153,10 @@ button {
 }
 
 .logo-img {
-  height: 68px;
-  width: auto;
+  height: auto;
+  max-height: 68px;
+  max-width: 220px;
+  object-fit: contain;
   display: block;
 }
 
@@ -704,6 +706,8 @@ button {
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.04), 0 2px 8px rgba(0, 0, 0, 0.02);
   line-height: 0;
   position: relative;
+  aspect-ratio: 4 / 5;
+  width: 100%;
 }
 
 .about-canvas {
@@ -741,7 +745,7 @@ button {
 
 .about-img {
   width: 100%;
-  height: auto;
+  height: 100%;
   display: block;
   object-fit: cover;
   transition: transform 0.5s ease;
