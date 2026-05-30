@@ -20,7 +20,7 @@
     return () => observer.disconnect();
   });
 
-  // Interactive Portrait Brush Reveal & Decay Effect
+  // Interactive Portrait Zoom Morph & Periodic Auto-Wave Swap Effect
   $effect(() => {
     if (window.matchMedia("(pointer: coarse)").matches) return;
 
@@ -30,169 +30,245 @@
     if (!hitArea || !canvas || !baseImg) return;
 
     let context = canvas.getContext("2d");
-    let animationFrameId = null;
-    let isInitialized = false;
+    if (!context) return;
 
-    // Load second image (reveal target)
+    const sourceCanvas = document.createElement("canvas");
+    const sourceContext = sourceCanvas.getContext("2d");
+    if (!sourceContext) return;
+
+    // We keep track of which image is current base
+    let isPortrait2Base = false;
+
+    // Load both image references
+    const img1 = new Image();
+    img1.src = "/dietmar_zielke_portrait.webp";
     const img2 = new Image();
     img2.src = "/dietmar_zielke_portrait2.webp";
 
-    // Offscreen canvas to hold the fully rendered img2
-    const sourceCanvas = document.createElement("canvas");
-    const sourceContext = sourceCanvas.getContext("2d");
-
-    // Offscreen canvas for the mask
-    const maskCanvas = document.createElement("canvas");
-    const maskContext = maskCanvas.getContext("2d");
+    const pointer = { x: 0, y: 0, targetX: 0, targetY: 0, radius: 0, active: false };
+    const boxSize = 55;
+    const minRadius = 60;
+    const maxRadius = 240;
+    const radiusEase = 0.08;
+    const dotColor = "rgba(255, 255, 255, 0.4)";
+    const idleDelay = 800;
 
     let rect = hitArea.getBoundingClientRect();
     let canvasWidth = 0;
     let canvasHeight = 0;
+    let resetTimer = 0;
+    let boxes = [];
+    let animationFrameId = null;
 
-    const setupCanvasSize = () => {
+    // Auto wave swap state
+    const waveState = {
+      active: false,
+      progress: 0,
+      duration: 90, // Frames (1.5 seconds)
+      hasSwappedThisCycle: false
+    };
+
+    const createBoxes = () => {
+      boxes = [];
+      for (let x = 0; x <= canvasWidth + boxSize; x += boxSize) {
+        for (let y = 0; y <= canvasHeight + boxSize; y += boxSize) {
+          boxes.push({ x, y, centerX: x + boxSize / 2, centerY: y + boxSize / 2, distance: 0, scale: 0 });
+        }
+      }
+    };
+
+    const resizeCanvas = () => {
       rect = baseImg.getBoundingClientRect();
-      if (rect.width === 0 || rect.height === 0) return false;
+      if (rect.width === 0 || rect.height === 0) return;
 
       const dpr = Math.min(1.5, window.devicePixelRatio || 1);
       canvasWidth = Math.round(rect.width * dpr);
       canvasHeight = Math.round(rect.height * dpr);
 
-      // Set display sizes
       canvas.style.width = `${rect.width}px`;
       canvas.style.height = `${rect.height}px`;
-
       canvas.width = canvasWidth;
       canvas.height = canvasHeight;
-
       sourceCanvas.width = canvasWidth;
       sourceCanvas.height = canvasHeight;
 
-      // Keep the mask drawing state across resizes
-      const tempCanvas = document.createElement("canvas");
-      tempCanvas.width = maskCanvas.width;
-      tempCanvas.height = maskCanvas.height;
-      const tempCtx = tempCanvas.getContext("2d");
-      if (tempCtx && maskCanvas.width > 0) {
-        tempCtx.drawImage(maskCanvas, 0, 0);
-      }
-
-      maskCanvas.width = canvasWidth;
-      maskCanvas.height = canvasHeight;
-
-      // Redraw mask state if existed
-      if (tempCtx && tempCanvas.width > 0) {
-        maskContext.drawImage(tempCanvas, 0, 0, tempCanvas.width, tempCanvas.height, 0, 0, canvasWidth, canvasHeight);
-      }
-
-      // Draw img2 to sourceCanvas
-      if (img2.complete) {
-        drawCoverImage(sourceContext, img2);
-      }
-
-      return true;
+      createBoxes();
+      updateSourceCanvas();
     };
 
-    const drawCoverImage = (ctx, image) => {
-      ctx.clearRect(0, 0, canvasWidth, canvasHeight);
-      const imageRatio = image.width / image.height;
+    const updateSourceCanvas = () => {
+      if (!sourceContext || canvasWidth === 0) return;
+      sourceContext.clearRect(0, 0, canvasWidth, canvasHeight);
+      
+      const activeOverlay = isPortrait2Base ? img1 : img2;
+      if (activeOverlay.complete) {
+        drawCoverImage(sourceContext, activeOverlay);
+      }
+    };
+
+    const drawCoverImage = (ctx, img) => {
+      const imageRatio = img.width / img.height;
       const canvasRatio = canvasWidth / canvasHeight;
-      let sourceWidth = image.width;
-      let sourceHeight = image.height;
+      let sourceWidth = img.width;
+      let sourceHeight = img.height;
       let sourceX = 0;
       let sourceY = 0;
 
       if (imageRatio > canvasRatio) {
-        sourceWidth = image.height * canvasRatio;
-        sourceX = (image.width - sourceWidth) / 2;
+        sourceWidth = img.height * canvasRatio;
+        sourceX = (img.width - sourceWidth) / 2;
       } else {
-        sourceHeight = image.width / canvasRatio;
-        sourceY = (image.height - sourceHeight) / 2;
+        sourceHeight = img.width / canvasRatio;
+        sourceY = (img.height - sourceHeight) / 2;
       }
 
-      ctx.drawImage(image, sourceX, sourceY, sourceWidth, sourceHeight, 0, 0, canvasWidth, canvasHeight);
+      ctx.drawImage(img, sourceX, sourceY, sourceWidth, sourceHeight, 0, 0, canvasWidth, canvasHeight);
     };
 
-    const initialize = () => {
-      if (isInitialized) return;
-      if (setupCanvasSize()) {
-        isInitialized = true;
-      }
+    const drawTile = (box) => {
+      box.distance = Math.hypot(box.centerX - pointer.x, box.centerY - pointer.y);
+      box.scale = pointer.radius <= 0.01 ? 0 : 1 - Math.max(0, Math.min(1, box.distance / pointer.radius));
+      if (box.scale < 0.001) return;
+
+      const zoom = 1 + box.scale * 0.4;
+      const sourceSize = boxSize / zoom;
+      const sourceX = box.centerX - sourceSize / 2;
+      const sourceY = box.centerY - sourceSize / 2;
+
+      context.drawImage(
+        sourceCanvas,
+        sourceX,
+        sourceY,
+        sourceSize,
+        sourceSize,
+        box.x,
+        box.y,
+        boxSize,
+        boxSize
+      );
     };
 
-    // Initialize when base image is loaded
-    if (baseImg.complete) {
-      initialize();
-    } else {
-      baseImg.onload = initialize;
-    }
-    img2.onload = () => {
-      if (isInitialized && sourceContext) {
-        drawCoverImage(sourceContext, img2);
-      }
-    };
-
-    const handlePointerMove = (event) => {
-      if (!isInitialized || !maskContext) return;
-
-      const scaleX = canvasWidth / rect.width;
-      const scaleY = canvasHeight / rect.height;
-      const x = (event.clientX - rect.left) * scaleX;
-      const y = (event.clientY - rect.top) * scaleY;
-
-      // Draw feathered brush stroke on mask
-      const brushRadius = 70;
-      const grad = maskContext.createRadialGradient(x, y, brushRadius * 0.1, x, y, brushRadius);
-      grad.addColorStop(0, "rgba(0, 0, 0, 1.0)");
-      grad.addColorStop(0.5, "rgba(0, 0, 0, 0.5)");
-      grad.addColorStop(1, "rgba(0, 0, 0, 0.0)");
-
-      maskContext.fillStyle = grad;
-      maskContext.beginPath();
-      maskContext.arc(x, y, brushRadius, 0, Math.PI * 2);
-      maskContext.fill();
+    const drawDot = (box) => {
+      const distance = Math.hypot(box.x - pointer.x, box.y - pointer.y);
+      const scale = pointer.radius <= 0.01 ? 0 : 1 - Math.max(0, Math.min(1, distance / pointer.radius));
+      if (scale < 0.001) return;
+      context.beginPath();
+      context.arc(box.x, box.y, boxSize * 0.1 * scale, 0, Math.PI * 2);
+      context.fill();
     };
 
     const render = () => {
-      if (isInitialized && context && sourceCanvas.width > 0) {
-        // 1. Clear visible canvas
-        context.clearRect(0, 0, canvasWidth, canvasHeight);
+      if (canvasWidth === 0 || canvasHeight === 0) {
+        animationFrameId = requestAnimationFrame(render);
+        return;
+      }
 
-        // 2. Apply decay to mask canvas (slowly fade out brush strokes)
-        maskContext.globalCompositeOperation = "destination-out";
-        maskContext.fillStyle = "rgba(0, 0, 0, 0.015)"; // Decay rate
-        maskContext.fillRect(0, 0, canvasWidth, canvasHeight);
-        maskContext.globalCompositeOperation = "source-over";
+      // Check if automatic wave sweep is active
+      if (waveState.active) {
+        waveState.progress += 1 / waveState.duration;
 
-        // 3. Draw img2 from sourceCanvas
-        context.drawImage(sourceCanvas, 0, 0);
+        // Path: sweeping left to right
+        pointer.x = canvasWidth * waveState.progress;
+        pointer.y = canvasHeight * 0.5;
 
-        // 4. Composite with mask (reveal only where mask exists)
-        context.globalCompositeOperation = "destination-in";
-        context.drawImage(maskCanvas, 0, 0);
-        context.globalCompositeOperation = "source-over";
+        // Radius grows and shrinks in a sin wave peaking at progress = 0.5
+        pointer.radius = maxRadius * 2 * Math.sin(waveState.progress * Math.PI);
+
+        // Swap images exactly halfway (when the sweep fully covers the canvas)
+        if (waveState.progress >= 0.5 && !waveState.hasSwappedThisCycle) {
+          waveState.hasSwappedThisCycle = true;
+          isPortrait2Base = !isPortrait2Base;
+          
+          // Swap base image source
+          baseImg.src = isPortrait2Base ? "/dietmar_zielke_portrait2.webp" : "/dietmar_zielke_portrait.webp";
+          
+          // Re-render the source canvas for the new overlay target
+          updateSourceCanvas();
+        }
+
+        if (waveState.progress >= 1) {
+          waveState.active = false;
+          pointer.radius = 0;
+        }
+      } else {
+        // Smooth manual pointer position interpolation (lerp)
+        pointer.x += (pointer.targetX - pointer.x) * 0.15;
+        pointer.y += (pointer.targetY - pointer.y) * 0.15;
+
+        const desiredRadius = pointer.active ? maxRadius : 0;
+        pointer.radius += (desiredRadius - pointer.radius) * radiusEase;
+      }
+
+      context.clearRect(0, 0, canvasWidth, canvasHeight);
+
+      if (pointer.radius > 0.35) {
+        boxes.forEach(drawTile);
+        context.fillStyle = dotColor;
+        boxes.forEach(drawDot);
       }
 
       animationFrameId = requestAnimationFrame(render);
     };
 
-    const handleResize = () => {
-      setupCanvasSize();
+    const handlePointerMove = (event) => {
+      if (waveState.active) return; // Don't interrupt auto wave
+      if (resetTimer) clearTimeout(resetTimer);
+
+      const scaleX = canvasWidth / rect.width;
+      const scaleY = canvasHeight / rect.height;
+      pointer.targetX = (event.clientX - rect.left) * scaleX;
+      pointer.targetY = (event.clientY - rect.top) * scaleY;
+      pointer.active = true;
+
+      resetEffect(idleDelay);
     };
 
-    hitArea.addEventListener("pointermove", handlePointerMove);
-    window.addEventListener("resize", handleResize);
-    animationFrameId = requestAnimationFrame(render);
+    const resetEffect = (delay = 0) => {
+      if (resetTimer) clearTimeout(resetTimer);
+      resetTimer = setTimeout(() => {
+        pointer.active = false;
+      }, delay);
+    };
 
-    // Dynamic checks in case rendering delayed
-    const fallbackTimer = setInterval(() => {
-      if (!isInitialized) initialize();
+    const handlePointerLeave = () => resetEffect(200);
+
+    const triggerAutoWave = () => {
+      if (waveState.active) return;
+      waveState.active = true;
+      waveState.progress = 0;
+      waveState.hasSwappedThisCycle = false;
+    };
+
+    // Auto wave every 1 minute (60,000ms)
+    const autoWaveInterval = setInterval(triggerAutoWave, 60000);
+
+    // Initial setup listeners
+    if (baseImg.complete) {
+      resizeCanvas();
+    } else {
+      baseImg.onload = resizeCanvas;
+    }
+    img1.onload = updateSourceCanvas;
+    img2.onload = updateSourceCanvas;
+
+    animationFrameId = requestAnimationFrame(render);
+    hitArea.addEventListener("pointermove", handlePointerMove);
+    hitArea.addEventListener("pointerleave", handlePointerLeave);
+    window.addEventListener("resize", resizeCanvas);
+
+    // Self-healing check in case layout height is computed delayed
+    const layoutChecker = setInterval(() => {
+      if (canvasWidth === 0) resizeCanvas();
     }, 500);
 
     return () => {
-      clearInterval(fallbackTimer);
+      clearInterval(autoWaveInterval);
+      clearInterval(layoutChecker);
+      if (resetTimer) clearTimeout(resetTimer);
       if (animationFrameId) cancelAnimationFrame(animationFrameId);
       hitArea.removeEventListener("pointermove", handlePointerMove);
-      window.removeEventListener("resize", handleResize);
+      hitArea.removeEventListener("pointerleave", handlePointerLeave);
+      window.removeEventListener("resize", resizeCanvas);
     };
   });
 
