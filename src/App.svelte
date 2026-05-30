@@ -404,6 +404,7 @@
 
     <nav class="nav {isMobileMenuOpen ? 'open' : ''}">
       <ul class="nav-list">
+        <li><a href="#start" use:directionAwareHover class="nav-link" class:active={activeSection === 'start'} onclick={(e) => { e.preventDefault(); handleNavClick('start'); }}>Start</a></li>
         <li><a href="#leistungen" use:directionAwareHover class="nav-link" class:active={activeSection === 'leistungen'} onclick={(e) => { e.preventDefault(); handleNavClick('leistungen'); }}>Leistungen</a></li>
         <li><a href="#fuer-wen" use:directionAwareHover class="nav-link" class:active={activeSection === 'fuer-wen'} onclick={(e) => { e.preventDefault(); handleNavClick('fuer-wen'); }}>Für wen?</a></li>
         <li><a href="#ueber-mich" use:directionAwareHover class="nav-link" class:active={activeSection === 'ueber-mich'} onclick={(e) => { e.preventDefault(); handleNavClick('ueber-mich'); }}>Über mich</a></li>
