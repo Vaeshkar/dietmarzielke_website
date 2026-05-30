@@ -212,6 +212,9 @@
 
   // Svelte action to create a 3D tilt and glass shine effect on mouseover
   function tilt(node, maxAngle = 10) {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      return { destroy() {} };
+    }
     const shine = document.createElement('div');
     shine.className = 'glass-shine';
     node.appendChild(shine);
@@ -264,6 +267,70 @@
     };
   }
 
+  // Svelte action to manage and trap keyboard focus inside dialogs/drawers
+  function focusTrap(node) {
+    const previousActiveElement = document.activeElement;
+    const focusableSelector = 'a[href], area[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), iframe, object, embed, *[tabindex]:not([tabindex="-1"]), *[contenteditable]';
+
+    function getFocusableElements() {
+      return Array.from(node.querySelectorAll(focusableSelector))
+        .filter(el => {
+          return !!(el.offsetWidth || el.offsetHeight || el.getClientRects().length);
+        });
+    }
+
+    // Move focus inside the dialog after it mounts/transitions in
+    setTimeout(() => {
+      const focusable = getFocusableElements();
+      if (focusable.length > 0) {
+        // Try to focus close button first, else first interactive element
+        const closeBtn = focusable.find(el => el.classList.contains('modal-close-btn') || el.classList.contains('drawer-close-btn'));
+        if (closeBtn) {
+          closeBtn.focus();
+        } else {
+          focusable[0].focus();
+        }
+      }
+    }, 50);
+
+    function handleKeydown(event) {
+      if (event.key !== 'Tab') return;
+
+      const focusable = getFocusableElements();
+      if (focusable.length === 0) {
+        event.preventDefault();
+        return;
+      }
+
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      const active = document.activeElement;
+
+      if (event.shiftKey) {
+        if (active === first) {
+          last.focus();
+          event.preventDefault();
+        }
+      } else {
+        if (active === last) {
+          first.focus();
+          event.preventDefault();
+        }
+      }
+    }
+
+    node.addEventListener('keydown', handleKeydown);
+
+    return {
+      destroy() {
+        node.removeEventListener('keydown', handleKeydown);
+        if (previousActiveElement && typeof previousActiveElement.focus === 'function') {
+          previousActiveElement.focus();
+        }
+      }
+    };
+  }
+
   // IntersectionObserver for scroll animations
   $effect(() => {
     const observer = new IntersectionObserver((entries) => {
@@ -288,6 +355,7 @@
 
   // Periodic Random Grid Block Morph Swap Effect (25-second Countdown)
   $effect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     const hitArea = document.getElementById("about-image-scene");
     const canvas = document.getElementById("about-morph-canvas");
     const baseImg = document.getElementById("about-base-img");
@@ -596,6 +664,16 @@
     const el = document.getElementById(sectionId);
     if (el) {
       el.scrollIntoView({ behavior: 'smooth' });
+      if (sectionId === 'kontakt') {
+        setTimeout(() => {
+          const firstInput = el.querySelector('input:not([type="hidden"]), textarea, select');
+          if (firstInput) {
+            firstInput.focus();
+          } else {
+            el.focus();
+          }
+        }, 200); // 200ms ensures drawer unmount and focusTrap destruction have finished
+      }
     }
   }
 
@@ -1272,9 +1350,9 @@
 <!-- Modals for Legal Information (GDPR/DSGVO & Impressum) -->
 {#if openModal === 'impressum'}
   <div class="modal-overlay" onclick={() => openModal = null} onkeydown={(e) => { if (e.key === 'Escape' || e.key === 'Enter') openModal = null; }} role="button" tabindex="-1" aria-label="Schließen" transition:fade={{ duration: 150 }}>
-    <div class="modal-container" onclick={(e) => e.stopPropagation()} onkeydown={(e) => e.stopPropagation()} role="dialog" aria-modal="true" tabindex="-1">
+    <div class="modal-container" onclick={(e) => e.stopPropagation()} onkeydown={(e) => e.stopPropagation()} role="dialog" aria-modal="true" tabindex="-1" use:focusTrap aria-labelledby="impressum-title">
       <div class="modal-header">
-        <h2>Impressum</h2>
+        <h2 id="impressum-title">Impressum</h2>
         <button class="modal-close-btn" onclick={() => openModal = null} aria-label="Schließen">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
@@ -1326,9 +1404,9 @@
 
 {#if openModal === 'datenschutz'}
   <div class="modal-overlay" onclick={() => openModal = null} onkeydown={(e) => { if (e.key === 'Escape' || e.key === 'Enter') openModal = null; }} role="button" tabindex="-1" aria-label="Schließen" transition:fade={{ duration: 150 }}>
-    <div class="modal-container" onclick={(e) => e.stopPropagation()} onkeydown={(e) => e.stopPropagation()} role="dialog" aria-modal="true" tabindex="-1">
+    <div class="modal-container" onclick={(e) => e.stopPropagation()} onkeydown={(e) => e.stopPropagation()} role="dialog" aria-modal="true" tabindex="-1" use:focusTrap aria-labelledby="datenschutz-title">
       <div class="modal-header">
-        <h2>Datenschutzerklärung</h2>
+        <h2 id="datenschutz-title">Datenschutzerklärung</h2>
         <button class="modal-close-btn" onclick={() => openModal = null} aria-label="Schließen">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
@@ -1389,7 +1467,7 @@
 {#if selectedServiceIndex !== null}
   {@const service = content.leistungen.cards[selectedServiceIndex]}
   <div class="drawer-overlay" onclick={() => selectedServiceIndex = null} onkeydown={(e) => { if (e.key === 'Escape' || e.key === 'Enter') selectedServiceIndex = null; }} role="button" tabindex="-1" aria-label="Schließen" transition:fade={{ duration: 150 }}>
-    <div class="drawer-container" onclick={(e) => e.stopPropagation()} onkeydown={(e) => e.stopPropagation()} role="dialog" aria-modal="true" tabindex="-1">
+    <div class="drawer-container" onclick={(e) => e.stopPropagation()} onkeydown={(e) => e.stopPropagation()} role="dialog" aria-modal="true" tabindex="-1" use:focusTrap aria-labelledby="service-title">
       <button class="drawer-close-btn" onclick={() => selectedServiceIndex = null} aria-label="Schließen">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
@@ -1398,7 +1476,7 @@
       
       <div class="drawer-content">
         <span class="drawer-badge">Leistung</span>
-        <h2>{service.detailTitle || service.title}</h2>
+        <h2 id="service-title">{service.detailTitle || service.title}</h2>
         {#if service.detailSubtitle}
           <p class="drawer-subtitle">{service.detailSubtitle}</p>
         {/if}
@@ -1470,7 +1548,7 @@
 {#if selectedAudienceIndex !== null}
   {@const audience = content.fuerWen.cards[selectedAudienceIndex]}
   <div class="drawer-overlay" onclick={() => selectedAudienceIndex = null} onkeydown={(e) => { if (e.key === 'Escape' || e.key === 'Enter') selectedAudienceIndex = null; }} role="button" tabindex="-1" aria-label="Schließen" transition:fade={{ duration: 150 }}>
-    <div class="drawer-container" onclick={(e) => e.stopPropagation()} onkeydown={(e) => e.stopPropagation()} role="dialog" aria-modal="true" tabindex="-1">
+    <div class="drawer-container" onclick={(e) => e.stopPropagation()} onkeydown={(e) => e.stopPropagation()} role="dialog" aria-modal="true" tabindex="-1" use:focusTrap aria-labelledby="audience-title">
       <button class="drawer-close-btn" onclick={() => selectedAudienceIndex = null} aria-label="Schließen">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
@@ -1479,7 +1557,7 @@
       
       <div class="drawer-content">
         <span class="drawer-badge">Zielgruppe</span>
-        <h2>{audience.detailTitle || audience.title}</h2>
+        <h2 id="audience-title">{audience.detailTitle || audience.title}</h2>
         {#if audience.detailSubtitle}
           <p class="drawer-subtitle">{audience.detailSubtitle}</p>
         {/if}
