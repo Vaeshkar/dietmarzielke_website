@@ -186,6 +186,60 @@
     }
   });
 
+  // Svelte action to create a 3D tilt and glass shine effect on mouseover
+  function tilt(node, maxAngle = 10) {
+    const shine = document.createElement('div');
+    shine.className = 'glass-shine';
+    node.appendChild(shine);
+
+    node.style.position = 'relative';
+    node.style.transition = 'transform 0.15s ease-out, box-shadow 0.15s ease-out';
+    node.style.transformStyle = 'preserve-3d';
+
+    const onMouseMove = (e) => {
+      const rect = node.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const w = rect.width;
+      const h = rect.height;
+
+      const rotateX = ((y / h) - 0.5) * -maxAngle;
+      const rotateY = ((x / w) - 0.5) * maxAngle;
+
+      node.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+
+      const percentX = (x / w) * 100;
+      const percentY = (y / h) * 100;
+      shine.style.background = `radial-gradient(circle at ${percentX}% ${percentY}%, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0) 65%)`;
+      shine.style.opacity = '1';
+    };
+
+    const onMouseEnter = () => {
+      node.style.transition = 'none';
+      shine.style.transition = 'opacity 0.15s ease-out';
+    };
+
+    const onMouseLeave = () => {
+      node.style.transition = 'transform 0.5s ease-out, box-shadow 0.5s ease-out';
+      node.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+      shine.style.transition = 'opacity 0.5s ease-out';
+      shine.style.opacity = '0';
+    };
+
+    node.addEventListener('mousemove', onMouseMove);
+    node.addEventListener('mouseenter', onMouseEnter);
+    node.addEventListener('mouseleave', onMouseLeave);
+
+    return {
+      destroy() {
+        node.removeEventListener('mousemove', onMouseMove);
+        node.removeEventListener('mouseenter', onMouseEnter);
+        node.removeEventListener('mouseleave', onMouseLeave);
+        shine.remove();
+      }
+    };
+  }
+
   // IntersectionObserver for scroll animations
   $effect(() => {
     const observer = new IntersectionObserver((entries) => {
@@ -672,7 +726,7 @@
 
       <div class="leistungen-grid">
         <!-- Card 1 -->
-        <div class="service-card reveal">
+        <div class="service-card reveal" use:tilt>
           <div class="service-icon-wrapper">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
@@ -686,7 +740,7 @@
         </div>
 
         <!-- Card 2 -->
-        <div class="service-card reveal reveal-delay-1">
+        <div class="service-card reveal reveal-delay-1" use:tilt>
           <div class="service-icon-wrapper">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z" />
@@ -701,7 +755,7 @@
         </div>
 
         <!-- Card 3 -->
-        <div class="service-card reveal reveal-delay-2">
+        <div class="service-card reveal reveal-delay-2" use:tilt>
           <div class="service-icon-wrapper">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
@@ -715,7 +769,7 @@
         </div>
 
         <!-- Card 4 -->
-        <div class="service-card reveal reveal-delay-3">
+        <div class="service-card reveal reveal-delay-3" use:tilt>
           <div class="service-icon-wrapper">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
@@ -792,7 +846,7 @@
 
       <div class="for-whom-grid">
         <!-- Card 1 -->
-        <div class="whom-card reveal">
+        <div class="whom-card reveal" use:tilt>
           <div class="whom-icon-wrapper">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
@@ -805,7 +859,7 @@
         </div>
 
         <!-- Card 2 -->
-        <div class="whom-card reveal reveal-delay-1">
+        <div class="whom-card reveal reveal-delay-1" use:tilt>
           <div class="whom-icon-wrapper">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
@@ -818,7 +872,7 @@
         </div>
 
         <!-- Card 3 -->
-        <div class="whom-card reveal reveal-delay-2">
+        <div class="whom-card reveal reveal-delay-2" use:tilt>
           <div class="whom-icon-wrapper">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
@@ -836,7 +890,7 @@
   <!-- Über mich Section -->
   <section id="ueber-mich" class="section-spacing">
     <div class="container about-grid">
-      <div class="about-image-wrapper reveal" id="about-image-scene">
+      <div class="about-image-wrapper reveal" id="about-image-scene" use:tilt>
         <img id="about-base-img" src="/media/portrait.webp" alt="Dietmar Zielke Portrait" class="about-img" />
         <canvas class="about-canvas" id="about-morph-canvas" aria-hidden="true"></canvas>
         <div class="about-progress-container" class:transitioning={isTransitionActive}>
