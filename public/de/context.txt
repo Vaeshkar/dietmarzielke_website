@@ -117,17 +117,37 @@ soArbeiteIch.steps[2].desc = Ich bleibe ansprechbar und sorge für Kontinuität,
 faq.title = Was ist rechtliche Betreuung?
 faq.explanation = Die rechtliche Betreuung ist eine gesetzliche Unterstützung für Menschen, die ihre Angelegenheiten ganz oder teilweise nicht mehr selbst regeln können. Als rechtlicher Betreuer vertrete ich die Interessen der betreuten Person und entscheide nur in den Bereichen, für die ich bestellt wurde. Ziel ist es, Selbstbestimmung zu erhalten und Überforderung zu vermeiden.
 
-faq.items[0].question = Wer bestellt einen rechtlichen Betreuer?
-faq.items[0].answer = Ein rechtlicher Betreuer wird vom zuständigen Betreuungsgericht bestellt. Dies geschieht entweder auf eigenen Antrag der betroffenen Person oder von Amts wegen (z. B. auf Anregung von Angehörigen, Krankenhäusern oder Behörden), wenn jemand aufgrund einer psychischen Krankheit oder einer körperlichen, geistigen oder seelischen Behinderung seine Angelegenheiten ganz oder teilweise nicht regeln kann.
+faq.items[0].category = general
+faq.items[0].question = Was ist eine rechtliche Betreuung?
+faq.items[0].answer = Die rechtliche Betreuung ist eine gesetzliche Unterstützung für Menschen, die ihre Angelegenheiten ganz oder teilweise nicht mehr selbst regeln können. Als rechtlicher Betreuer vertrete ich die Interessen der betreuten Person und entscheide nur in den Bereichen, für die ich bestellt wurde. Ziel ist es, Selbstbestimmung zu erhalten und Überforderung zu vermeiden.
 
-faq.items[1].question = Welche Aufgaben hat ein rechtlicher Betreuer?
-faq.items[1].answer = Die Aufgabenbereiche werden vom Gericht individuell festgelegt (z.B. Gesundheitssorge, Vermögenssorge, Vertretung gegenüber Behörden, Wohnungsangelegenheiten). Der Betreuer unterstützt die betreute Person dabei, ihr Leben nach den eigenen Wünschen zu gestalten, und vertritt sie im erforderlichen Umfang rechtlich.
+faq.items[1].category = general
+faq.items[1].question = Wer bestellt einen rechtlichen Betreuer?
+faq.items[1].answer = Ein rechtlicher Betreuer wird vom zuständigen Betreuungsgericht bestellt. Dies geschieht entweder auf eigenen Antrag der betroffenen Person oder von Amts wegen (z. B. auf Anregung von Angehörigen, Krankenhäusern oder Behörden), wenn jemand aufgrund einer psychischen Krankheit oder einer körperlichen, geistigen oder seelischen Behinderung seine Angelegenheiten ganz oder teilweise nicht regeln kann.
 
-faq.items[2].question = Was kostet eine rechtliche Betreuung?
-faq.items[2].answer = Die Vergütung und Auslagen des Betreuers werden gesetzlich geregelt. Wenn die betreute Person über ausreichendes Vermögen verfügt (oberhalb des Schonvermögens von derzeit 10.000 €), zahlt sie die Kosten selbst. Andernfalls übernimmt die Staatskasse die Vergütung.
+faq.items[2].category = general
+faq.items[2].question = Bedeutet rechtliche Betreuung "Entmündigung"?
+faq.items[2].answer = Nein. Eine „Entmündigung“ gibt es im deutschen Recht seit 1992 nicht mehr. Die betreute Person behält grundsätzlich ihre volle Geschäftsfähigkeit und Handlungsfreiheit (es sei denn, ein Gericht stellt explizit etwas anderes fest). Die Betreuung ist eine unterstützende Partnerschaft, kein Entzug von Rechten.
 
-faq.items[3].question = Kann ich Wünsche oder Vollmachten festlegen?
-faq.items[3].answer = Ja. Mit einer Vorsorgevollmacht oder einer Betreuungsverfügung können Sie im Vorfeld selbst bestimmen, wer im Ernstfall Ihre Interessen vertreten soll und welche Wünsche bei der Betreuung berücksichtigt werden müssen. Dies stärkt Ihre Selbstbestimmung maßgeblich.
+faq.items[3].category = rights
+faq.items[3].question = Wie läuft das Betreuungsverfahren ab?
+faq.items[3].answer = Das Betreuungsgericht prüft den Bedarf. Dazu gehören ein ärztliches Gutachten, eine Befragung durch die örtliche Betreuungsbehörde und ein persönliches Gespräch des Richters mit der betroffenen Person (persönliche Anhörung). Erst danach wird entschieden, ob und für welche genauen Aufgabenbereiche eine Betreuung eingerichtet wird.
+
+faq.items[4].category = rights
+faq.items[4].question = Welche Aufgaben hat ein rechtlicher Betreuer?
+faq.items[4].answer = Die Aufgabenbereiche werden vom Gericht individuell festgelegt (z.B. Gesundheitssorge, Vermögenssorge, Vertretung gegenüber Behörden, Wohnungsangelegenheiten). Der Betreuer unterstützt die betreute Person dabei, ihr Leben nach den eigenen Wünschen zu gestalten, und vertritt sie im erforderlichen Umfang rechtlich.
+
+faq.items[5].category = rights
+faq.items[5].question = Kann ich den Betreuer wechseln oder die Betreuung beenden?
+faq.items[5].answer = Ja. Die betreute Person kann sich jederzeit an das Betreuungsgericht wenden, um einen Wechsel des Betreuers zu beantragen oder das Ende der Betreuung prüfen zu lassen (z. B. wenn sich der Gesundheitszustand soweit verbessert hat, dass Unterstützung nicht mehr nötig ist). Das Gericht prüft die Betreuung ohnehin in regelmäßigen Abständen.
+
+faq.items[6].category = costs
+faq.items[6].question = Was kostet eine rechtliche Betreuung?
+faq.items[6].answer = Die Vergütung und Auslagen des Betreuers werden gesetzlich geregelt. Wenn die betreute Person über ausreichendes Vermögen verfügt (oberhalb des Schonvermögens von derzeit 10.000 €), zahlt sie die Kosten selbst. Andernfalls übernimmt die Staatskasse die Vergütung.
+
+faq.items[7].category = costs
+faq.items[7].question = Kann ich Wünsche oder Vollmachten festlegen?
+faq.items[7].answer = Ja. Mit einer Vorsorgevollmacht oder einer Betreuungsverfügung können Sie im Vorfeld selbst bestimmen, wer im Ernstfall Ihre Interessen vertreten soll und welche Wünsche bei der Betreuung berücksichtigt werden müssen. Dies stärkt Ihre Selbstbestimmung maßgeblich.
 
 # Kontakt
 kontakt.title = Kontakt

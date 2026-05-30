@@ -83,18 +83,42 @@
       explanation: "Die rechtliche Betreuung ist eine gesetzliche Unterstützung für Menschen, die ihre Angelegenheiten ganz oder teilweise nicht mehr selbst regeln können. Als rechtlicher Betreuer vertrete ich die Interessen der betreuten Person und entscheide nur in den Bereichen, für die ich bestellt wurde. Ziel ist es, Selbstbestimmung zu erhalten und Überforderung zu vermeiden.",
       items: [
         {
+          category: "general",
+          question: "Was ist eine rechtliche Betreuung?",
+          answer: "Die rechtliche Betreuung ist eine gesetzliche Unterstützung für Menschen, die ihre Angelegenheiten ganz oder teilweise nicht mehr selbst regeln können. Als rechtlicher Betreuer vertrete ich die Interessen der betreuten Person und entscheide nur in den Bereichen, für die ich bestellt wurde. Ziel ist es, Selbstbestimmung zu erhalten und Überforderung zu vermeiden."
+        },
+        {
+          category: "general",
           question: "Wer bestellt einen rechtlichen Betreuer?",
           answer: "Ein rechtlicher Betreuer wird vom zuständigen Betreuungsgericht bestellt. Dies geschieht entweder auf eigenen Antrag der betroffenen Person oder von Amts wegen (z. B. auf Anregung von Angehörigen, Krankenhäusern oder Behörden), wenn jemand aufgrund einer psychischen Krankheit oder einer körperlichen, geistigen oder seelischen Behinderung seine Angelegenheiten ganz oder teilweise nicht regeln kann."
         },
         {
+          category: "general",
+          question: "Bedeutet rechtliche Betreuung \"Entmündigung\"?",
+          answer: "Nein. Eine „Entmündigung“ gibt es im deutschen Recht seit 1992 nicht mehr. Die betreute Person behält grundsätzlich ihre volle Geschäftsfähigkeit und Handlungsfreiheit (es sei denn, ein Gericht stellt explizit etwas anderes fest). Die Betreuung ist eine unterstützende Partnerschaft, kein Entzug von Rechten."
+        },
+        {
+          category: "rights",
+          question: "Wie läuft das Betreuungsverfahren ab?",
+          answer: "Das Betreuungsgericht prüft den Bedarf. Dazu gehören ein ärztliches Gutachten, eine Befragung durch die örtliche Betreuungsbehörde und ein persönliches Gespräch des Richters mit der betroffenen Person (persönliche Anhörung). Erst danach wird entschieden, ob und für welche genauen Aufgabenbereiche eine Betreuung eingerichtet wird."
+        },
+        {
+          category: "rights",
           question: "Welche Aufgaben hat ein rechtlicher Betreuer?",
           answer: "Die Aufgabenbereiche werden vom Gericht individuell festgelegt (z.B. Gesundheitssorge, Vermögenssorge, Vertretung gegenüber Behörden, Wohnungsangelegenheiten). Der Betreuer unterstützt die betreute Person dabei, ihr Leben nach den eigenen Wünschen zu gestalten, und vertritt sie im erforderlichen Umfang rechtlich."
         },
         {
+          category: "rights",
+          question: "Kann ich den Betreuer wechseln oder die Betreuung beenden?",
+          answer: "Ja. Die betreute Person kann sich jederzeit an das Betreuungsgericht wenden, um einen Wechsel des Betreuers zu beantragen oder das Ende der Betreuung prüfen zu lassen (z. B. wenn sich der Gesundheitszustand soweit verbessert hat, dass Unterstützung nicht mehr nötig ist). Das Gericht prüft die Betreuung ohnehin in regelmäßigen Abständen."
+        },
+        {
+          category: "costs",
           question: "Was kostet eine rechtliche Betreuung?",
           answer: "Die Vergütung und Auslagen des Betreuers werden gesetzlich geregelt. Wenn die betreute Person über ausreichendes Vermögen verfügt (oberhalb des Schonvermögens von derzeit 10.000 €), zahlt sie die Kosten selbst. Andernfalls übernimmt die Staatskasse die Vergütung."
         },
         {
+          category: "costs",
           question: "Kann ich Wünsche oder Vollmachten festlegen?",
           answer: "Ja. Mit einer Vorsorgevollmacht oder einer Betreuungsverfügung können Sie im Vorfeld selbst bestimmen, wer im Ernstfall Ihre Interessen vertreten soll und welche Wünsche bei der Betreuung berücksichtigt werden müssen. Dies stärkt Ihre Selbstbestimmung maßgeblich."
         }
@@ -545,6 +569,7 @@
   let openModal = $state(null); // 'impressum' | 'datenschutz' | null
   let selectedServiceIndex = $state(null);
   let selectedAudienceIndex = $state(null);
+  let activeFaqTab = $state('general');
 
   // Form Fields
   let name = $state('');
@@ -728,63 +753,33 @@
         <h2 class="section-title" >{content.faq.title}</h2>
       </div>
 
+      <div class="faq-tabs reveal">
+        <button class="faq-tab-btn" class:active={activeFaqTab === 'general'} onclick={() => { activeFaqTab = 'general'; activeFaq = null; }}>Allgemeines</button>
+        <button class="faq-tab-btn" class:active={activeFaqTab === 'rights'} onclick={() => { activeFaqTab = 'rights'; activeFaq = null; }}>Rechte & Ablauf</button>
+        <button class="faq-tab-btn" class:active={activeFaqTab === 'costs'} onclick={() => { activeFaqTab = 'costs'; activeFaq = null; }}>Kosten & Vorsorge</button>
+      </div>
+
       <div class="faq-grid">
         <div class="faq-explanation reveal">
           <p >{content.faq.explanation}</p>
         </div>
 
         <div class="faq-list reveal reveal-delay-1">
-          <!-- FAQ 1 -->
-          <div class="faq-item {activeFaq === 0 ? 'active' : ''}">
-            <button class="faq-trigger" onclick={() => toggleFaq(0)} aria-expanded={activeFaq === 0}>
-              <span >{content.faq.items[0].question}</span>
-              <svg class="faq-trigger-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7" />
-              </svg>
-            </button>
-            <div class="faq-content" style={activeFaq === 0 ? 'max-height: 200px;' : 'max-height: 0;'}>
-              <p >{content.faq.items[0].answer}</p>
-            </div>
-          </div>
-
-          <!-- FAQ 2 -->
-          <div class="faq-item {activeFaq === 1 ? 'active' : ''}">
-            <button class="faq-trigger" onclick={() => toggleFaq(1)} aria-expanded={activeFaq === 1}>
-              <span >{content.faq.items[1].question}</span>
-              <svg class="faq-trigger-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7" />
-              </svg>
-            </button>
-            <div class="faq-content" style={activeFaq === 1 ? 'max-height: 200px;' : 'max-height: 0;'}>
-              <p >{content.faq.items[1].answer}</p>
-            </div>
-          </div>
-
-          <!-- FAQ 3 -->
-          <div class="faq-item {activeFaq === 2 ? 'active' : ''}">
-            <button class="faq-trigger" onclick={() => toggleFaq(2)} aria-expanded={activeFaq === 2}>
-              <span >{content.faq.items[2].question}</span>
-              <svg class="faq-trigger-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7" />
-              </svg>
-            </button>
-            <div class="faq-content" style={activeFaq === 2 ? 'max-height: 200px;' : 'max-height: 0;'}>
-              <p >{content.faq.items[2].answer}</p>
-            </div>
-          </div>
-
-          <!-- FAQ 4 -->
-          <div class="faq-item {activeFaq === 3 ? 'active' : ''}">
-            <button class="faq-trigger" onclick={() => toggleFaq(3)} aria-expanded={activeFaq === 3}>
-              <span >{content.faq.items[3].question}</span>
-              <svg class="faq-trigger-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7" />
-              </svg>
-            </button>
-            <div class="faq-content" style={activeFaq === 3 ? 'max-height: 200px;' : 'max-height: 0;'}>
-              <p >{content.faq.items[3].answer}</p>
-            </div>
-          </div>
+          {#each content.faq.items as item, index}
+            {#if item.category === activeFaqTab}
+              <div class="faq-item {activeFaq === index ? 'active' : ''}">
+                <button class="faq-trigger" onclick={() => toggleFaq(index)} aria-expanded={activeFaq === index}>
+                  <span >{item.question}</span>
+                  <svg class="faq-trigger-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+                <div class="faq-content" style={activeFaq === index ? 'max-height: 200px;' : 'max-height: 0;'}>
+                  <p >{item.answer}</p>
+                </div>
+              </div>
+            {/if}
+          {/each}
         </div>
       </div>
     </div>
