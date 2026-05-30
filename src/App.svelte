@@ -688,7 +688,10 @@
           </defs>
 
           <!-- Top Right Dot Grid -->
-          <rect x="360" y="50" width="80" height="80" fill="url(#dot-pattern)" class="hero-dots-top" />
+          <g class="hero-dots-top">
+            <rect x="360" y="50" width="80" height="80" fill="url(#dot-pattern)" />
+            <circle r="2.5" fill="#ff4e18" class="grid-orange-dot-hero" />
+          </g>
           
           <!-- Bottom Left Dot Grid -->
           <rect x="60" y="270" width="80" height="80" fill="url(#dot-pattern)" class="hero-dots-bottom" />
@@ -800,7 +803,10 @@
         <rect x="1080" y="80" width="80" height="80" fill="url(#dot-pattern-s1)" class="hero-dots-top" />
         
         <!-- Bottom Left Dot Grid -->
-        <rect x="240" y="220" width="80" height="80" fill="url(#dot-pattern-s1)" class="hero-dots-bottom" />
+        <g class="hero-dots-bottom">
+          <rect x="240" y="220" width="80" height="80" fill="url(#dot-pattern-s1)" />
+          <circle r="2.5" fill="#ff4e18" class="grid-orange-dot-spacer" />
+        </g>
 
         <!-- Winding horizontal lines spreading out across the wide viewport -->
         <!-- Left winding line heading to sound waves -->

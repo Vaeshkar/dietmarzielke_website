@@ -1489,6 +1489,35 @@ button {
   }
 }
 
+/* Dot Grid Orange Dot Animations */
+.grid-orange-dot-hero {
+  animation: moveDotHero 12s ease-in-out infinite;
+}
+
+@keyframes moveDotHero {
+  0% { cx: 362px; cy: 52px; }
+  16% { cx: 410px; cy: 52px; }
+  33% { cx: 410px; cy: 84px; }
+  50% { cx: 378px; cy: 84px; }
+  66% { cx: 378px; cy: 116px; }
+  83% { cx: 426px; cy: 116px; }
+  100% { cx: 362px; cy: 52px; }
+}
+
+.grid-orange-dot-spacer {
+  animation: moveDotSpacer 12s ease-in-out infinite;
+}
+
+@keyframes moveDotSpacer {
+  0% { cx: 242px; cy: 286px; }
+  16% { cx: 242px; cy: 238px; }
+  33% { cx: 274px; cy: 238px; }
+  50% { cx: 274px; cy: 270px; }
+  66% { cx: 306px; cy: 270px; }
+  83% { cx: 306px; cy: 222px; }
+  100% { cx: 242px; cy: 286px; }
+}
+
 
 
 
