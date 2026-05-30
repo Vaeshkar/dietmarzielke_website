@@ -1441,5 +1441,53 @@ button {
   border-radius: inherit;
 }
 
+/* Spacer Section 1 - Sound Wave Animation */
+.sound-wave-1 {
+  transform-box: fill-box;
+  transform-origin: right center;
+  animation: soundPulse 3s ease-in-out infinite;
+}
+
+.sound-wave-2 {
+  transform-box: fill-box;
+  transform-origin: right center;
+  animation: soundPulse 3s ease-in-out infinite 0.75s;
+}
+
+.sound-wave-3 {
+  transform-box: fill-box;
+  transform-origin: right center;
+  animation: soundPulse 3s ease-in-out infinite 1.5s;
+}
+
+@keyframes soundPulse {
+  0% {
+    transform: scale(0.95);
+    opacity: 0.15;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.85;
+  }
+  100% {
+    transform: scale(0.95);
+    opacity: 0.15;
+  }
+}
+
+/* Spacer Section 1 - Processing Dot Blinking */
+.spacer-processing-dot {
+  animation: blinkIndicator 1.8s ease-in-out infinite alternate;
+}
+
+@keyframes blinkIndicator {
+  from {
+    opacity: 0.2;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 
 

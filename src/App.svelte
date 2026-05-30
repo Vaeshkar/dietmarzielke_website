@@ -815,9 +815,9 @@
 
         <!-- Concentric Sound Waves (Listening motif) -->
         <g class="hero-outline-bubble">
-          <path d="M 400,120 A 80,80 0 0 1 400,280" stroke="#ff4e18" stroke-width="2" stroke-linecap="round" fill="none" />
-          <path d="M 370,90 A 110,110 0 0 1 370,310" stroke="#ff4e18" stroke-width="1.5" stroke-linecap="round" fill="none" opacity="0.6" />
-          <path d="M 340,60 A 140,140 0 0 1 340,340" stroke="#ff4e18" stroke-width="1" stroke-linecap="round" fill="none" opacity="0.3" />
+          <path d="M 400,120 A 80,80 0 0 1 400,280" stroke="#ff4e18" stroke-width="2" stroke-linecap="round" fill="none" class="sound-wave-1" />
+          <path d="M 370,90 A 110,110 0 0 1 370,310" stroke="#ff4e18" stroke-width="1.5" stroke-linecap="round" fill="none" class="sound-wave-2" />
+          <path d="M 340,60 A 140,140 0 0 1 340,340" stroke="#ff4e18" stroke-width="1" stroke-linecap="round" fill="none" class="sound-wave-3" />
         </g>
 
         <!-- Receiver Shell Shape (Abstract Ear/Pebble) -->
@@ -829,7 +829,7 @@
         <g class="hero-gray-bubble">
           <path d="M 850,120 C 850,80 890,60 950,60 C 1010,60 1050,80 1050,120 V 240 C 1050,280 1010,300 950,300 C 890,300 850,280 850,240 Z" fill="#f1f5f9" />
           <!-- Accent dot inside processing block -->
-          <circle cx="950" cy="180" r="5" fill="#ff4e18" />
+          <circle cx="950" cy="180" r="5" fill="#ff4e18" class="spacer-processing-dot" />
         </g>
 
         <!-- Solid Orange Circle (Listening Focal Point) -->
