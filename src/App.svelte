@@ -1182,7 +1182,7 @@
 <!-- Footer -->
 <footer class="footer">
   <div class="container footer-container">
-    <div class="logo" onclick={handleLogoClick} style="cursor: pointer;" role="button" tabindex="0" onkeydown={(e) => { if (e.key === 'Enter') handleLogoClick(); }}>
+    <div class="logo">
       <img src="/dz_logo_d.svg" alt="Dietmar Zielke Rechtliche Betreuungen" class="logo-img" />
     </div>
     
