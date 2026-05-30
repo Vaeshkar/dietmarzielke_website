@@ -126,10 +126,9 @@
     const drawTile = (box) => {
       if (box.scale < 0.001) return;
 
-      const zoom = 1 + box.scale * 0.4;
-      const sourceSize = boxSize / zoom;
-      const sourceX = box.centerX - sourceSize / 2;
-      const sourceY = box.centerY - sourceSize / 2;
+      const sourceSize = boxSize;
+      const sourceX = box.x;
+      const sourceY = box.y;
 
       // Draw the block scaling up from the center of its grid cell
       context.drawImage(
