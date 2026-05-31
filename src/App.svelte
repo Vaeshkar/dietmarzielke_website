@@ -970,8 +970,8 @@
 <!-- Footer -->
 <footer class="footer">
   <div class="container footer-container">
-    <div class="logo">
-      <img src="/media/logo.svg" alt="Dietmar Zielke Rechtliche Betreuungen" class="logo-img" />
+    <div class="logo footer-logo">
+      <img src="/media/dz_logo_d_2.svg" alt="Dietmar Zielke Rechtliche Betreuungen" class="logo-img footer-logo-img" />
     </div>
     
     <p class="footer-tagline">Verlässlich. Sorgfältig. Menschlich.</p>

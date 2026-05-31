@@ -1322,6 +1322,11 @@ button {
   gap: 24px;
 }
 
+.footer-logo-img {
+  max-width: 380px;
+  max-height: 80px;
+}
+
 .footer-tagline {
   font-weight: 500;
   color: var(--text-muted);
