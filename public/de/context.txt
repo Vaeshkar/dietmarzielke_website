@@ -10,7 +10,7 @@
 
 # Hero-Bereich
 hero.title = Rechtliche Betreuung in Hamburg
-hero.description = Ich übernehme rechtliche Betreuungen in den Aufgabenbereichen, die das Gericht festlegt. Dabei geht es um klare Absprachen, geordnete Unterlagen und den Willen der betreuten Person.
+hero.description = Ich unterstütze Menschen in den Aufgabenbereichen, die das Betreuungsgericht festlegt. Dabei geht es um klare Absprachen, geordnete Unterlagen und Entscheidungen, die sich am Willen der betreuten Person orientieren.
 
 # Leistungen
 leistungen.title = Leistungen
@@ -18,9 +18,9 @@ leistungen.title = Leistungen
 leistungen.cards[0].title = Gesundheit & Behörden
 leistungen.cards[0].desc = Unterstützung bei Schriftverkehr mit Krankenkassen, Ärzten, Behörden und weiteren Stellen.
 leistungen.cards[0].detailTitle = Gesundheit & Behörden
-leistungen.cards[0].detailSubtitle = Rechtliche Vertretung in gesundheitlichen und behördlichen Fragen, soweit der gerichtliche Beschluss dies vorsieht.
+leistungen.cards[0].detailSubtitle = Unterstützung bei gesundheitlichen und behördlichen Fragen, soweit der gerichtliche Beschluss dies vorsieht.
 leistungen.cards[0].detailDesc = Im Bereich Gesundheit und Behörden kläre ich Anliegen mit den beteiligten Stellen. Entscheidungen bespreche ich, soweit möglich, mit der betreuten Person und orientiere mich an ihrem Willen.
-leistungen.cards[0].detailBullet1 = Ärztliche Angelegenheiten: Abstimmung mit Ärzten, Kliniken und anderen Beteiligten, wenn eine rechtliche Vertretung erforderlich ist.
+leistungen.cards[0].detailBullet1 = Ärztliche Angelegenheiten: Abstimmung mit Ärzten, Kliniken und anderen Beteiligten, wenn dies zum Aufgabenbereich gehört.
 leistungen.cards[0].detailBullet2 = Krankenkassen und Pflegekassen: Schriftverkehr, Anträge und Rückfragen zu Leistungen.
 leistungen.cards[0].detailBullet3 = Behörden: Klärung von Bescheiden, Fristen und Unterlagen.
 leistungen.cards[0].detailBullet4 = Unterlagen: Sichtung vorhandener Vollmachten, Verfügungen und gerichtlicher Beschlüsse.
@@ -47,11 +47,11 @@ leistungen.cards[2].detailBullet3 = Einrichtungen und Dienste: Abstimmung mit Pf
 leistungen.cards[2].detailBullet4 = Post und Unterlagen: Sichten, Ordnen und Bearbeiten wichtiger Schreiben.
 leistungen.cards[2].detailNote = Die Aufgabe einer Wohnung oder ein Wechsel der Wohnform kann besondere rechtliche Anforderungen haben. In bestimmten Fällen ist eine Genehmigung des Betreuungsgerichts erforderlich.
 
-leistungen.cards[3].title = Vertretung & Kommunikation
-leistungen.cards[3].desc = Vertretung gegenüber Behörden, Institutionen und anderen Beteiligten.
-leistungen.cards[3].detailTitle = Vertretung & Kommunikation
+leistungen.cards[3].title = Kommunikation & Abstimmung
+leistungen.cards[3].desc = Klärung mit Behörden, Institutionen und anderen Beteiligten.
+leistungen.cards[3].detailTitle = Kommunikation & Abstimmung
 leistungen.cards[3].detailSubtitle = Klare Abstimmung mit Stellen, die an der Betreuung beteiligt sind.
-leistungen.cards[3].detailDesc = Viele Angelegenheiten lassen sich nur klären, wenn Unterlagen vollständig sind und die Beteiligten wissen, wer zuständig ist. Ich übernehme die rechtliche Kommunikation, soweit sie zum Aufgabenbereich gehört.
+leistungen.cards[3].detailDesc = Viele Angelegenheiten lassen sich nur klären, wenn Unterlagen vollständig sind und die Beteiligten wissen, wer zuständig ist. Ich unterstütze die Kommunikation und handele rechtlich, soweit es zum Aufgabenbereich gehört.
 leistungen.cards[3].detailBullet1 = Behörden: Anträge, Fristen, Bescheide und Rückfragen.
 leistungen.cards[3].detailBullet2 = Gerichte: Berichte, Rückmeldungen und Unterlagen für das Betreuungsgericht.
 leistungen.cards[3].detailBullet3 = Angehörige: Austausch, soweit dies gewünscht und rechtlich möglich ist.
@@ -69,7 +69,7 @@ fuerWen.cards[0].detailDesc = Wenn eine Betreuung eingerichtet wird, betrifft si
 fuerWen.cards[0].detailBullet1 = Ihre Wünsche: Sie werden berücksichtigt, soweit dies rechtlich möglich ist.
 fuerWen.cards[0].detailBullet2 = Verständliche Absprachen: Entscheidungen und Schreiben werden nachvollziehbar erklärt.
 fuerWen.cards[0].detailBullet3 = Kontakt: Wir bleiben im Austausch, wenn Fragen oder Entscheidungen anstehen.
-fuerWen.cards[0].detailBullet4 = Vertretung: Ich vertrete Sie in den Bereichen, die das Gericht festgelegt hat.
+fuerWen.cards[0].detailBullet4 = Unterstützung: Ich kläre und handele in den Bereichen, die das Gericht festgelegt hat.
 
 fuerWen.cards[1].title = Angehörige
 fuerWen.cards[1].desc = Ansprechpartner für Angehörige, soweit Austausch möglich und gewünscht ist.
@@ -95,9 +95,9 @@ fuerWen.cards[2].detailBullet4 = Zusammenarbeit: Abstimmung mit Behörden, Einri
 ueberMich.title = Über mich
 ueberMich.subtitle = Dietmar Zielke
 ueberMich.tagline = Rechtlicher Betreuer in Hamburg & der Metropolregion
-ueberMich.p1 = Ich arbeite als rechtlicher Betreuer in Hamburg und der Metropolregion. Meine Aufgabe ist es, Menschen in den Bereichen zu vertreten, die das Betreuungsgericht festlegt.
+ueberMich.p1 = Ich arbeite als rechtlicher Betreuer in Hamburg und der Metropolregion. Meine Aufgabe ist es, Menschen in den Bereichen zu unterstützen, die das Betreuungsgericht festlegt.
 ueberMich.p2 = Wichtig sind mir geordnete Unterlagen, erreichbare Kommunikation und Entscheidungen, die nachvollziehbar bleiben. Dabei berücksichtige ich den Willen und die Wünsche der betreuten Person, soweit dies rechtlich möglich ist.
-ueberMich.bullets[0] = Rechtliche Vertretung im gerichtlichen Aufgabenbereich
+ueberMich.bullets[0] = Unterstützung im gerichtlichen Aufgabenbereich
 ueberMich.bullets[1] = Klare Abstimmung mit Behörden, Gerichten und Einrichtungen
 ueberMich.bullets[2] = Nachvollziehbare Bearbeitung von Unterlagen, Fristen und Anträgen
 
@@ -110,8 +110,8 @@ soArbeiteIch.steps[0].desc = Zuerst kläre ich die Situation, den gerichtlichen 
 soArbeiteIch.steps[1].title = Klären & Abstimmen
 soArbeiteIch.steps[1].desc = Ich nehme Kontakt zu den beteiligten Stellen auf, prüfe Fristen und bereite die nächsten Schritte vor.
 
-soArbeiteIch.steps[2].title = Vertreten & Berichten
-soArbeiteIch.steps[2].desc = Ich vertrete die betreute Person im festgelegten Bereich und informiere das Gericht, wenn Berichte erforderlich sind.
+soArbeiteIch.steps[2].title = Handeln & Berichten
+soArbeiteIch.steps[2].desc = Ich handele im festgelegten Aufgabenbereich und informiere das Gericht, wenn Berichte erforderlich sind.
 
 # FAQ
 faq.title = Was ist rechtliche Betreuung?
@@ -135,7 +135,7 @@ faq.items[3].answer = Das Betreuungsgericht prüft den Bedarf. Dazu können ein 
 
 faq.items[4].category = rights
 faq.items[4].question = Welche Aufgaben hat ein rechtlicher Betreuer?
-faq.items[4].answer = Die Aufgaben richten sich nach dem gerichtlichen Beschluss. Häufig geht es um Behördenangelegenheiten, Gesundheitssorge, Vermögenssorge oder Wohnungsangelegenheiten. Der Betreuer vertritt die Person rechtlich in diesen Bereichen.
+faq.items[4].answer = Die Aufgaben richten sich nach dem gerichtlichen Beschluss. Häufig geht es um Behördenangelegenheiten, Gesundheitssorge, Vermögenssorge oder Wohnungsangelegenheiten. Der Betreuer unterstützt, klärt und handelt rechtlich in diesen Bereichen.
 
 faq.items[5].category = rights
 faq.items[5].question = Kann ich den Betreuer wechseln oder die Betreuung beenden?
@@ -147,7 +147,7 @@ faq.items[6].answer = Die Vergütung beruflicher Betreuer ist gesetzlich geregel
 
 faq.items[7].category = costs
 faq.items[7].question = Kann ich Wünsche oder Vollmachten festlegen?
-faq.items[7].answer = Ja. Mit einer Vorsorgevollmacht oder Betreuungsverfügung können Sie festhalten, wer Sie vertreten soll und welche Wünsche wichtig sind. Ob und wie dies wirkt, hängt vom Einzelfall und der rechtlichen Situation ab.
+faq.items[7].answer = Ja. Mit einer Vorsorgevollmacht oder Betreuungsverfügung können Sie festhalten, wer für Sie handeln soll und welche Wünsche wichtig sind. Ob und wie dies wirkt, hängt vom Einzelfall und der rechtlichen Situation ab.
 
 # Kontakt
 kontakt.title = Kontakt

@@ -5,7 +5,7 @@
   let content = $state({
     hero: {
       title: "Rechtliche Betreuung in Hamburg",
-      description: "Ich übernehme rechtliche Betreuungen in den Aufgabenbereichen, die das Gericht festlegt. Dabei geht es um klare Absprachen, geordnete Unterlagen und den Willen der betreuten Person."
+      description: "Ich unterstütze Menschen in den Aufgabenbereichen, die das Betreuungsgericht festlegt. Dabei geht es um klare Absprachen, geordnete Unterlagen und Entscheidungen, die sich am Willen der betreuten Person orientieren."
     },
     leistungen: {
       title: "Leistungen",
@@ -23,8 +23,8 @@
           desc: "Rechtliche Klärung von Mietfragen, Wohnsituation und notwendiger Unterstützung."
         },
         {
-          title: "Vertretung & Kommunikation",
-          desc: "Vertretung gegenüber Behörden, Institutionen und anderen Beteiligten."
+          title: "Kommunikation & Abstimmung",
+          desc: "Klärung mit Behörden, Institutionen und anderen Beteiligten."
         }
       ]
     },
@@ -50,10 +50,10 @@
       title: "Über mich",
       subtitle: "Dietmar Zielke",
       tagline: "Rechtlicher Betreuer in Hamburg & der Metropolregion",
-      p1: "Ich arbeite als rechtlicher Betreuer in Hamburg und der Metropolregion. Meine Aufgabe ist es, Menschen in den Bereichen zu vertreten, die das Betreuungsgericht festlegt.",
+      p1: "Ich arbeite als rechtlicher Betreuer in Hamburg und der Metropolregion. Meine Aufgabe ist es, Menschen in den Bereichen zu unterstützen, die das Betreuungsgericht festlegt.",
       p2: "Wichtig sind mir geordnete Unterlagen, erreichbare Kommunikation und Entscheidungen, die nachvollziehbar bleiben. Dabei berücksichtige ich den Willen und die Wünsche der betreuten Person, soweit dies rechtlich möglich ist.",
       bullets: [
-        "Rechtliche Vertretung im gerichtlichen Aufgabenbereich",
+        "Unterstützung im gerichtlichen Aufgabenbereich",
         "Klare Abstimmung mit Behörden, Gerichten und Einrichtungen",
         "Nachvollziehbare Bearbeitung von Unterlagen, Fristen und Anträgen"
       ]
@@ -73,8 +73,8 @@
         },
         {
           number: "03",
-          title: "Vertreten & Berichten",
-          desc: "Ich vertrete die betreute Person im festgelegten Bereich und informiere das Gericht, wenn Berichte erforderlich sind."
+          title: "Handeln & Berichten",
+          desc: "Ich handele im festgelegten Aufgabenbereich und informiere das Gericht, wenn Berichte erforderlich sind."
         }
       ]
     },
@@ -105,7 +105,7 @@
         {
           category: "rights",
           question: "Welche Aufgaben hat ein rechtlicher Betreuer?",
-          answer: "Die Aufgaben richten sich nach dem gerichtlichen Beschluss. Häufig geht es um Behördenangelegenheiten, Gesundheitssorge, Vermögenssorge oder Wohnungsangelegenheiten. Der Betreuer vertritt die Person rechtlich in diesen Bereichen."
+          answer: "Die Aufgaben richten sich nach dem gerichtlichen Beschluss. Häufig geht es um Behördenangelegenheiten, Gesundheitssorge, Vermögenssorge oder Wohnungsangelegenheiten. Der Betreuer unterstützt, klärt und handelt rechtlich in diesen Bereichen."
         },
         {
           category: "rights",
@@ -120,7 +120,7 @@
         {
           category: "costs",
           question: "Kann ich Wünsche oder Vollmachten festlegen?",
-          answer: "Ja. Mit einer Vorsorgevollmacht oder Betreuungsverfügung können Sie festhalten, wer Sie vertreten soll und welche Wünsche wichtig sind. Ob und wie dies wirkt, hängt vom Einzelfall und der rechtlichen Situation ab."
+          answer: "Ja. Mit einer Vorsorgevollmacht oder Betreuungsverfügung können Sie festhalten, wer für Sie handeln soll und welche Wünsche wichtig sind. Ob und wie dies wirkt, hängt vom Einzelfall und der rechtlichen Situation ab."
         }
       ]
     },
