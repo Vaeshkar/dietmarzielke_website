@@ -9,145 +9,145 @@
 # ==============================================================================
 
 # Hero-Bereich
-hero.title = Rechtliche Betreuung mit Klarheit, Ruhe und Verlässlichkeit.
-hero.description = Ich unterstütze und vertrete Menschen in rechtlichen und organisatorischen Angelegenheiten – persönlich, sorgfältig und auf Augenhöhe.
+hero.title = Rechtliche Betreuung in Hamburg
+hero.description = Ich übernehme rechtliche Betreuungen in den Aufgabenbereichen, die das Gericht festlegt. Dabei geht es um klare Absprachen, geordnete Unterlagen und den Willen der betreuten Person.
 
 # Leistungen
 leistungen.title = Leistungen
 
 leistungen.cards[0].title = Gesundheit & Behörden
-leistungen.cards[0].desc = Unterstützung bei medizinischen Entscheidungen und im Umgang mit Ämtern und Krankenkassen.
+leistungen.cards[0].desc = Unterstützung bei Schriftverkehr mit Krankenkassen, Ärzten, Behörden und weiteren Stellen.
 leistungen.cards[0].detailTitle = Gesundheit & Behörden
-leistungen.cards[0].detailSubtitle = Vertretung gesundheitlicher Interessen unter Wahrung des Selbstbestimmungsrechts.
-leistungen.cards[0].detailDesc = Als Ihr rechtlicher Betreuer vertrete ich Ihre gesundheitlichen Belange stets unter Wahrung Ihres Willens und Ihrer Wünsche.
-leistungen.cards[0].detailBullet1 = Einwilligung in Behandlungen: Gewissenhafte Prüfung und Genehmigung medizinischer Eingriffe und Therapien auf Basis vorliegender Patientenverfügungen.
-leistungen.cards[0].detailBullet2 = Medizinische Koordination: Organisation von Arztbesuchen, Reha- und Krankenhausaufenthalten sowie enge Abstimmung mit behandelnden Ärzten.
-leistungen.cards[0].detailBullet3 = Pflegeleistungen: Beantragung, Organisation und Überwachung ambulanter Pflegedienste oder stationärer Unterbringung.
-leistungen.cards[0].detailBullet4 = Kassen-Kommunikation: Abwicklung des Schriftverkehrs mit Kranken- und Pflegekassen zur Durchsetzung berechtigter Leistungsansprüche.
-leistungen.cards[0].detailNote = Rechtlicher Hinweis: Schwerwiegende medizinische Eingriffe sowie freiheitsentziehende Maßnahmen erfordern eine vorherige betreuungsgerichtliche Genehmigung.
+leistungen.cards[0].detailSubtitle = Rechtliche Vertretung in gesundheitlichen und behördlichen Fragen, soweit der gerichtliche Beschluss dies vorsieht.
+leistungen.cards[0].detailDesc = Im Bereich Gesundheit und Behörden kläre ich Anliegen mit den beteiligten Stellen. Entscheidungen bespreche ich, soweit möglich, mit der betreuten Person und orientiere mich an ihrem Willen.
+leistungen.cards[0].detailBullet1 = Ärztliche Angelegenheiten: Abstimmung mit Ärzten, Kliniken und anderen Beteiligten, wenn eine rechtliche Vertretung erforderlich ist.
+leistungen.cards[0].detailBullet2 = Krankenkassen und Pflegekassen: Schriftverkehr, Anträge und Rückfragen zu Leistungen.
+leistungen.cards[0].detailBullet3 = Behörden: Klärung von Bescheiden, Fristen und Unterlagen.
+leistungen.cards[0].detailBullet4 = Unterlagen: Sichtung vorhandener Vollmachten, Verfügungen und gerichtlicher Beschlüsse.
+leistungen.cards[0].detailNote = Bestimmte Maßnahmen, etwa freiheitsentziehende Maßnahmen oder einzelne medizinische Entscheidungen, können eine gerichtliche Genehmigung oder besondere rechtliche Prüfung erfordern.
 
 leistungen.cards[1].title = Vermögenssorge
-leistungen.cards[1].desc = Verantwortungsvoller Umgang mit Einkommen, Vermögen und Zahlungsverkehr.
+leistungen.cards[1].desc = Klärung von Zahlungen, Anträgen, Bescheiden und laufenden finanziellen Angelegenheiten.
 leistungen.cards[1].detailTitle = Vermögenssorge
-leistungen.cards[1].detailSubtitle = Ordnungsgemäße und transparente Verwaltung Ihrer finanziellen Mittel.
-leistungen.cards[1].detailDesc = Ich verwalte Ihre Finanzen treuhänderisch und sorge dafür, dass alle finanziellen Angelegenheiten strukturiert und transparent geregelt sind.
-leistungen.cards[1].detailBullet1 = Kontoführung & Zahlungsverkehr: Fristgerechte Abwicklung aller regelmäßigen Ausgaben wie Miete, Strom, Gas und Versicherungen.
-leistungen.cards[1].detailBullet2 = Einkommenssicherung: Beantragung von Renten, Bürgergeld, Wohngeld, Grundsicherung und Prüfung aller eingehenden Bescheide.
-leistungen.cards[1].detailBullet3 = Schuldenregulierung: Kontaktaufnahme mit Gläubigern, Verhandlung von Ratenzahlungen und Koordination mit Schuldnerberatungsstellen.
-leistungen.cards[1].detailBullet4 = Rechnungslegung: Erstellung des gesetzlich vorgeschriebenen Vermögensverzeichnisses und jährliche Rechnungslegung gegenüber dem Betreuungsgericht.
+leistungen.cards[1].detailSubtitle = Verwaltung und Klärung finanzieller Angelegenheiten im festgelegten Aufgabenbereich.
+leistungen.cards[1].detailDesc = Wenn Vermögenssorge angeordnet ist, kümmere ich mich um die notwendigen rechtlichen und organisatorischen Schritte. Dazu gehören geordnete Unterlagen, nachvollziehbare Zahlungen und die Abstimmung mit dem Betreuungsgericht.
+leistungen.cards[1].detailBullet1 = Zahlungsverkehr: Überblick über laufende Einnahmen und Ausgaben.
+leistungen.cards[1].detailBullet2 = Anträge und Bescheide: Beantragung und Prüfung von Leistungen, zum Beispiel Rente, Wohngeld oder Grundsicherung.
+leistungen.cards[1].detailBullet3 = Gläubiger und offene Forderungen: Kontaktaufnahme und Klärung der nächsten Schritte.
+leistungen.cards[1].detailBullet4 = Gerichtliche Pflichten: Vermögensverzeichnis, Berichte und Rechnungslegung, soweit erforderlich.
 
 leistungen.cards[2].title = Wohn- und Alltagsangelegenheiten
-leistungen.cards[2].desc = Organisation des Wohnumfelds und Unterstützung im täglichen Leben.
+leistungen.cards[2].desc = Rechtliche Klärung von Mietfragen, Wohnsituation und notwendiger Unterstützung.
 leistungen.cards[2].detailTitle = Wohn- und Alltagsangelegenheiten
-leistungen.cards[2].detailSubtitle = Sicherstellung einer stabilen, würdevollen und den Wünschen entsprechenden Wohnsituation.
-leistungen.cards[2].detailDesc = Ich unterstütze Sie dabei, Ihr Wohnumfeld sicher und angenehm zu gestalten oder passe es an veränderte Lebensumstände an.
-leistungen.cards[2].detailBullet1 = Mietvertragsangelegenheiten: Vertretung gegenüber Vermietern und Hausverwaltungen; Überwachung der Mietzahlungen und Nebenkostenabrechnungen.
-leistungen.cards[2].detailBullet2 = Wohnungsunterhalt: Organisation notwendiger Reparaturen, Renovierungen oder Hilfen für den barrierefreien Umbau Ihrer Wohnung.
-leistungen.cards[2].detailBullet3 = Unterbringungswechsel: Begleitung bei der Auswahl und dem Umzug in betreutes Wohnen, Wohngemeinschaften oder Pflegeheime.
-leistungen.cards[2].detailBullet4 = Post- & Schriftverkehr: Sichtung, Sortierung und Beantwortung aller behördlichen und alltäglichen Posteingänge.
-leistungen.cards[2].detailNote = Rechtlicher Hinweis: Die Kündigung einer vom Betreuten selbst genutzten Wohnung bedarf der ausdrücklichen Genehmigung des Betreuungsgerichts.
+leistungen.cards[2].detailSubtitle = Unterstützung bei rechtlichen Fragen rund um Wohnung, Alltag und notwendige Hilfen.
+leistungen.cards[2].detailDesc = Ich kläre Wohn- und Alltagsangelegenheiten, wenn sie zum Aufgabenbereich gehören. Ziel ist eine Lösung, die zur Situation und zu den Wünschen der betreuten Person passt.
+leistungen.cards[2].detailBullet1 = Mietangelegenheiten: Kontakt mit Vermietern, Hausverwaltungen und Behörden.
+leistungen.cards[2].detailBullet2 = Wohnsituation: Klärung, welche Hilfen oder Veränderungen notwendig sind.
+leistungen.cards[2].detailBullet3 = Einrichtungen und Dienste: Abstimmung mit Pflegeeinrichtungen, ambulanten Diensten oder anderen Beteiligten.
+leistungen.cards[2].detailBullet4 = Post und Unterlagen: Sichten, Ordnen und Bearbeiten wichtiger Schreiben.
+leistungen.cards[2].detailNote = Die Aufgabe einer Wohnung oder ein Wechsel der Wohnform kann besondere rechtliche Anforderungen haben. In bestimmten Fällen ist eine Genehmigung des Betreuungsgerichts erforderlich.
 
 leistungen.cards[3].title = Vertretung & Kommunikation
 leistungen.cards[3].desc = Vertretung gegenüber Behörden, Institutionen und anderen Beteiligten.
 leistungen.cards[3].detailTitle = Vertretung & Kommunikation
-leistungen.cards[3].detailSubtitle = Ihre rechtliche Stimme gegenüber Ämtern, Behörden und weiteren Beteiligten.
-leistungen.cards[3].detailDesc = Ich übernehme den formalen Kontakt zu Institutionen und stelle sicher, dass Ihre gesetzlichen Rechte umfassend gewahrt werden.
-leistungen.cards[3].detailBullet1 = Behördenangelegenheiten: Ausfüllen von Anträgen, Vertretung vor Ämtern (z. B. Versorgungsamt, Sozialamt) und Fristenüberwachung.
-leistungen.cards[3].detailBullet2 = Gerichtsverfahren: Vertretung Ihrer Interessen in zivilrechtlichen, sozialrechtlichen oder betreuungsrechtlichen Verfahren.
-leistungen.cards[3].detailBullet3 = Angehörigenarbeit: Transparente Abstimmung und partnerschaftliche Zusammenarbeit mit Familienmitgliedern und Betreuungsvereinen.
-leistungen.cards[3].detailBullet4 = Netzwerkkoordination: Schnittstelle zwischen Pflegediensten, Ärzten, Therapeuten, rechtlichen Beiständen und Ämtern.
+leistungen.cards[3].detailSubtitle = Klare Abstimmung mit Stellen, die an der Betreuung beteiligt sind.
+leistungen.cards[3].detailDesc = Viele Angelegenheiten lassen sich nur klären, wenn Unterlagen vollständig sind und die Beteiligten wissen, wer zuständig ist. Ich übernehme die rechtliche Kommunikation, soweit sie zum Aufgabenbereich gehört.
+leistungen.cards[3].detailBullet1 = Behörden: Anträge, Fristen, Bescheide und Rückfragen.
+leistungen.cards[3].detailBullet2 = Gerichte: Berichte, Rückmeldungen und Unterlagen für das Betreuungsgericht.
+leistungen.cards[3].detailBullet3 = Angehörige: Austausch, soweit dies gewünscht und rechtlich möglich ist.
+leistungen.cards[3].detailBullet4 = Beteiligte Stellen: Abstimmung mit Einrichtungen, Diensten, Ärzten und Behörden.
 
 # Für wen?
 fuerWen.title = Für wen?
-fuerWen.subtitle = Meine Betreuung orientiert sich an den Bedürfnissen aller Beteiligten.
+fuerWen.subtitle = Rechtliche Betreuung betrifft immer die konkrete Situation der betreuten Person.
 
 fuerWen.cards[0].title = Betroffene
-fuerWen.cards[0].desc = Ich begleite Sie verlässlich und respektvoll in allen rechtlichen und organisatorischen Fragen.
+fuerWen.cards[0].desc = Unterstützung bei Angelegenheiten, die Sie nicht oder nur teilweise selbst regeln können.
 fuerWen.cards[0].detailTitle = Für Betroffene
-fuerWen.cards[0].detailSubtitle = Selbstbestimmung und verlässliche Partnerschaft im Alltag.
-fuerWen.cards[0].detailDesc = Wenn Sie Ihre Angelegenheiten ganz oder teilweise nicht mehr selbst regeln können, stehe ich an Ihrer Seite. Ich treffe keine Entscheidungen über Ihren Kopf hinweg, sondern unterstütze Sie dabei, Ihr Leben nach Ihren eigenen Wünschen zu gestalten.
-fuerWen.cards[0].detailBullet1 = Respekt & Würde: Ihre Wünsche, Vorstellungen und Lebensleistungen stehen im Mittelpunkt meiner Arbeit.
-fuerWen.cards[0].detailBullet2 = Hilfe zur Selbsthilfe: Ich unterstütze Sie darin, so viele Angelegenheiten wie möglich weiterhin selbstbestimmt zu regeln.
-fuerWen.cards[0].detailBullet3 = Regelmäßiger Kontakt: Wir besprechen anstehende Entscheidungen verständlich und in aller Ruhe gemeinsam.
-fuerWen.cards[0].detailBullet4 = Rechtsschutz: Ich schütze Ihre Interessen vor Benachteiligungen und vertrete Sie rechtlich fundiert gegenüber Dritten.
+fuerWen.cards[0].detailSubtitle = Die Wünsche der betreuten Person sind der Ausgangspunkt.
+fuerWen.cards[0].detailDesc = Wenn eine Betreuung eingerichtet wird, betrifft sie nur die vom Gericht festgelegten Aufgabenbereiche. Ich bespreche Entscheidungen, soweit möglich, mit Ihnen und kläre die notwendigen Schritte.
+fuerWen.cards[0].detailBullet1 = Ihre Wünsche: Sie werden berücksichtigt, soweit dies rechtlich möglich ist.
+fuerWen.cards[0].detailBullet2 = Verständliche Absprachen: Entscheidungen und Schreiben werden nachvollziehbar erklärt.
+fuerWen.cards[0].detailBullet3 = Kontakt: Wir bleiben im Austausch, wenn Fragen oder Entscheidungen anstehen.
+fuerWen.cards[0].detailBullet4 = Vertretung: Ich vertrete Sie in den Bereichen, die das Gericht festgelegt hat.
 
 fuerWen.cards[1].title = Angehörige
-fuerWen.cards[1].desc = Ich entlaste, informiere und arbeite transparent mit Ihnen zusammen.
+fuerWen.cards[1].desc = Ansprechpartner für Angehörige, soweit Austausch möglich und gewünscht ist.
 fuerWen.cards[1].detailTitle = Für Angehörige
-fuerWen.cards[1].detailSubtitle = Entlastung von Bürokratie und vertrauensvolle Zusammenarbeit.
-fuerWen.cards[1].detailDesc = Die rechtliche Sorge für ein Familienmitglied zu begleiten, kann emotional und zeitlich sehr belastend sein. Ich entlaste Sie von der formalen Bürokratie, während Sie sich ganz auf die persönliche Beziehung zu Ihrem Angehörigen konzentrieren können.
-fuerWen.cards[1].detailBullet1 = Bürokratische Entlastung: Ich übernehme den Schriftverkehr, Anträge, die Kontoverwaltung und Berichte an das Gericht.
-fuerWen.cards[1].detailBullet2 = Transparenter Austausch: Ich halte Sie über alle wesentlichen rechtlichen Schritte und Entwicklungen zeitnah informiert.
-fuerWen.cards[1].detailBullet3 = Gemeinsame Wege: Bei schwierigen Entscheidungen (z. B. Wohnungswechsel oder Pflegeorganisation) binde ich Sie partnerschaftlich ein.
-fuerWen.cards[1].detailBullet4 = Neutrale Vermittlung: Als professioneller Betreuer agiere ich sachlich und neutral, was oft familiäre Spannungen abbaut.
+fuerWen.cards[1].detailSubtitle = Klare Kommunikation hilft allen Beteiligten.
+fuerWen.cards[1].detailDesc = Angehörige haben oft viele Fragen. Ich erkläre, welche Aufgaben übernommen werden können und wo die Grenzen der rechtlichen Betreuung liegen.
+fuerWen.cards[1].detailBullet1 = Zuständigkeiten: Klärung, welche Aufgaben vom Gericht übertragen wurden.
+fuerWen.cards[1].detailBullet2 = Austausch: Informationen, soweit sie rechtlich zulässig und für die Betreuung sinnvoll sind.
+fuerWen.cards[1].detailBullet3 = Abstimmung: Kontakt zu Angehörigen, Einrichtungen und Diensten, wenn dies der betreuten Person hilft.
+fuerWen.cards[1].detailBullet4 = Grenzen: Rechtliche Betreuung ersetzt keine persönliche Pflege oder familiäre Unterstützung.
 
-fuerWen.cards[2].title = Gerichte / Institutionen
-fuerWen.cards[2].desc = Ich übernehme Betreuungen mit Sorgfalt, Verlässlichkeit und klarer Kommunikation.
-fuerWen.cards[2].detailTitle = Für Gerichte & Institutionen
-fuerWen.cards[2].detailSubtitle = Professionalität, Verlässlichkeit und rechtssichere Kooperation.
-fuerWen.cards[2].detailDesc = Als staatlich anerkannter rechtlicher Betreuer stehe für eine fachlich fundierte, termingerechte und transparente Zusammenarbeit mit Betreuungsgerichten, Behörden, Kliniken und Pflegeeinrichtungen.
-fuerWen.cards[2].detailBullet1 = Qualitätsstandards: Konsequente Umsetzung der Vorgaben des reformierten Betreuungsrechts zur Stärkung der betreuten Person.
-fuerWen.cards[2].detailBullet2 = Schnelle Kommunikation: Zeitnahe Rückmeldungen, Zuleitung erforderlicher Berichte und verlässliche Abstimmung bei dringlichen Eilentscheidungen.
-fuerWen.cards[2].detailBullet3 = Berichtspflichten: Pünktliche und präzise Erstellung von Betreuungsberichten, Vermögensverzeichnissen und Rechnungslegungen.
-fuerWen.cards[2].detailBullet4 = Interdisziplinäres Arbeiten: Schnittstelle zwischen Medizinern, Pflegekräften, Kliniken, Betreuungsbehörden und Rechtspflegern.
+fuerWen.cards[2].title = Gerichte / Einrichtungen
+fuerWen.cards[2].desc = Verlässliche Bearbeitung von Berichten, Rückfragen und Abstimmungen.
+fuerWen.cards[2].detailTitle = Für Gerichte & Einrichtungen
+fuerWen.cards[2].detailSubtitle = Geordnete Zusammenarbeit im Rahmen des gerichtlichen Auftrags.
+fuerWen.cards[2].detailDesc = Für Betreuungsgerichte, Behörden, Kliniken und Einrichtungen ist eine klare Kommunikation wichtig. Ich achte auf vollständige Unterlagen, Fristen und nachvollziehbare Rückmeldungen.
+fuerWen.cards[2].detailBullet1 = Berichte: Erstellung von Betreuungsberichten und weiteren Unterlagen, soweit sie erforderlich sind.
+fuerWen.cards[2].detailBullet2 = Rückfragen: Zeitnahe Klärung von Anfragen der beteiligten Stellen.
+fuerWen.cards[2].detailBullet3 = Vermögenssorge: Vermögensverzeichnis und Rechnungslegung, wenn dieser Aufgabenbereich übertragen wurde.
+fuerWen.cards[2].detailBullet4 = Zusammenarbeit: Abstimmung mit Behörden, Einrichtungen, Ärzten und Diensten.
 
 # Über mich
 ueberMich.title = Über mich
 ueberMich.subtitle = Dietmar Zielke
 ueberMich.tagline = Rechtlicher Betreuer in Hamburg & der Metropolregion
-ueberMich.p1 = Als staatlich anerkannter rechtlicher Betreuer unterstütze ich Menschen dabei, ihr selbstbestimmtes Leben bestmöglich fortzuführen, wenn organisatorische oder rechtliche Hürden zu groß werden. Mit Empathie, Klarheit und Fachkompetenz stehe ich Ihnen und Ihren Angehörigen zur Seite.
-ueberMich.p2 = Mein Ansatz beruht auf enger, transparenter Kommunikation und absoluter Zuverlässigkeit. Ich vertrete Ihre Interessen gegenüber Behörden, koordiniere gesundheitliche Belange und verwalte Vermögenswerte mit größter Sorgfalt – stets auf Augenhöhe und mit Respekt vor Ihrer Lebensleistung.
-ueberMich.bullets[0] = Persönliche & verlässliche Begleitung im Alltag
-ueberMich.bullets[1] = Sorgfältige Vertretung in allen gerichtlichen Aufgabenbereichen
-ueberMich.bullets[2] = Enge & vertrauensvolle Abstimmung mit Ärzten, Pflegediensten & Behörden
+ueberMich.p1 = Ich arbeite als rechtlicher Betreuer in Hamburg und der Metropolregion. Meine Aufgabe ist es, Menschen in den Bereichen zu vertreten, die das Betreuungsgericht festlegt.
+ueberMich.p2 = Wichtig sind mir geordnete Unterlagen, erreichbare Kommunikation und Entscheidungen, die nachvollziehbar bleiben. Dabei berücksichtige ich den Willen und die Wünsche der betreuten Person, soweit dies rechtlich möglich ist.
+ueberMich.bullets[0] = Rechtliche Vertretung im gerichtlichen Aufgabenbereich
+ueberMich.bullets[1] = Klare Abstimmung mit Behörden, Gerichten und Einrichtungen
+ueberMich.bullets[2] = Nachvollziehbare Bearbeitung von Unterlagen, Fristen und Anträgen
 
 # So arbeite ich
 soArbeiteIch.title = So arbeite ich
 
 soArbeiteIch.steps[0].title = Kennenlernen
-soArbeiteIch.steps[0].desc = Wir besprechen die Situation und klären alle wichtigen Fragen. Vertraulich und auf Augenhöhe.
+soArbeiteIch.steps[0].desc = Zuerst kläre ich die Situation, den gerichtlichen Aufgabenbereich und die vorhandenen Unterlagen.
 
-soArbeiteIch.steps[1].title = Planen & Handeln
-soArbeiteIch.steps[1].desc = Ich übernehme die Aufgaben, koordiniere Notwendiges und halte Sie regelmäßig informiert.
+soArbeiteIch.steps[1].title = Klären & Abstimmen
+soArbeiteIch.steps[1].desc = Ich nehme Kontakt zu den beteiligten Stellen auf, prüfe Fristen und bereite die nächsten Schritte vor.
 
-soArbeiteIch.steps[2].title = Begleiten & Entlasten
-soArbeiteIch.steps[2].desc = Ich bleibe ansprechbar und sorge für Kontinuität, Ordnung und Verlässlichkeit.
+soArbeiteIch.steps[2].title = Vertreten & Berichten
+soArbeiteIch.steps[2].desc = Ich vertrete die betreute Person im festgelegten Bereich und informiere das Gericht, wenn Berichte erforderlich sind.
 
 # FAQ
 faq.title = Was ist rechtliche Betreuung?
-faq.explanation = Die rechtliche Betreuung ist eine gesetzliche Unterstützung für Menschen, die ihre Angelegenheiten ganz oder teilweise nicht mehr selbst regeln können. Als rechtlicher Betreuer vertrete ich die Interessen der betreuten Person und entscheide nur in den Bereichen, für die ich bestellt wurde. Ziel ist es, Selbstbestimmung zu erhalten und Überforderung zu vermeiden.
+faq.explanation = Eine rechtliche Betreuung kann eingerichtet werden, wenn ein volljähriger Mensch seine Angelegenheiten wegen Krankheit oder Behinderung ganz oder teilweise rechtlich nicht selbst besorgen kann. Das Betreuungsgericht legt fest, für welche Bereiche ein Betreuer bestellt wird.
 
 faq.items[0].category = general
 faq.items[0].question = Was ist eine rechtliche Betreuung?
-faq.items[0].answer = Die rechtliche Betreuung ist eine gesetzliche Unterstützung für Menschen, die ihre Angelegenheiten ganz oder teilweise nicht mehr selbst regeln können. Als rechtlicher Betreuer vertrete ich die Interessen der betreuten Person und entscheide nur in den Bereichen, für die ich bestellt wurde. Ziel ist es, Selbstbestimmung zu erhalten und Überforderung zu vermeiden.
+faq.items[0].answer = Eine rechtliche Betreuung ist eine vom Gericht angeordnete Unterstützung. Sie betrifft nur die Aufgabenbereiche, in denen die betroffene Person rechtliche Hilfe braucht.
 
 faq.items[1].category = general
 faq.items[1].question = Wer bestellt einen rechtlichen Betreuer?
-faq.items[1].answer = Ein rechtlicher Betreuer wird vom zuständigen Betreuungsgericht bestellt. Dies geschieht entweder auf eigenen Antrag der betroffenen Person oder von Amts wegen (z. B. auf Anregung von Angehörigen, Krankenhäusern oder Behörden), wenn jemand aufgrund einer psychischen Krankheit oder einer körperlichen, geistigen oder seelischen Behinderung seine Angelegenheiten ganz oder teilweise nicht regeln kann.
+faq.items[1].answer = Zuständig ist das Betreuungsgericht. Es prüft, ob eine Betreuung notwendig ist und welche Aufgabenbereiche betroffen sind. Eine Betreuung kann beantragt oder angeregt werden.
 
 faq.items[2].category = general
 faq.items[2].question = Bedeutet rechtliche Betreuung "Entmündigung"?
-faq.items[2].answer = Nein. Eine „Entmündigung“ gibt es im deutschen Recht seit 1992 nicht mehr. Die betreute Person behält grundsätzlich ihre volle Geschäftsfähigkeit und Handlungsfreiheit (es sei denn, ein Gericht stellt explizit etwas anderes fest). Die Betreuung ist eine unterstützende Partnerschaft, kein Entzug von Rechten.
+faq.items[2].answer = Nein. Eine Entmündigung gibt es im deutschen Betreuungsrecht nicht. Die betreute Person behält ihre Rechte. Der Betreuer darf nur in den Bereichen handeln, die das Gericht festgelegt hat.
 
 faq.items[3].category = rights
 faq.items[3].question = Wie läuft das Betreuungsverfahren ab?
-faq.items[3].answer = Das Betreuungsgericht prüft den Bedarf. Dazu gehören ein ärztliches Gutachten, eine Befragung durch die örtliche Betreuungsbehörde und ein persönliches Gespräch des Richters mit der betroffenen Person (persönliche Anhörung). Erst danach wird entschieden, ob und für welche genauen Aufgabenbereiche eine Betreuung eingerichtet wird.
+faq.items[3].answer = Das Betreuungsgericht prüft den Bedarf. Dazu können ein ärztliches Gutachten, eine Stellungnahme der Betreuungsbehörde und eine persönliche Anhörung gehören. Danach entscheidet das Gericht, ob eine Betreuung eingerichtet wird.
 
 faq.items[4].category = rights
 faq.items[4].question = Welche Aufgaben hat ein rechtlicher Betreuer?
-faq.items[4].answer = Die Aufgabenbereiche werden vom Gericht individuell festgelegt (z.B. Gesundheitssorge, Vermögenssorge, Vertretung gegenüber Behörden, Wohnungsangelegenheiten). Der Betreuer unterstützt die betreute Person dabei, ihr Leben nach den eigenen Wünschen zu gestalten, und vertritt sie im erforderlichen Umfang rechtlich.
+faq.items[4].answer = Die Aufgaben richten sich nach dem gerichtlichen Beschluss. Häufig geht es um Behördenangelegenheiten, Gesundheitssorge, Vermögenssorge oder Wohnungsangelegenheiten. Der Betreuer vertritt die Person rechtlich in diesen Bereichen.
 
 faq.items[5].category = rights
 faq.items[5].question = Kann ich den Betreuer wechseln oder die Betreuung beenden?
-faq.items[5].answer = Ja. Die betreute Person kann sich jederzeit an das Betreuungsgericht wenden, um einen Wechsel des Betreuers zu beantragen oder das Ende der Betreuung prüfen zu lassen (z. B. wenn sich der Gesundheitszustand soweit verbessert hat, dass Unterstützung nicht mehr nötig ist). Das Gericht prüft die Betreuung ohnehin in regelmäßigen Abständen.
+faq.items[5].answer = Die betreute Person kann sich an das Betreuungsgericht wenden, wenn sie einen Wechsel oder eine Beendigung prüfen lassen möchte. Das Gericht prüft auch, ob die Betreuung noch erforderlich ist.
 
 faq.items[6].category = costs
 faq.items[6].question = Was kostet eine rechtliche Betreuung?
-faq.items[6].answer = Die Vergütung und Auslagen des Betreuers werden gesetzlich geregelt. Wenn die betreute Person über ausreichendes Vermögen verfügt (oberhalb des Schonvermögens von derzeit 10.000 €), zahlt sie die Kosten selbst. Andernfalls übernimmt die Staatskasse die Vergütung.
+faq.items[6].answer = Die Vergütung beruflicher Betreuer ist gesetzlich geregelt. Ob die betreute Person Kosten selbst tragen muss oder die Staatskasse eintritt, hängt von den finanziellen Verhältnissen ab.
 
 faq.items[7].category = costs
 faq.items[7].question = Kann ich Wünsche oder Vollmachten festlegen?
-faq.items[7].answer = Ja. Mit einer Vorsorgevollmacht oder einer Betreuungsverfügung können Sie im Vorfeld selbst bestimmen, wer im Ernstfall Ihre Interessen vertreten soll und welche Wünsche bei der Betreuung berücksichtigt werden müssen. Dies stärkt Ihre Selbstbestimmung maßgeblich.
+faq.items[7].answer = Ja. Mit einer Vorsorgevollmacht oder Betreuungsverfügung können Sie festhalten, wer Sie vertreten soll und welche Wünsche wichtig sind. Ob und wie dies wirkt, hängt vom Einzelfall und der rechtlichen Situation ab.
 
 # Kontakt
 kontakt.title = Kontakt
@@ -158,7 +158,7 @@ kontakt.web = www.betreuungen-zielke.de
 kontakt.postbox = Postfach 10 06 06, 20004 Hamburg
 kontakt.fax = 040-35 671 480
 kontakt.sloganTitle = Ich bin gerne für Sie da.
-kontakt.sloganDesc = Schreiben Sie mir oder rufen Sie an. Ich melde mich zeitnah bei Ihnen.
+kontakt.sloganDesc = Sie können mich telefonisch oder per E-Mail erreichen. Ich melde mich zurück, sobald es möglich ist.
 kontakt.hoursLabel = Bürozeiten:
 kontakt.hoursVal = Mo – Fr   9:00 – 17:00 Uhr
 

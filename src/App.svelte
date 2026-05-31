@@ -4,23 +4,23 @@
 
   let content = $state({
     hero: {
-      title: "Rechtliche Betreuung mit Klarheit, Ruhe und Verlässlichkeit.",
-      description: "Ich unterstütze und vertrete Menschen in rechtlichen und organisatorischen Angelegenheiten – persönlich, sorgfältig und auf Augenhöhe."
+      title: "Rechtliche Betreuung in Hamburg",
+      description: "Ich übernehme rechtliche Betreuungen in den Aufgabenbereichen, die das Gericht festlegt. Dabei geht es um klare Absprachen, geordnete Unterlagen und den Willen der betreuten Person."
     },
     leistungen: {
       title: "Leistungen",
       cards: [
         {
           title: "Gesundheit & Behörden",
-          desc: "Unterstützung bei medizinischen Entscheidungen und im Umgang mit Ämtern und Krankenkassen."
+          desc: "Unterstützung bei Schriftverkehr mit Krankenkassen, Ärzten, Behörden und weiteren Stellen."
         },
         {
           title: "Vermögenssorge",
-          desc: "Verantwortungsvoller Umgang mit Einkommen, Vermögen und Zahlungsverkehr."
+          desc: "Klärung von Zahlungen, Anträgen, Bescheiden und laufenden finanziellen Angelegenheiten."
         },
         {
           title: "Wohn- und Alltagsangelegenheiten",
-          desc: "Organisation des Wohnumfelds und Unterstützung im täglichen Leben."
+          desc: "Rechtliche Klärung von Mietfragen, Wohnsituation und notwendiger Unterstützung."
         },
         {
           title: "Vertretung & Kommunikation",
@@ -30,19 +30,19 @@
     },
     fuerWen: {
       title: "Für wen?",
-      subtitle: "Meine Betreuung orientiert sich an den Bedürfnissen aller Beteiligten.",
+      subtitle: "Rechtliche Betreuung betrifft immer die konkrete Situation der betreuten Person.",
       cards: [
         {
           title: "Betroffene",
-          desc: "Ich begleite Sie verlässlich und respektvoll in allen rechtlichen und organisatorischen Fragen."
+          desc: "Unterstützung bei Angelegenheiten, die Sie nicht oder nur teilweise selbst regeln können."
         },
         {
           title: "Angehörige",
-          desc: "Ich entlaste, informiere und arbeite transparent mit Ihnen zusammen."
+          desc: "Ansprechpartner für Angehörige, soweit Austausch möglich und gewünscht ist."
         },
         {
-          title: "Gerichte / Institutionen",
-          desc: "Ich übernehme Betreuungen mit Sorgfalt, Verlässlichkeit und klarer Kommunikation."
+          title: "Gerichte / Einrichtungen",
+          desc: "Verlässliche Bearbeitung von Berichten, Rückfragen und Abstimmungen."
         }
       ]
     },
@@ -50,12 +50,12 @@
       title: "Über mich",
       subtitle: "Dietmar Zielke",
       tagline: "Rechtlicher Betreuer in Hamburg & der Metropolregion",
-      p1: "Als staatlich anerkannter rechtlicher Betreuer unterstütze ich Menschen dabei, ihr selbstbestimmtes Leben bestmöglich fortzuführen, wenn organisatorische oder rechtliche Hürden zu groß werden. Mit Empathie, Klarheit und Fachkompetenz stehe ich Ihnen und Ihren Angehörigen zur Seite.",
-      p2: "Mein Ansatz beruht auf enger, transparenter Kommunikation und absoluter Zuverlässigkeit. Ich vertrete Ihre Interessen gegenüber Behörden, koordiniere gesundheitliche Belange und verwalte Vermögenswerte mit größter Sorgfalt – stets auf Augenhöhe und mit Respekt vor Ihrer Lebensleistung.",
+      p1: "Ich arbeite als rechtlicher Betreuer in Hamburg und der Metropolregion. Meine Aufgabe ist es, Menschen in den Bereichen zu vertreten, die das Betreuungsgericht festlegt.",
+      p2: "Wichtig sind mir geordnete Unterlagen, erreichbare Kommunikation und Entscheidungen, die nachvollziehbar bleiben. Dabei berücksichtige ich den Willen und die Wünsche der betreuten Person, soweit dies rechtlich möglich ist.",
       bullets: [
-        "Persönliche & verlässliche Begleitung im Alltag",
-        "Sorgfältige Vertretung in allen gerichtlichen Aufgabenbereichen",
-        "Enge & vertrauensvolle Abstimmung mit Ärzten, Pflegediensten & Behörden"
+        "Rechtliche Vertretung im gerichtlichen Aufgabenbereich",
+        "Klare Abstimmung mit Behörden, Gerichten und Einrichtungen",
+        "Nachvollziehbare Bearbeitung von Unterlagen, Fristen und Anträgen"
       ]
     },
     soArbeiteIch: {
@@ -64,63 +64,63 @@
         {
           number: "01",
           title: "Kennenlernen",
-          desc: "Wir besprechen die Situation und klären alle wichtigen Fragen. Vertraulich und auf Augenhöhe."
+          desc: "Zuerst kläre ich die Situation, den gerichtlichen Aufgabenbereich und die vorhandenen Unterlagen."
         },
         {
           number: "02",
-          title: "Planen & Handeln",
-          desc: "Ich übernehme die Aufgaben, koordiniere Notwendiges und halte Sie regelmäßig informiert."
+          title: "Klären & Abstimmen",
+          desc: "Ich nehme Kontakt zu den beteiligten Stellen auf, prüfe Fristen und bereite die nächsten Schritte vor."
         },
         {
           number: "03",
-          title: "Begleiten & Entlasten",
-          desc: "Ich bleibe ansprechbar und sorge für Kontinuität, Ordnung und Verlässlichkeit."
+          title: "Vertreten & Berichten",
+          desc: "Ich vertrete die betreute Person im festgelegten Bereich und informiere das Gericht, wenn Berichte erforderlich sind."
         }
       ]
     },
     faq: {
       title: "Was ist rechtliche Betreuung?",
-      explanation: "Die rechtliche Betreuung ist eine gesetzliche Unterstützung für Menschen, die ihre Angelegenheiten ganz oder teilweise nicht mehr selbst regeln können. Als rechtlicher Betreuer vertrete ich die Interessen der betreuten Person und entscheide nur in den Bereichen, für die ich bestellt wurde. Ziel ist es, Selbstbestimmung zu erhalten und Überforderung zu vermeiden.",
+      explanation: "Eine rechtliche Betreuung kann eingerichtet werden, wenn ein volljähriger Mensch seine Angelegenheiten wegen Krankheit oder Behinderung ganz oder teilweise rechtlich nicht selbst besorgen kann. Das Betreuungsgericht legt fest, für welche Bereiche ein Betreuer bestellt wird.",
       items: [
         {
           category: "general",
           question: "Was ist eine rechtliche Betreuung?",
-          answer: "Die rechtliche Betreuung ist eine gesetzliche Unterstützung für Menschen, die ihre Angelegenheiten ganz oder teilweise nicht mehr selbst regeln können. Als rechtlicher Betreuer vertrete ich die Interessen der betreuten Person und entscheide nur in den Bereichen, für die ich bestellt wurde. Ziel ist es, Selbstbestimmung zu erhalten und Überforderung zu vermeiden."
+          answer: "Eine rechtliche Betreuung ist eine vom Gericht angeordnete Unterstützung. Sie betrifft nur die Aufgabenbereiche, in denen die betroffene Person rechtliche Hilfe braucht."
         },
         {
           category: "general",
           question: "Wer bestellt einen rechtlichen Betreuer?",
-          answer: "Ein rechtlicher Betreuer wird vom zuständigen Betreuungsgericht bestellt. Dies geschieht entweder auf eigenen Antrag der betroffenen Person oder von Amts wegen (z. B. auf Anregung von Angehörigen, Krankenhäusern oder Behörden), wenn jemand aufgrund einer psychischen Krankheit oder einer körperlichen, geistigen oder seelischen Behinderung seine Angelegenheiten ganz oder teilweise nicht regeln kann."
+          answer: "Zuständig ist das Betreuungsgericht. Es prüft, ob eine Betreuung notwendig ist und welche Aufgabenbereiche betroffen sind. Eine Betreuung kann beantragt oder angeregt werden."
         },
         {
           category: "general",
           question: "Bedeutet rechtliche Betreuung \"Entmündigung\"?",
-          answer: "Nein. Eine „Entmündigung“ gibt es im deutschen Recht seit 1992 nicht mehr. Die betreute Person behält grundsätzlich ihre volle Geschäftsfähigkeit und Handlungsfreiheit (es sei denn, ein Gericht stellt explizit etwas anderes fest). Die Betreuung ist eine unterstützende Partnerschaft, kein Entzug von Rechten."
+          answer: "Nein. Eine Entmündigung gibt es im deutschen Betreuungsrecht nicht. Die betreute Person behält ihre Rechte. Der Betreuer darf nur in den Bereichen handeln, die das Gericht festgelegt hat."
         },
         {
           category: "rights",
           question: "Wie läuft das Betreuungsverfahren ab?",
-          answer: "Das Betreuungsgericht prüft den Bedarf. Dazu gehören ein ärztliches Gutachten, eine Befragung durch die örtliche Betreuungsbehörde und ein persönliches Gespräch des Richters mit der betroffenen Person (persönliche Anhörung). Erst danach wird entschieden, ob und für welche genauen Aufgabenbereiche eine Betreuung eingerichtet wird."
+          answer: "Das Betreuungsgericht prüft den Bedarf. Dazu können ein ärztliches Gutachten, eine Stellungnahme der Betreuungsbehörde und eine persönliche Anhörung gehören. Danach entscheidet das Gericht, ob eine Betreuung eingerichtet wird."
         },
         {
           category: "rights",
           question: "Welche Aufgaben hat ein rechtlicher Betreuer?",
-          answer: "Die Aufgabenbereiche werden vom Gericht individuell festgelegt (z.B. Gesundheitssorge, Vermögenssorge, Vertretung gegenüber Behörden, Wohnungsangelegenheiten). Der Betreuer unterstützt die betreute Person dabei, ihr Leben nach den eigenen Wünschen zu gestalten, und vertritt sie im erforderlichen Umfang rechtlich."
+          answer: "Die Aufgaben richten sich nach dem gerichtlichen Beschluss. Häufig geht es um Behördenangelegenheiten, Gesundheitssorge, Vermögenssorge oder Wohnungsangelegenheiten. Der Betreuer vertritt die Person rechtlich in diesen Bereichen."
         },
         {
           category: "rights",
           question: "Kann ich den Betreuer wechseln oder die Betreuung beenden?",
-          answer: "Ja. Die betreute Person kann sich jederzeit an das Betreuungsgericht wenden, um einen Wechsel des Betreuers zu beantragen oder das Ende der Betreuung prüfen zu lassen (z. B. wenn sich der Gesundheitszustand soweit verbessert hat, dass Unterstützung nicht mehr nötig ist). Das Gericht prüft die Betreuung ohnehin in regelmäßigen Abständen."
+          answer: "Die betreute Person kann sich an das Betreuungsgericht wenden, wenn sie einen Wechsel oder eine Beendigung prüfen lassen möchte. Das Gericht prüft auch, ob die Betreuung noch erforderlich ist."
         },
         {
           category: "costs",
           question: "Was kostet eine rechtliche Betreuung?",
-          answer: "Die Vergütung und Auslagen des Betreuers werden gesetzlich geregelt. Wenn die betreute Person über ausreichendes Vermögen verfügt (oberhalb des Schonvermögens von derzeit 10.000 €), zahlt sie die Kosten selbst. Andernfalls übernimmt die Staatskasse die Vergütung."
+          answer: "Die Vergütung beruflicher Betreuer ist gesetzlich geregelt. Ob die betreute Person Kosten selbst tragen muss oder die Staatskasse eintritt, hängt von den finanziellen Verhältnissen ab."
         },
         {
           category: "costs",
           question: "Kann ich Wünsche oder Vollmachten festlegen?",
-          answer: "Ja. Mit einer Vorsorgevollmacht oder einer Betreuungsverfügung können Sie im Vorfeld selbst bestimmen, wer im Ernstfall Ihre Interessen vertreten soll und welche Wünsche bei der Betreuung berücksichtigt werden müssen. Dies stärkt Ihre Selbstbestimmung maßgeblich."
+          answer: "Ja. Mit einer Vorsorgevollmacht oder Betreuungsverfügung können Sie festhalten, wer Sie vertreten soll und welche Wünsche wichtig sind. Ob und wie dies wirkt, hängt vom Einzelfall und der rechtlichen Situation ab."
         }
       ]
     },
@@ -133,7 +133,7 @@
       postbox: "Postfach in Hamburg",
       fax: "040-35 671 480",
       sloganTitle: "Ich bin gerne für Sie da.",
-      sloganDesc: "Schreiben Sie mir oder rufen Sie an. Ich melde mich zeitnah bei Ihnen.",
+      sloganDesc: "Sie können mich telefonisch oder per E-Mail erreichen. Ich melde mich zurück, sobald es möglich ist.",
       hoursLabel: "Bürozeiten:",
       hoursVal: "Mo – Fr   9:00 – 17:00 Uhr"
     },
@@ -1070,7 +1070,7 @@
         <p>Ihre Daten werden zum einen dadurch erhoben, dass Sie uns diese mitteilen. Hierbei kann es sich z. B. um Daten handeln, die Sie in ein Kontaktformular eingeben. Andere Daten werden automatisch oder nach Ihrer Einwilligung beim Besuch der Website durch unsere IT-Systeme erfasst. Das sind vor allem technische Daten (z. B. Internetbrowser, Betriebssystem oder Uhrzeit des Seitenaufrufs).</p>
 
         <p><em>Wofür nutzen wir Ihre Daten?</em></p>
-        <p>Ein Teil der Daten wird erhoben, um eine fehlerfreie Bereitstellung der Website zu gewährleisten. Andere Daten können zur Analyse Ihres Nutzerverhaltens verwendet werden.</p>
+        <p>Technische Daten werden verarbeitet, damit diese Website angezeigt werden kann. Angaben aus dem Kontaktformular werden genutzt, um Ihre Anfrage zu bearbeiten.</p>
 
         <p><em>Welche Rechte haben Sie bezüglich Ihrer Daten?</em></p>
         <p>Sie haben jederzeit das Recht, unentgeltlich Auskunft über Herkunft, Empfänger und Zweck Ihrer gespeicherten personenbezogenen Daten zu erhalten. Sie haben außerdem ein Recht, die Berichtigung oder Löschung dieser Daten zu verlangen. Wenn Sie eine Einwilligung zur Datenverarbeitung erteilt haben, können Sie diese Einwilligung jederzeit für die Zukunft widerrufen. Außerdem haben Sie das Recht, unter bestimmten Umständen die Einschränkung der Verarbeitung Ihrer personenbezogenen Daten zu verlangen.</p>
