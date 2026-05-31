@@ -131,6 +131,7 @@
       email: "zielke@betreuungen-zielke.de",
       web: "www.betreuungen-zielke.de",
       postbox: "Postfach in Hamburg",
+      fax: "040-35 671 480",
       sloganTitle: "Ich bin gerne für Sie da.",
       sloganDesc: "Schreiben Sie mir oder rufen Sie an. Ich melde mich zeitnah bei Ihnen.",
       hoursLabel: "Bürozeiten:",
@@ -350,237 +351,6 @@
     return () => observer.disconnect();
   });
 
-  let progressPercent = $state(0);
-  let isTransitionActive = $state(false);
-
-  // Periodic Random Grid Block Morph Swap Effect (25-second Countdown)
-  $effect(() => {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    const hitArea = document.getElementById("about-image-scene");
-    const canvas = document.getElementById("about-morph-canvas");
-    const baseImg = document.getElementById("about-base-img");
-    if (!hitArea || !canvas || !baseImg) return;
-
-    let context = canvas.getContext("2d");
-    if (!context) return;
-
-    const sourceCanvas = document.createElement("canvas");
-    const sourceContext = sourceCanvas.getContext("2d");
-    if (!sourceContext) return;
-
-    // We keep track of which image is current base
-    let isPortrait2Base = false;
-
-    // Load both image references
-    const img1 = new Image();
-    img1.src = "/media/portrait.webp";
-    const img2 = new Image();
-    img2.src = "/media/portrait_secondary.webp";
-
-    let rect = baseImg.getBoundingClientRect();
-    let canvasWidth = 0;
-    let canvasHeight = 0;
-    let animationFrameId = null;
-    let lastSwapTime = Date.now();
-
-    const boxSize = 55;
-    let boxes = [];
-
-    // Transition state variables
-    let transitionFrame = 0;
-
-    const createBoxes = () => {
-      boxes = [];
-      for (let x = 0; x <= canvasWidth + boxSize; x += boxSize) {
-        for (let y = 0; y <= canvasHeight + boxSize; y += boxSize) {
-          boxes.push({
-            x,
-            y,
-            centerX: x + boxSize / 2,
-            centerY: y + boxSize / 2,
-            scale: 0,
-            delay: Math.random() * 45 // Random start delay up to 45 frames (0.75s)
-          });
-        }
-      }
-    };
-
-    const resizeCanvas = () => {
-      rect = baseImg.getBoundingClientRect();
-      if (rect.width === 0 || rect.height === 0) return;
-
-      const dpr = Math.min(1.5, window.devicePixelRatio || 1);
-      canvasWidth = Math.round(rect.width * dpr);
-      canvasHeight = Math.round(rect.height * dpr);
-
-      canvas.style.width = `${rect.width}px`;
-      canvas.style.height = `${rect.height}px`;
-      canvas.width = canvasWidth;
-      canvas.height = canvasHeight;
-      sourceCanvas.width = canvasWidth;
-      sourceCanvas.height = canvasHeight;
-
-      createBoxes();
-      updateSourceCanvas();
-    };
-
-    const updateSourceCanvas = () => {
-      if (!sourceContext || canvasWidth === 0) return;
-      sourceContext.clearRect(0, 0, canvasWidth, canvasHeight);
-      
-      // Draw the upcoming overlay image on the offscreen canvas
-      const activeOverlay = isPortrait2Base ? img1 : img2;
-      if (activeOverlay.complete) {
-        drawCoverImage(sourceContext, activeOverlay);
-      }
-    };
-
-    const drawCoverImage = (ctx, img) => {
-      const imageRatio = img.width / img.height;
-      const canvasRatio = canvasWidth / canvasHeight;
-      let sourceWidth = img.width;
-      let sourceHeight = img.height;
-      let sourceX = 0;
-      let sourceY = 0;
-
-      if (imageRatio > canvasRatio) {
-        sourceWidth = img.height * canvasRatio;
-        sourceX = (img.width - sourceWidth) / 2;
-      } else {
-        sourceHeight = img.width / canvasRatio;
-        sourceY = (img.height - sourceHeight) / 2;
-      }
-
-      ctx.drawImage(img, sourceX, sourceY, sourceWidth, sourceHeight, 0, 0, canvasWidth, canvasHeight);
-    };
-
-    const drawTile = (box) => {
-      if (box.scale < 0.001) return;
-
-      const sourceSize = boxSize;
-      const sourceX = box.x;
-      const sourceY = box.y;
-
-      // Draw the block scaling up from the center of its grid cell
-      context.drawImage(
-        sourceCanvas,
-        sourceX,
-        sourceY,
-        sourceSize,
-        sourceSize,
-        box.x + (boxSize - boxSize * box.scale) / 2,
-        box.y + (boxSize - boxSize * box.scale) / 2,
-        boxSize * box.scale,
-        boxSize * box.scale
-      );
-    };
-
-    const drawDot = (box) => {
-      if (box.scale < 0.001) return;
-      context.beginPath();
-      context.arc(box.centerX, box.centerY, 3 * box.scale, 0, Math.PI * 2);
-      context.fill();
-    };
-
-    const render = () => {
-      if (canvasWidth === 0 || canvasHeight === 0) {
-        animationFrameId = requestAnimationFrame(render);
-        return;
-      }
-
-      const now = Date.now();
-      const elapsed = now - lastSwapTime;
-
-      // Update progress bar countdown (from 0 to 100 over 25 seconds)
-      if (!isTransitionActive) {
-        progressPercent = Math.min(100, (elapsed / 25000) * 100);
-        if (elapsed >= 25000) {
-          triggerTransition();
-        }
-      }
-
-      context.clearRect(0, 0, canvasWidth, canvasHeight);
-
-      if (isTransitionActive) {
-        transitionFrame++;
-        let allCompleted = true;
-
-        boxes.forEach((box) => {
-          if (transitionFrame > box.delay) {
-            box.scale += 0.04; // Animation speed of tile scale-up
-            if (box.scale > 1) box.scale = 1;
-          }
-          if (box.scale < 1) {
-            allCompleted = false;
-          }
-        });
-
-        // 1. Draw tiles
-        boxes.forEach(drawTile);
-
-        // 2. Draw subtle technical dots
-        context.fillStyle = "rgba(255, 255, 255, 0.45)";
-        boxes.forEach(drawDot);
-
-        // Swap images behind the canvas when all blocks are fully covering the canvas (100% opaque)
-        if (allCompleted) {
-          isPortrait2Base = !isPortrait2Base;
-          
-          // Swap base image source (no flicker because canvas is fully covering it with identical layout)
-          baseImg.src = isPortrait2Base ? "/media/portrait_secondary.webp" : "/media/portrait.webp";
-          
-          // Reset transition states
-          isTransitionActive = false;
-          lastSwapTime = Date.now();
-          progressPercent = 0;
-          
-          // Reset box scales to transparent for the next cycle
-          boxes.forEach(box => {
-            box.scale = 0;
-            box.delay = Math.random() * 45;
-          });
-          
-          // Load the new target overlay
-          updateSourceCanvas();
-          context.clearRect(0, 0, canvasWidth, canvasHeight);
-        }
-      }
-
-      animationFrameId = requestAnimationFrame(render);
-    };
-
-    const triggerTransition = () => {
-      if (isTransitionActive) return;
-      isTransitionActive = true;
-      transitionFrame = 0;
-      progressPercent = 100;
-      updateSourceCanvas();
-    };
-
-    // Initial setup listeners
-    if (baseImg.complete) {
-      resizeCanvas();
-    } else {
-      baseImg.onload = resizeCanvas;
-    }
-    img1.onload = updateSourceCanvas;
-    img2.onload = updateSourceCanvas;
-    window.addEventListener("resize", resizeCanvas);
-
-    animationFrameId = requestAnimationFrame(render);
-
-    // Self-healing check in case layout height is computed delayed
-    const layoutChecker = setInterval(() => {
-      if (canvasWidth === 0) resizeCanvas();
-    }, 500);
-
-    return () => {
-      clearInterval(layoutChecker);
-      if (animationFrameId) cancelAnimationFrame(animationFrameId);
-      window.removeEventListener("resize", resizeCanvas);
-    };
-  });
-
   let activeSection = $state('start');
 
   // Scroll Spy for Navigation Active State
@@ -792,47 +562,6 @@
           </a>
         </div>
       </div>
-      
-      <!-- Premium dynamic hero visual matching design concept -->
-      <div class="hero-illustration reveal reveal-delay-1">
-        <svg viewBox="0 0 520 400" fill="none" xmlns="http://www.w3.org/2000/svg" class="hero-svg-illustration">
-          <!-- Definitions for patterns -->
-          <defs>
-            <pattern id="dot-pattern" x="360" y="50" width="16" height="16" patternUnits="userSpaceOnUse">
-              <circle cx="2" cy="2" r="1.5" fill="#cbd5e1" />
-            </pattern>
-          </defs>
-
-          <!-- Top Right Dot Grid -->
-          <g class="hero-dots-top">
-            <rect x="360" y="50" width="80" height="80" fill="url(#dot-pattern)" />
-            <circle r="2.5" fill="#ff4e18" class="grid-orange-dot-hero" />
-          </g>
-          
-          <!-- Bottom Left Dot Grid -->
-          <rect x="60" y="270" width="80" height="80" fill="url(#dot-pattern)" class="hero-dots-bottom" />
-
-          <!-- Background Gray Chat Bubble shape group -->
-          <g class="hero-gray-bubble">
-            <path d="M 80,140 C 80,100 120,80 180,80 C 240,80 280,100 280,140 C 280,180 250,220 190,220 H 130 L 90,250 V 220 C 80,210 80,180 80,140 Z" fill="#f1f5f9" />
-            <!-- Small Orange Dot inside Gray Bubble -->
-            <circle cx="150" cy="140" r="5" fill="#ff4e18" />
-          </g>
-
-          <!-- Balloon / Speech Bubble Outline in Orange -->
-          <path d="M 230,120 A 30,40 0 1 1 290,120 C 290,145 280,165 270,175 L 265,185 L 260,175 C 240,165 230,145 230,120 Z" stroke="#ff4e18" stroke-width="2" fill="none" class="hero-outline-bubble" />
-
-          <!-- Organic Pebbles Shape Group -->
-          <g class="hero-organic-group">
-            <path d="M 260,250 C 260,180 320,150 390,150 C 460,150 480,200 480,260 C 480,320 440,350 360,350 C 280,350 260,320 260,250 Z" fill="#ffffff" stroke="#e2e8f0" stroke-width="2" class="hero-organic-shape" />
-            <!-- Rounded Arch Outline inside Organic Shape -->
-            <path d="M 360,290 V 220 A 25,25 0 0 1 410,220 V 290" stroke="#cbd5e1" stroke-width="2" stroke-linecap="round" fill="none" />
-          </g>
-
-          <!-- Solid Orange Circle (Focal Point) -->
-          <circle cx="310" cy="230" r="42" fill="#ff4e18" class="hero-orange-circle" />
-        </svg>
-      </div>
     </div>
   </section>
 
@@ -943,60 +672,6 @@
     </div>
   </section>
 
-  <!-- Spacer Section 1 (Abstract Artwork: Listening & Processing) -->
-  <section class="image-spacer-section">
-    <div class="container-wide">
-      <svg viewBox="0 0 1440 400" fill="none" xmlns="http://www.w3.org/2000/svg" class="spacer-svg">
-        <!-- Definitions for patterns -->
-        <defs>
-          <pattern id="dot-pattern-s1" x="240" y="220" width="16" height="16" patternUnits="userSpaceOnUse">
-            <circle cx="2" cy="2" r="1.5" fill="#cbd5e1" />
-          </pattern>
-        </defs>
-
-        <!-- Top Right Dot Grid -->
-        <rect x="1080" y="80" width="80" height="80" fill="url(#dot-pattern-s1)" class="hero-dots-top" />
-        
-        <!-- Bottom Left Dot Grid -->
-        <g class="hero-dots-bottom">
-          <rect x="240" y="220" width="80" height="80" fill="url(#dot-pattern-s1)" />
-          <circle r="2.5" fill="#ff4e18" class="grid-orange-dot-spacer" />
-        </g>
-
-        <!-- Winding horizontal lines spreading out across the wide viewport -->
-        <!-- Left winding line heading to sound waves -->
-        <path d="M 150,200 H 320 C 350,200 370,150 400,150" stroke="#ff4e18" stroke-width="1.5" stroke-linecap="round" fill="none" class="spacer-winding-line" />
-        <circle cx="150" cy="200" r="4" fill="#ff4e18" />
-
-        <!-- Right winding line continuing from orange center -->
-        <path d="M 752,200 H 830 C 860,200 870,250 900,250 H 1050 C 1100,250 1120,200 1150,200 H 1290" stroke="#ff4e18" stroke-width="1.5" stroke-linecap="round" fill="none" class="spacer-winding-line" />
-        <circle cx="1290" cy="200" r="4" fill="#ff4e18" />
-
-        <!-- Concentric Sound Waves (Listening motif) -->
-        <g class="hero-outline-bubble">
-          <path d="M 400,120 A 80,80 0 0 1 400,280" stroke="#ff4e18" stroke-width="2" stroke-linecap="round" fill="none" class="sound-wave-1" />
-          <path d="M 370,90 A 110,110 0 0 1 370,310" stroke="#ff4e18" stroke-width="1.5" stroke-linecap="round" fill="none" class="sound-wave-2" />
-          <path d="M 340,60 A 140,140 0 0 1 340,340" stroke="#ff4e18" stroke-width="1" stroke-linecap="round" fill="none" class="sound-wave-3" />
-        </g>
-
-        <!-- Receiver Shell Shape (Abstract Ear/Pebble) -->
-        <g class="hero-organic-group">
-          <path d="M 520,100 C 580,100 620,140 620,200 C 620,260 580,300 520,300 C 470,300 460,250 460,200 C 460,150 470,100 520,100 Z" fill="#ffffff" stroke="#e2e8f0" stroke-width="2" />
-        </g>
-
-        <!-- Background Gray Processing block shape -->
-        <g class="hero-gray-bubble">
-          <path d="M 850,120 C 850,80 890,60 950,60 C 1010,60 1050,80 1050,120 V 240 C 1050,280 1010,300 950,300 C 890,300 850,280 850,240 Z" fill="#f1f5f9" />
-          <!-- Accent dot inside processing block -->
-          <circle cx="950" cy="180" r="5" fill="#ff4e18" class="spacer-processing-dot" />
-        </g>
-
-        <!-- Solid Orange Circle (Listening Focal Point) -->
-        <circle cx="720" cy="200" r="32" fill="#ff4e18" class="hero-orange-circle" />
-      </svg>
-    </div>
-  </section>
-
   <!-- Für Wen Section -->
   <section id="fuer-wen" class="section-spacing">
     <div class="container">
@@ -1060,14 +735,7 @@
   <!-- Über mich Section -->
   <section id="ueber-mich" class="section-spacing">
     <div class="container about-grid">
-      <div class="about-image-wrapper reveal" id="about-image-scene" use:tilt>
-        <img id="about-base-img" src="/media/portrait.webp" alt="Dietmar Zielke Portrait" class="about-img" />
-        <canvas class="about-canvas" id="about-morph-canvas" aria-hidden="true"></canvas>
-        <div class="about-progress-container" class:transitioning={isTransitionActive}>
-          <div class="about-progress-bar" style="width: {progressPercent}%"></div>
-        </div>
-      </div>
-      <div class="about-content reveal reveal-delay-1">
+      <div class="about-content reveal">
         <h2 class="section-title" >{content.ueberMich.title}</h2>
         <h3 class="about-subtitle" >{content.ueberMich.subtitle}</h3>
         <p class="about-tagline" >{content.ueberMich.tagline}</p>
@@ -1147,56 +815,6 @@
     </div>
   </section>
 
-  <!-- Spacer Section 2 (Abstract Artwork: Clarity & Trust) -->
-  <section class="image-spacer-section">
-    <div class="container-wide">
-      <svg viewBox="0 0 1440 400" fill="none" xmlns="http://www.w3.org/2000/svg" class="spacer-svg">
-        <!-- Definitions for patterns -->
-        <defs>
-          <pattern id="dot-pattern-s2" x="0" y="0" width="16" height="16" patternUnits="userSpaceOnUse">
-            <circle cx="2" cy="2" r="1.5" fill="#cbd5e1" />
-          </pattern>
-        </defs>
-
-        <!-- Top Left Dot Grid -->
-        <rect x="240" y="60" width="60" height="80" fill="url(#dot-pattern-s2)" class="hero-dots-top" />
-
-        <!-- Bottom Right Dot Grid -->
-        <rect x="980" y="180" width="60" height="80" fill="url(#dot-pattern-s2)" class="hero-dots-bottom" />
-
-        <!-- Background Archway Shadow on Left -->
-        <path d="M 320,320 V 140 A 50,50 0 0 1 420,140 V 320 Z" fill="#f1f5f9" class="spacer-archway" />
-
-        <!-- Small Orange Outline Squares (Floating/Rotating) -->
-        <rect x="350" y="100" width="24" height="24" rx="6" stroke="#ff4e18" stroke-width="2" fill="none" class="spacer-square spacer-square-1" />
-        <rect x="680" y="90" width="28" height="28" rx="6" stroke="#ff4e18" stroke-width="2" fill="none" class="spacer-square spacer-square-2" />
-        <rect x="520" y="260" width="24" height="24" rx="6" stroke="#ff4e18" stroke-width="2" fill="none" class="spacer-square spacer-square-3" />
-
-        <!-- Winding line connecting left circle to eye badge -->
-        <path d="M 150,200 H 280 C 320,200 320,280 370,280 C 420,280 420,180 470,180 H 560 C 610,180 615,240 665,240 H 780" stroke="#ff4e18" stroke-width="2" stroke-linecap="round" fill="none" class="spacer-winding-line" />
-        <path d="M 150,200 H 280 C 320,200 320,280 370,280 C 420,280 420,180 470,180 H 560 C 610,180 615,240 665,240 H 780" stroke="#ffd0c0" stroke-width="2.5" stroke-linecap="round" fill="none" class="spacer-winding-line-flow" />
-        <circle cx="150" cy="200" r="4" fill="#ff4e18" />
-
-        <!-- Solid Orange Circle sitting on the winding line -->
-        <circle cx="500" cy="230" r="18" fill="#ff4e18" class="spacer-orange-circle-large" />
-
-        <!-- Eye Badge in a Clean White Circle with grey outline -->
-        <g class="spacer-eye-badge">
-          <circle cx="850" cy="200" r="45" fill="#ffffff" stroke="#e2e8f0" stroke-width="2" />
-          <!-- Eye Graphic inside -->
-          <path d="M 820,200 C 830,180 870,180 880,200 C 870,220 830,220 820,200 Z" stroke="#ff4e18" stroke-width="2" fill="none" />
-          <circle cx="850" cy="200" r="12" stroke="#ff4e18" stroke-width="1.5" fill="none" />
-          <circle cx="850" cy="200" r="5" fill="#ff4e18" />
-        </g>
-
-        <!-- Winding line continuing from eye badge to the right -->
-        <path d="M 920,220 C 950,250 990,250 1020,290 H 1290" stroke="#ff4e18" stroke-width="2" stroke-linecap="round" fill="none" class="spacer-winding-line" />
-        <path d="M 920,220 C 950,250 990,250 1020,290 H 1290" stroke="#ffd0c0" stroke-width="2.5" stroke-linecap="round" fill="none" class="spacer-winding-line-flow" />
-        <circle cx="1290" cy="290" r="4" fill="#ff4e18" />
-      </svg>
-    </div>
-  </section>
-
 
   <!-- Kontakt Section -->
   <section id="kontakt" class="section-spacing">
@@ -1232,6 +850,16 @@
             </svg>
             <div class="contact-detail-text">
               <p><a href="https://{content.kontakt.web}" target="_blank" rel="noopener noreferrer" class="hover:underline" >{content.kontakt.web}</a></p>
+            </div>
+          </div>
+
+          <!-- Fax -->
+          <div class="contact-detail-item">
+            <svg class="contact-detail-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
+            </svg>
+            <div class="contact-detail-text">
+              <p>Fax: <span >{content.kontakt.fax}</span></p>
             </div>
           </div>
 
