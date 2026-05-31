@@ -177,6 +177,10 @@ button {
   gap: 32px;
 }
 
+.mobile-nav {
+  display: none;
+}
+
 .nav-list {
   display: flex;
   list-style: none;
@@ -281,7 +285,12 @@ button {
     display: flex;
   }
 
-  .nav {
+  .desktop-nav {
+    display: none;
+  }
+
+  .mobile-nav {
+    display: flex;
     position: fixed;
     top: 110px;
     left: 0;
@@ -295,11 +304,11 @@ button {
     transform: translateX(100%);
     transition: transform 0.3s ease-in-out;
     border-top: 1px solid var(--border);
-    z-index: 99;
+    z-index: 999;
     overflow-y: auto;
   }
 
-  .nav.open {
+  .mobile-nav.open {
     transform: translateX(0);
   }
 
@@ -1499,6 +1508,39 @@ button {
 }
 
 .modal-body strong {
+  color: var(--text-main);
+}
+
+.drawer-body-text {
+  font-size: 15px;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+.drawer-body-text h3 {
+  font-size: 18px;
+  margin: 24px 0 12px;
+  color: var(--text-main);
+}
+
+.drawer-body-text h3:first-of-type {
+  margin-top: 0;
+}
+
+.drawer-body-text p {
+  margin-bottom: 16px;
+}
+
+.drawer-body-text ul, .drawer-body-text ol {
+  margin-left: 20px;
+  margin-bottom: 16px;
+}
+
+.drawer-body-text li {
+  margin-bottom: 8px;
+}
+
+.drawer-body-text strong {
   color: var(--text-main);
 }
 

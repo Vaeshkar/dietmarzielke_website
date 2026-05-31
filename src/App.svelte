@@ -746,7 +746,8 @@
       <span style={isMobileMenuOpen ? 'transform: rotate(-45deg) translate(6px, -6px);' : ''}></span>
     </button>
 
-    <nav class="nav {isMobileMenuOpen ? 'open' : ''}">
+    <!-- Desktop Nav (Hidden on Mobile) -->
+    <nav class="nav desktop-nav">
       <ul class="nav-list">
         <li><a href="#faq" use:directionAwareHover class="nav-link" class:active={activeSection === 'faq'} onclick={(e) => { e.preventDefault(); handleNavClick('faq'); }}>Über rechtliche Betreuung</a></li>
         <li><a href="#leistungen" use:directionAwareHover class="nav-link" class:active={activeSection === 'leistungen'} onclick={(e) => { e.preventDefault(); handleNavClick('leistungen'); }}>Leistungen</a></li>
@@ -757,6 +758,17 @@
     </nav>
   </div>
 </header>
+
+<!-- Mobile Nav (Outside Header to avoid backdrop-filter containing block bug) -->
+<nav class="nav mobile-nav {isMobileMenuOpen ? 'open' : ''}">
+  <ul class="nav-list">
+    <li><a href="#faq" use:directionAwareHover class="nav-link" class:active={activeSection === 'faq'} onclick={(e) => { e.preventDefault(); handleNavClick('faq'); }}>Über rechtliche Betreuung</a></li>
+    <li><a href="#leistungen" use:directionAwareHover class="nav-link" class:active={activeSection === 'leistungen'} onclick={(e) => { e.preventDefault(); handleNavClick('leistungen'); }}>Leistungen</a></li>
+    <li><a href="#fuer-wen" use:directionAwareHover class="nav-link" class:active={activeSection === 'fuer-wen'} onclick={(e) => { e.preventDefault(); handleNavClick('fuer-wen'); }}>Für wen?</a></li>
+    <li><a href="#ueber-mich" use:directionAwareHover class="nav-link" class:active={activeSection === 'ueber-mich'} onclick={(e) => { e.preventDefault(); handleNavClick('ueber-mich'); }}>Über mich</a></li>
+    <li><a href="#so-arbeite-ich" use:directionAwareHover class="nav-link" class:active={activeSection === 'so-arbeite-ich'} onclick={(e) => { e.preventDefault(); handleNavClick('so-arbeite-ich'); }}>So arbeite ich</a></li>
+  </ul>
+</nav>
 
 <main>
   <!-- Hero Section -->
@@ -1349,54 +1361,58 @@
 
 <!-- Modals for Legal Information (GDPR/DSGVO & Impressum) -->
 {#if openModal === 'impressum'}
-  <div class="modal-overlay" onclick={() => openModal = null} onkeydown={(e) => { if (e.key === 'Escape' || e.key === 'Enter') openModal = null; }} role="button" tabindex="-1" aria-label="Schließen" transition:fade={{ duration: 150 }}>
-    <div class="modal-container" onclick={(e) => e.stopPropagation()} onkeydown={(e) => e.stopPropagation()} role="dialog" aria-modal="true" tabindex="-1" use:focusTrap aria-labelledby="impressum-title">
-      <div class="modal-header">
+  <div class="drawer-overlay" onclick={() => openModal = null} onkeydown={(e) => { if (e.key === 'Escape' || e.key === 'Enter') openModal = null; }} role="button" tabindex="-1" aria-label="Schließen" transition:fade={{ duration: 150 }}>
+    <div class="drawer-container" onclick={(e) => e.stopPropagation()} onkeydown={(e) => e.stopPropagation()} role="dialog" aria-modal="true" tabindex="-1" use:focusTrap aria-labelledby="impressum-title">
+      <button class="drawer-close-btn" onclick={() => openModal = null} aria-label="Schließen">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+      
+      <div class="drawer-content">
+        <span class="drawer-badge">Rechtliches</span>
         <h2 id="impressum-title">Impressum</h2>
-        <button class="modal-close-btn" onclick={() => openModal = null} aria-label="Schließen">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-          </svg>
-        </button>
-      </div>
-      <div class="modal-body">
-        <h3>Angaben gemäß § 5 TMG</h3>
-        <p style="white-space: pre-line;" >{content.legal.impressum.address}</p>
+        <div class="drawer-separator"></div>
+        
+        <div class="drawer-body-text">
+          <h3>Angaben gemäß § 5 TMG</h3>
+          <p style="white-space: pre-line;" >{content.legal.impressum.address}</p>
 
-        <h3>Kontakt</h3>
-        <p>
-          Telefon: <span >{content.kontakt.phone}</span><br>
-          Fax: <span >{content.legal.impressum.fax}</span><br>
-          E-Mail: <span >{content.kontakt.email}</span>
-        </p>
+          <h3>Kontakt</h3>
+          <p>
+            Telefon: <span >{content.kontakt.phone}</span><br>
+            Fax: <span >{content.legal.impressum.fax}</span><br>
+            E-Mail: <span >{content.kontakt.email}</span>
+          </p>
 
-        <h3>Berufsbezeichnung und Aufsichtsbehörde</h3>
-        <p>
-          Berufsbezeichnung: Rechtlicher Betreuer (Berufsbetreuer)<br>
-          Zuständige Aufsichtsbehörde (Betreuungsbehörde): Hamburg / zuständiges Amtsgericht Hamburg.
-        </p>
+          <h3>Berufsbezeichnung und Aufsichtsbehörde</h3>
+          <p>
+            Berufsbezeichnung: Rechtlicher Betreuer (Berufsbetreuer)<br>
+            Zuständige Aufsichtsbehörde (Betreuungsbehörde): Hamburg / zuständiges Amtsgericht Hamburg.
+          </p>
 
-        <h3>Steuerliche Angaben</h3>
-        <p>
-          Steuernummer: <span >{content.legal.impressum.taxNumber}</span><br>
-          Umsatzsteuer-Identifikationsnummer gemäß § 27 a Umsatzsteuergesetz: <span >{content.legal.impressum.ustId}</span>
-        </p>
+          <h3>Steuerliche Angaben</h3>
+          <p>
+            Steuernummer: <span >{content.legal.impressum.taxNumber}</span><br>
+            Umsatzsteuer-Identifikationsnummer gemäß § 27 a Umsatzsteuergesetz: <span >{content.legal.impressum.ustId}</span>
+          </p>
 
-        <h3>Bankverbindung</h3>
-        <p>
-          IBAN: <span >{content.legal.impressum.iban}</span><br>
-          BIC: <span >{content.legal.impressum.bic}</span>
-        </p>
+          <h3>Bankverbindung</h3>
+          <p>
+            IBAN: <span >{content.legal.impressum.iban}</span><br>
+            BIC: <span >{content.legal.impressum.bic}</span>
+          </p>
 
-        <h3>Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV</h3>
-        <p style="white-space: pre-line;" >{content.legal.impressum.address}</p>
+          <h3>Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV</h3>
+          <p style="white-space: pre-line;" >{content.legal.impressum.address}</p>
 
-        <h3>Streitschlichtung</h3>
-        <p>
-          Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS) bereit: <a href="https://ec.europa.eu/consumers/odr/" target="_blank" rel="noopener noreferrer" style="color: var(--primary);">https://ec.europa.eu/consumers/odr/</a>.<br>
-          Unsere E-Mail-Adresse finden Sie oben im Impressum.
-        </p>
-        <p>Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.</p>
+          <h3>Streitschlichtung</h3>
+          <p>
+            Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS) bereit: <a href="https://ec.europa.eu/consumers/odr/" target="_blank" rel="noopener noreferrer" style="color: var(--primary);">https://ec.europa.eu/consumers/odr/</a>.<br>
+            Unsere E-Mail-Adresse finden Sie oben im Impressum.
+          </p>
+          <p>Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.</p>
+        </div>
       </div>
     </div>
   </div>
