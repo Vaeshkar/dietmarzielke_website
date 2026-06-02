@@ -1322,10 +1322,6 @@ button {
   gap: 24px;
 }
 
-.footer-logo-img {
-  max-width: 380px;
-  max-height: 60px;
-}
 
 .footer-tagline {
   font-weight: 500;
