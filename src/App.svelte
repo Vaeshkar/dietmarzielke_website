@@ -459,36 +459,26 @@
     feedbackMessage = 'Nachricht wird gesendet...';
 
     try {
-      const response = await fetch('send_mail.php', {
+      const formData = new FormData(event.currentTarget);
+      formData.set('form-name', 'contact');
+      formData.set('consent', consent ? 'yes' : 'no');
+
+      const response = await fetch('/__forms.html', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: new URLSearchParams({
-          name: name,
-          email: email,
-          message: message,
-          consent: consent ? 'yes' : 'no'
-        })
+        body: new URLSearchParams(formData)
       });
 
-      const text = await response.text();
-      let data;
-      try {
-        data = JSON.parse(text);
-      } catch (e) {
-        console.error("Invalid JSON response:", text);
-        data = { success: false, message: 'Serverfehler bei der E-Mail-Übertragung.' };
-      }
-
-      if (data.success) {
+      if (response.ok) {
         status = 'success';
-        feedbackMessage = data.message;
+        feedbackMessage = 'Vielen Dank. Ihre Nachricht wurde gesendet.';
         name = '';
         email = '';
         message = '';
         consent = false;
       } else {
         status = 'error';
-        feedbackMessage = data.message || 'Fehler beim Senden der Nachricht.';
+        feedbackMessage = 'Fehler beim Senden der Nachricht. Bitte versuchen Sie es später noch einmal.';
       }
     } catch (e) {
       status = 'error';
@@ -891,7 +881,14 @@
       <div class="contact-column-right reveal reveal-delay-2">
         <div class="contact-column-content">
           <!-- Contact Form Component -->
-          <form class="contact-form" onsubmit={handleSubmit}>
+          <form class="contact-form" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" onsubmit={handleSubmit}>
+            <input type="hidden" name="form-name" value="contact" />
+            <input type="hidden" name="subject" value="Neue Kontaktanfrage über betreuungen-zielke.de" />
+            <p class="sr-only" aria-hidden="true">
+              <label for="form-bot-field">Bitte nicht ausfüllen</label>
+              <input id="form-bot-field" name="bot-field" tabindex="-1" autocomplete="off" />
+            </p>
+
             {#if status}
               <div class="form-feedback {status === 'success' ? 'form-feedback-success' : 'form-feedback-error'}" role="alert">
                 {feedbackMessage}
@@ -903,6 +900,7 @@
                 <label for="form-name" class="sr-only">Ihr Name *</label>
                 <input 
                   id="form-name"
+                  name="name"
                   type="text" 
                   class="form-input" 
                   required 
@@ -915,6 +913,7 @@
                 <label for="form-email" class="sr-only">Ihre E-Mail *</label>
                 <input 
                   id="form-email"
+                  name="email"
                   type="email" 
                   class="form-input" 
                   required 
@@ -929,6 +928,7 @@
               <label for="form-message" class="sr-only">Nachricht *</label>
               <textarea 
                 id="form-message"
+                name="message"
                 rows="5" 
                 class="form-input form-textarea" 
                 required 
@@ -942,6 +942,8 @@
               <div class="form-checkbox-group">
                 <input 
                   id="form-dsgvo"
+                  name="consent"
+                  value="yes"
                   type="checkbox" 
                   class="form-checkbox" 
                   required 
@@ -1100,9 +1102,9 @@
 
         <h3>3. Datenerfassung auf dieser Website</h3>
         <p><strong>Kontaktformular</strong></p>
-        <p>Wenn Sie uns per Kontaktformular Anfragen zukommen lassen, werden Ihre Angaben aus dem Anfrageformular inklusive der von Ihnen dort angegebenen Kontaktdaten zwecks Bearbeitung der Anfrage und für den Fall von Anschlussfragen bei uns gespeichert. Diese Daten geben wir nicht ohne Ihre Einwilligung weiter.</p>
+        <p>Wenn Sie uns über das Kontaktformular schreiben, verarbeiten wir Ihre Angaben aus dem Formular einschließlich der dort angegebenen Kontaktdaten, um Ihre Anfrage zu beantworten und mögliche Anschlussfragen zu klären. Für die technische Bereitstellung und Verarbeitung des Formulars nutzen wir Netlify Forms. Die eingegebenen Daten werden dabei an Netlify übermittelt und in der Formularverwaltung von Netlify bereitgestellt. Eine darüber hinausgehende Weitergabe erfolgt nicht ohne Ihre Einwilligung.</p>
         <p>Die Verarbeitung dieser Daten erfolgt auf Grundlage von Art. 6 Abs. 1 lit. b DSGVO, sofern Ihre Anfrage mit der Erfüllung eines Vertrags zusammenhängt oder zur Durchführung vorvertraglicher Maßnahmen erforderlich ist. In allen übrigen Fällen beruht die Verarbeitung auf unserem berechtigten Interesse an der effektiven Bearbeitung der an uns gerichteten Anfragen (Art. 6 Abs. 1 lit. f DSGVO) oder auf Ihrer Einwilligung (Art. 6 Abs. 1 lit. a DSGVO) falls diese abgefragt wurde.</p>
-        <p>Die von Ihnen im Kontaktformular eingegebenen Daten verbleiben bei uns, bis Sie uns zur Löschung auffordern, Ihre Einwilligung zur Speicherung widerrufen oder der Zweck für die Datenspeicherung entfällt (z. B. nach abgeschlossener Bearbeitung Ihrer Anfrage). Zwingende gesetzliche Bestimmungen – insbesondere Aufbewahrungsfristen – bleiben unberührt.</p>
+        <p>Die von Ihnen im Kontaktformular eingegebenen Daten verbleiben bei uns, bis Sie uns zur Löschung auffordern, Ihre Einwilligung zur Speicherung widerrufen oder der Zweck für die Datenspeicherung entfällt, zum Beispiel nach abgeschlossener Bearbeitung Ihrer Anfrage. Zwingende gesetzliche Bestimmungen, insbesondere Aufbewahrungsfristen, bleiben unberührt.</p>
       </div>
     </div>
   </div>
