@@ -5,22 +5,22 @@
   let content = $state({
     hero: {
       title: "Rechtliche Betreuung in Hamburg",
-      description: "Ich unterstütze Menschen in den Aufgabenbereichen, die das Betreuungsgericht festlegt. Dabei geht es um klare Absprachen, geordnete Unterlagen und Entscheidungen, die sich am Willen der betreuten Person orientieren."
+      description: "Ich unterstütze Menschen, die ihre Angelegenheiten ganz oder teilweise nicht mehr selbst regeln können. Im rechtlichen Rahmen stärke ich ihre Entscheidungs- und Handlungsfähigkeit und helfe, Nachteile auszugleichen. Ziel ist Teilhabe und eine möglichst selbstbestimmte Mitwirkung am gesellschaftlichen Leben."
     },
     leistungen: {
       title: "Leistungen",
       cards: [
         {
-          title: "Gesundheit & Behörden",
-          desc: "Unterstützung bei Schriftverkehr mit Krankenkassen, Ärzten, Behörden und weiteren Stellen."
+          title: "Gesundheitssorge",
+          desc: "Unterstützung bei gesundheitlichen Fragen, soweit dieser Aufgabenbereich angeordnet ist."
         },
         {
           title: "Vermögenssorge",
           desc: "Klärung von Zahlungen, Anträgen, Bescheiden und laufenden finanziellen Angelegenheiten."
         },
         {
-          title: "Wohn- und Alltagsangelegenheiten",
-          desc: "Rechtliche Klärung von Mietfragen, Wohnsituation und notwendiger Unterstützung."
+          title: "Wohnangelegenheiten",
+          desc: "Klärung, welche Wohnform gewünscht ist, und Unterstützung bei der Auswahl."
         },
         {
           title: "Kommunikation & Abstimmung",
@@ -41,7 +41,7 @@
           desc: "Ansprechpartner für Angehörige, soweit Austausch möglich und gewünscht ist."
         },
         {
-          title: "Gerichte / Einrichtungen",
+          title: "Behörden / Institutionen",
           desc: "Verlässliche Bearbeitung von Berichten, Rückfragen und Abstimmungen."
         }
       ]
@@ -49,8 +49,8 @@
     ueberMich: {
       title: "Über mich",
       subtitle: "Dietmar Zielke",
-      tagline: "Rechtlicher Betreuer in Hamburg & der Metropolregion",
-      p1: "Ich arbeite als rechtlicher Betreuer in Hamburg und der Metropolregion. Meine Aufgabe ist es, Menschen in den Bereichen zu unterstützen, die das Betreuungsgericht festlegt.",
+      tagline: "Rechtlicher Betreuer in Hamburg",
+      p1: "Ich arbeite als rechtlicher Betreuer in Hamburg. Meine Aufgabe ist es, Menschen in den Bereichen zu unterstützen, die das Betreuungsgericht festlegt.",
       p2: "Wichtig sind mir geordnete Unterlagen, erreichbare Kommunikation und Entscheidungen, die nachvollziehbar bleiben. Dabei berücksichtige ich den Willen und die Wünsche der betreuten Person, soweit dies rechtlich möglich ist.",
       bullets: [
         "Unterstützung im gerichtlichen Aufgabenbereich",
@@ -64,17 +64,17 @@
         {
           number: "01",
           title: "Kennenlernen",
-          desc: "Zuerst kläre ich die Situation, den gerichtlichen Aufgabenbereich und die vorhandenen Unterlagen."
+          desc: "Zuerst möchte ich den Menschen und seine Lebenssituation kennenlernen. Dabei klären wir, wo im gerichtlich festgelegten Aufgabenbereich Unterstützung nötig ist."
         },
         {
           number: "02",
           title: "Klären & Abstimmen",
-          desc: "Ich nehme Kontakt zu den beteiligten Stellen auf, prüfe Fristen und bereite die nächsten Schritte vor."
+          desc: "Wir klären gemeinsam die Zielvorstellungen und planen mögliche Hilfen."
         },
         {
           number: "03",
-          title: "Handeln & Berichten",
-          desc: "Ich handele im festgelegten Aufgabenbereich und informiere das Gericht, wenn Berichte erforderlich sind."
+          title: "Handeln & Umsetzen",
+          desc: "Gemeinsam mit der betreuten Person setze ich Entscheidungen in Handlung um und nutze mögliche Chancen."
         }
       ]
     },
