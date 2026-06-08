@@ -86,10 +86,10 @@ fuerWen.cards[2].desc = Verlässliche Bearbeitung von Berichten, Rückfragen und
 fuerWen.cards[2].detailTitle = Für Behörden & Institutionen
 fuerWen.cards[2].detailSubtitle = Geordnete Zusammenarbeit im Rahmen des gerichtlichen Auftrags.
 fuerWen.cards[2].detailDesc = Für Behörden, Institutionen und beteiligte Stellen ist eine klare Kommunikation wichtig. Ich achte auf vollständige Unterlagen, Fristen und nachvollziehbare Rückmeldungen.
-fuerWen.cards[2].detailBullet1 = Berichte: Erstellung von Betreuungsberichten und weiteren Unterlagen, soweit sie erforderlich sind.
+fuerWen.cards[2].detailBullet1 = Zusammenarbeit: Abstimmung mit Behörden, Institutionen und beteiligten Stellen.
 fuerWen.cards[2].detailBullet2 = Rückfragen: Zeitnahe Klärung von Anfragen der beteiligten Stellen.
-fuerWen.cards[2].detailBullet3 = Zusammenarbeit: Abstimmung mit Behörden, Institutionen und beteiligten Stellen.
-fuerWen.cards[2].detailBullet4 = Berichte: Nachvollziehbare Rückmeldungen an das Betreuungsgericht, wenn sie erforderlich sind.
+fuerWen.cards[2].detailBullet3 = Berichte: Nachvollziehbare Rückmeldungen und fristgerechte Berichte, wenn diese erforderlich sind.
+fuerWen.cards[2].detailBullet4 =
 
 # Über mich
 ueberMich.title = Über mich
