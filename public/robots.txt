@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://betreuungen-zielke.de/sitemap.xml
